@@ -80,14 +80,14 @@ class _LoginFormState extends State<LoginForm> {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       // Use GoogleSignInAccount to authenticate with your backend server
       if (googleUser != null) {
-        if (kDebugMode) {
+
           print('Logged in as: ${googleUser.email}');
-        }
+
       }
     } catch (error) {
-      if (kDebugMode) {
+
         print('Error signing in with Google: $error');
-      }
+
     }
   }
 }

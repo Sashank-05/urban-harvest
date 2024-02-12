@@ -49,7 +49,7 @@ class _LoginFormState extends State<LoginForm> {
           TextField(
             controller: _emailController,
             decoration: const InputDecoration(
-              labelText: 'Email more like female am i right??? hahaha lol',
+              labelText: 'Email',
             ),
           ),
           const SizedBox(height: 12.0),
@@ -65,7 +65,7 @@ class _LoginFormState extends State<LoginForm> {
             onPressed: _handleSignIn,
             icon: Image.asset('assets/google_logo.png',
                 width: 24.0, height: 24.0),
-            label: Text('Login with Google or dont i dont care what you do'),
+            label: Text('Login with Google'),
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.black, backgroundColor: Colors.white,
             ),

@@ -47,7 +47,7 @@ class _CheckAuthState extends State<CheckAuth> {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                LandingPage()), // Navigate to LoginPage if not logged in
+                LoginPage()), // Navigate to LoginPage if not logged in
       );
     }
   }

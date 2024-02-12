@@ -24,7 +24,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: Text('Sign in'),
       ),
       body: const LoginForm(),
     );
@@ -48,7 +48,7 @@ class _LoginFormState extends State<LoginForm> {
     return Container(
       padding: const EdgeInsets.all(16.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           TextField(
@@ -65,16 +65,18 @@ class _LoginFormState extends State<LoginForm> {
             ),
             obscureText: true,
           ),
-          const SizedBox(height: 20.0),
+          const SizedBox(height: 250.0),
           ElevatedButton.icon(
             onPressed: _handleSignIn,
-            icon: Image.asset('assets/google_logo.png',
-                width: 24.0, height: 24.0),
+
+
+
+            icon: ImageIcon(AssetImage("assets/img/google_logo.png"),size:10),
 
             label: Text('Login with Google'),
 
             style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.black, backgroundColor: Colors.white,
+              foregroundColor: Colors.red, backgroundColor: Colors.white,
             ),
           ),
         ],

@@ -60,7 +60,7 @@ flutter:
   fonts:
     - family: montserrat
       fonts:
-        - asset: fonts/Montserrat.ttf
+        - asset: assets/fonts/Montserrat.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

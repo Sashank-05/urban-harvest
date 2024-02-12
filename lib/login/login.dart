@@ -68,10 +68,9 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 20.0),
           ElevatedButton.icon(
             onPressed: _handleSignIn,
-            icon: Image.asset('assets/google_logo.png',
-                width: 24.0, height: 24.0),
+            icon: Image.asset('assets/google_logo.png', width: 24.0, height: 24.0),
 
-            label: Text('Login with Google'),
+            label: const Text('Login with Google'),
 
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.black, backgroundColor: Colors.white,

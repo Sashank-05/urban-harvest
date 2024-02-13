@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.urban_harvest"
+    namespace "com.urban_harvest.connect"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 

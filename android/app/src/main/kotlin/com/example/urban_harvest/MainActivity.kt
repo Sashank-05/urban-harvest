@@ -1,4 +1,4 @@
-package com.example.urban_harvest
+package com.urban_harvest.connect
 
 import io.flutter.embedding.android.FlutterActivity
 

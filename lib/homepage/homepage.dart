@@ -24,19 +24,17 @@ class HomePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-
-              padding: EdgeInsets.all(20),
-
+              padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
                       color: AppColors.secondaryColor,
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    child: TextField(
+                    child: const TextField(
                       decoration: InputDecoration(
                         hintText: 'Search',
                         border: InputBorder.none,
@@ -44,8 +42,8 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Some Text',
                     style: TextStyle(
                       fontSize: 24,
@@ -55,16 +53,46 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Container(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Some more text...',
-                style: TextStyle(fontSize: 18),
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Weather box
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: AppColors.secondaryColor,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Text(
+                      'Weather: Sunny',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  // Horizontally scrollable boxes
+                  SizedBox(
+                    height: 120,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        _buildHorizontalBox('Box 1'),
+                        _buildHorizontalBox('Box 2'),
+                        _buildHorizontalBox('Box 3'),
+                        _buildHorizontalBox('Box 4'),
+                        _buildHorizontalBox('Box 5'),
+                        // Add more boxes as needed
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-            // Add more text or widgets as needed below
-            SizedBox(height: 100), // Placeholder for more content
           ],
         ),
       ),
@@ -83,7 +111,7 @@ class HomePage extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.pin_drop),
             label: 'Locations',
-            backgroundColor:AppColors.backgroundColor2,
+            backgroundColor: AppColors.backgroundColor2,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined),
@@ -96,6 +124,27 @@ class HomePage extends StatelessWidget {
         onTap: (int index) {
           // Handle item tap
         },
+      ),
+    );
+  }
+
+  Widget _buildHorizontalBox(String label) {
+    return Container(
+      width: 120,
+      margin: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: AppColors.tertiaryColor,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Center(
+        child: Text(
+          label,
+          style: const TextStyle(
+            fontSize: 18,
+            color: Colors.black,
+          ),
+        ),
       ),
     );
   }

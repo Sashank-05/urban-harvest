@@ -79,6 +79,7 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 200,),
           ElevatedButton.icon(
             onPressed: _handleSignIn,
+
             icon: ImageIcon(AssetImage("assets/img/search.png"),size:20,color:AppColors.tertiaryColor2),
            label:Text('Login with Google'),
             style: ElevatedButton.styleFrom(
@@ -95,14 +96,10 @@ class _LoginFormState extends State<LoginForm> {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       // Use GoogleSignInAccount to authenticate with your backend server
       if (googleUser != null) {
-
-          print('Logged in as: ${googleUser.email}');
-
+        print('Logged in as: ${googleUser.email}');
       }
     } catch (error) {
-
-        print('Error signing in with Google: $error');
-
+      print('Error signing in with Google: $error');
     }
   }
 }

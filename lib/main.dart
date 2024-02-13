@@ -5,6 +5,7 @@ import 'package:urban_harvest/landing/landing.dart';
 
 import 'homepage/homepage.dart';
 import 'login/login.dart';
+import 'login/login_1.dart';
 
 void main() {
   runApp(const LoginApp());
@@ -54,7 +55,9 @@ class _CheckAuthState extends State<CheckAuth> {
         MaterialPageRoute(
             builder: (context) =>
 
+
                 LoginPage()), // Navigate to LoginPage if not logged in
+
 
       );
     }

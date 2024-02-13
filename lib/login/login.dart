@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:urban_harvest/constant_colors.dart';
 
 void main() {
   runApp(const LoginApp());
@@ -23,8 +24,13 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        title: Text('Sign in'),
+        title: const Text('Sign in'),
+        titleTextStyle: TextStyle(color: AppColors.textColorDark, fontSize: 20),
+        centerTitle: true,
+        backgroundColor: AppColors.backgroundColor2,
+
       ),
       body: const LoginForm(),
     );
@@ -52,31 +58,31 @@ class _LoginFormState extends State<LoginForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           TextField(
+            style: TextStyle(color: AppColors.textColorDark),
             controller: _emailController,
             decoration: const InputDecoration(
-              labelText: 'Email',
+                labelText: 'Email',
+                labelStyle: TextStyle(color: AppColors.textColorDark)
             ),
+
           ),
-          const SizedBox(height: 12.0),
+          const SizedBox(height: 16.0),
           TextField(
+            style: const TextStyle(color: AppColors.textColorDark),
             controller: _passwordController,
             decoration: const InputDecoration(
               labelText: 'Password',
+                labelStyle: TextStyle(color: AppColors.textColorDark)
             ),
             obscureText: true,
           ),
-          const SizedBox(height: 250.0),
+          const SizedBox(height: 200,),
           ElevatedButton.icon(
             onPressed: _handleSignIn,
-
-
-
-            icon: ImageIcon(AssetImage("assets/img/google_logo.png"),size:10),
-
-            label: Text('Login with Google'),
-
+            icon: ImageIcon(AssetImage("assets/img/search.png"),size:20,color:AppColors.tertiaryColor2),
+           label:Text('Login with Google'),
             style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.red, backgroundColor: Colors.white,
+            backgroundColor: Colors.white,fixedSize:Size(300,50 )
             ),
           ),
         ],

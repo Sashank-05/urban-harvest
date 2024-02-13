@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:urban_harvest/landing/landing.dart';
 
+import 'homepage/homepage.dart';
 import 'login/login.dart';
 
 void main() {
@@ -53,7 +54,7 @@ class _CheckAuthState extends State<CheckAuth> {
         MaterialPageRoute(
             builder: (context) =>
 
-                LoginPage()), // Navigate to LoginPage if not logged in
+                HomePage()), // Navigate to LoginPage if not logged in
 
       );
     }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:urban_harvest/constant_colors.dart';
-
+import 'package:urban_harvest/login/login_1.dart';
 void main() {
   runApp(const LoginApp());
 }
@@ -97,6 +97,10 @@ class _LoginFormState extends State<LoginForm> {
       // Use GoogleSignInAccount to authenticate with your backend server
       if (googleUser != null) {
         print('Logged in as: ${googleUser.email}');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage_1()),
+        );
       }
     } catch (error) {
       print('Error signing in with Google: $error');

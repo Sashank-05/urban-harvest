@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:urban_harvest/login/login_1.dart';
+
 void main() {
   runApp(const LoginApp());
 }
@@ -27,10 +28,10 @@ class LoginPage extends StatelessWidget {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         title: const Text('Sign in'),
-        titleTextStyle: TextStyle(color: AppColors.textColorDark, fontSize: 20),
+        titleTextStyle:
+            const TextStyle(color: AppColors.textColorDark, fontSize: 20),
         centerTitle: true,
         backgroundColor: AppColors.backgroundColor2,
-
       ),
       body: const LoginForm(),
     );
@@ -41,7 +42,7 @@ class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
   @override
-  _LoginFormState createState() => _LoginFormState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
 class _LoginFormState extends State<LoginForm> {
@@ -58,33 +59,31 @@ class _LoginFormState extends State<LoginForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           TextField(
-            style: TextStyle(color: AppColors.textColorDark),
+            style: const TextStyle(color: AppColors.textColorDark),
             controller: _emailController,
             decoration: const InputDecoration(
                 labelText: 'Email',
-                labelStyle: TextStyle(color: AppColors.textColorDark)
-            ),
-
+                labelStyle: TextStyle(color: AppColors.textColorDark)),
           ),
           const SizedBox(height: 16.0),
           TextField(
             style: const TextStyle(color: AppColors.textColorDark),
             controller: _passwordController,
             decoration: const InputDecoration(
-              labelText: 'Password',
-                labelStyle: TextStyle(color: AppColors.textColorDark)
-            ),
+                labelText: 'Password',
+                labelStyle: TextStyle(color: AppColors.textColorDark)),
             obscureText: true,
           ),
-          const SizedBox(height: 200,),
+          const SizedBox(
+            height: 200,
+          ),
           ElevatedButton.icon(
             onPressed: _handleSignIn,
-
-            icon: ImageIcon(AssetImage("assets/img/search.png"),size:20,color:AppColors.tertiaryColor2),
-           label:Text('Login with Google'),
+            icon: const ImageIcon(AssetImage("assets/img/search.png"),
+                size: 20, color: AppColors.tertiaryColor2),
+            label: const Text('Login with Google'),
             style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,fixedSize:Size(300,50 )
-            ),
+                backgroundColor: Colors.white, fixedSize: const Size(300, 50)),
           ),
         ],
       ),
@@ -96,10 +95,12 @@ class _LoginFormState extends State<LoginForm> {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       // Use GoogleSignInAccount to authenticate with your backend server
       if (googleUser != null) {
+        if (!mounted) return;
+
         print('Logged in as: ${googleUser.email}');
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const LoginPage_1()),
+          MaterialPageRoute(builder: (context) => const loginPage1()),
         );
       }
     } catch (error) {

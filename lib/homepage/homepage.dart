@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:urban_harvest/constant_colors.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,12 +119,13 @@ class HomePage extends StatelessWidget {
             icon: Icon(Icons.account_circle_outlined),
             label: 'Profile',
             backgroundColor: AppColors.backgroundColor2,
+
           ),
         ],
         selectedItemColor: AppColors.primaryColor,
         backgroundColor: AppColors.tertiaryColor,
         onTap: (int index) {
-          // Handle item tap
+
         },
       ),
     );

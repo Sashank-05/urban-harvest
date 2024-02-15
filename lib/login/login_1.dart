@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:urban_harvest/login/login.dart';
 
-class LoginPage_1 extends StatefulWidget {
-  const LoginPage_1({Key? key}) : super(key: key);
+class loginPage1 extends StatefulWidget {
+  const loginPage1({Key? key}) : super(key: key);
 
   @override
-  _LoginPage_1State createState() => _LoginPage_1State();
+  State<loginPage1> createState() => _loginPage1State();
 }
 
-class _LoginPage_1State extends State<LoginPage_1> {
+class _loginPage1State extends State<loginPage1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -100,7 +100,7 @@ class _LoginFormState extends State<LoginForm> {
         print('Logged in as: ${googleUser.email}');
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const loginPage1()),
+          MaterialPageRoute(builder: (context) => const LoginPage1()),
         );
       }
     } catch (error) {

@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'homepage/homepage.dart';
 import 'login/login.dart';
+import 'login/login_1.dart';
 
 void main() {
   runApp(const LoginApp());
@@ -49,12 +50,14 @@ class _CheckAuthState extends State<CheckAuth> {
     if (isSignedIn) {
       Navigator.pushReplacement(
         context,
+
         MaterialPageRoute(builder: (context) => const HomePage()),
+
       );
     } else {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
+        MaterialPageRoute(builder: (context) => const LoginPage1()),
       );
     }
   }

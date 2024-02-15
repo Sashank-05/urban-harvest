@@ -16,20 +16,20 @@ List<Map<String, String>> plantList = [
 ];
 
 Map<String, String> imageDict = {
-  'Rose': 'images/flowers/rose.png',
-  'Marigold': 'images/flowers/marigold.png',
-  'Hibiscus':'images/flowers/hibiscus.png',
-  'Jasmine':'images/flowers/jasmine.png',
-  'Sunflower':'images/flowers/sunflower.png',
-  'Cabbage':'images/vegetables/cabbage.png',
-  'Cauliflower':'images/vegetables/cauliflower.png',
-  'Chilli':'images/vegetables/chilli.png',
-  'Green Beans':'images/vegetables/green-beans.png',
-  'Tomato':'images/vegetables/tomato.png',
-  'Aloevera':'images/greens/aloevera.png',
-  'Coriander':'images/greens/coriander.png',
-  'Mint':'images/greens/mint.png',
-  'Curry Leaves':'images/greens/tropical-leaves.png',
+  'Rose': 'assets/img/landing/flowers/rose.png',
+  'Marigold': 'assets/img/landing/flowers/marigold.png',
+  'Hibiscus':'assets/img/landing/flowers/hibiscus.png',
+  'Jasmine':'assets/img/landing/flowers/jasmine.png',
+  'Sunflower':'assets/img/landing/flowers/sunflower.png',
+  'Cabbage':'assets/img/landing/vegetables/cabbage.png',
+  'Cauliflower':'assets/img/landing/vegetables/cauliflower.png',
+  'Chilli':'assets/img/landing/vegetables/chilli.png',
+  'Green Beans':'assets/img/landing/vegetables/green-beans.png',
+  'Tomato':'assets/img/landing/vegetables/tomato.png',
+  'Aloevera':'assets/img/landing/greens/aloevera.png',
+  'Coriander':'assets/img/landing/greens/coriander.png',
+  'Mint':'assets/img/landing/greens/mint.png',
+  'Curry Leaves':'assets/img/landing/greens/tropical-leaves.png',
 };
 
 //this is what it is searching for

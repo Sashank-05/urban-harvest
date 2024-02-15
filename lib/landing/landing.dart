@@ -66,28 +66,26 @@ class _LandingPageState extends State<LandingPage> {
   }
 }
 
-class plantCard extends StatefulWidget {
+
+
+class PlantCard extends StatefulWidget {
   final String plantName;
-  const plantCard({super.key, required this.plantName});
+  const PlantCard({super.key, required this.plantName});
 
   @override
-  State<plantCard> createState() => _plantCardState();
+  State<PlantCard> createState() => _PlantCardState();
 }
 
-class _plantCardState extends State<plantCard> {
-  late String imgPath;
+class _PlantCardState extends State<PlantCard> {
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
+    String imgPath = '';
     for (var i in imageDict.keys) {
       if (i == widget.plantName) {
         imgPath = imageDict[i]!;
       }
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(5.0),
       padding: const EdgeInsets.all(16),
@@ -174,12 +172,12 @@ class _searchResultsState extends State<searchResults> {
     for (var i in searchQueryResults1.keys) {
       List<Widget> plantList = [];
       for (int a = 0; a < searchQueryResults1[i]!.length; ++a) {
-        plantList.add(plantCard(plantName: searchQueryResults1[i]![a]));
+        plantList.add(PlantCard(plantName: searchQueryResults1[i]![a]));
       }
-      plantCategoryList
-          .add(categoryCard(categoryName: i, plantWidgets: plantList));
+      plantCategoryList.add(categoryCard(categoryName: i, plantWidgets: plantList));
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

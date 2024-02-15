@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:urban_harvest/constant_colors.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:urban_harvest/login/login.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -95,6 +98,14 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
+            ElevatedButton(onPressed: () {
+              googleSignIn.disconnect();
+
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const LoginPage())
+              );
+            }, child: const Text("test sign out"))
+
           ],
         ),
       ),

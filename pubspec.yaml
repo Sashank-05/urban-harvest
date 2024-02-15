@@ -63,8 +63,9 @@ flutter:
   assets:
 
     - assets/img/search.png
-
-
+    - assets/img/landing/vegetables/
+    - assets/img/landing/flowers/
+    - assets/img/landing/greens/
     - assets/img/agri.jpg
 
 

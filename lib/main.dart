@@ -49,7 +49,7 @@ class _CheckAuthState extends State<CheckAuth> {
     if (isSignedIn) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const HomePage()),
       );
     } else {
       Navigator.pushReplacement(

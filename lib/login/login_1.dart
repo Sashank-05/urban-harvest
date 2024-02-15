@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:community_material_icon/community_material_icon.dart';
-import 'package:urban_harvest/login/login.dart';
 
 class loginPage1 extends StatefulWidget {
   const loginPage1({Key? key}) : super(key: key);
@@ -36,7 +35,7 @@ class _loginPage1State extends State<loginPage1> {
       ),
       body: Column(
         children: <Widget>[
-        Container(
+        SizedBox(
             height:300,
             width:400,
             child: Image.asset('assets/img/agri.jpg',fit:BoxFit.cover, ),

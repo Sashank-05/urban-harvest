@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:urban_harvest/landing/plant_list.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
 
@@ -12,64 +11,67 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   String search = '';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: const Color(0xFF081C15),
-            title: Padding(
-              padding: const EdgeInsets.only(top:20.0,bottom: 10),
-              child: Center(
-                child: Text(
-                  'Urban Harvest',
-                  style: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                      color: const Color(0xFFD8F3DC)),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF081C15),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 20.0, bottom: 10),
+          child: Center(
+            child: Text(
+              'Urban Harvest',
+              style: GoogleFonts.montserrat(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  color: const Color(0xFFD8F3DC)),
+            ),
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SearchBar(
+              leading: const Padding(
+                padding: EdgeInsets.only(left: 5.0),
+                child: Icon(
+                  Icons.search,
+                  color: Color(0xFF52B788),
                 ),
               ),
-            ),
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(60),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: SearchBar(
-                  leading: const Padding(
-                    padding: EdgeInsets.only(left: 5.0),
-                    child: Icon(Icons.search,color: Color(0xFF52B788),),
-                  ),
-                  hintText:'What do you want to grow?',
-                  hintStyle: MaterialStateProperty.all<TextStyle>(
-                    GoogleFonts.montserrat(color: const Color(0xFF52B788)),
-                  ),
-                  backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                        (Set<MaterialState> states) {
-                      return const Color(0xFF2D6A4F);
-                    },
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      search = value;
-                    });
-                  },
-                  textStyle: MaterialStateProperty.all<TextStyle>(
-                    const TextStyle(color: Color(0xFFD8F3DC)),
-                  ),
-                ),
+              hintText: 'What do you want to grow?',
+              hintStyle: MaterialStateProperty.all<TextStyle>(
+                GoogleFonts.montserrat(color: const Color(0xFF52B788)),
+              ),
+              backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                (Set<MaterialState> states) {
+                  return const Color(0xFF2D6A4F);
+                },
+              ),
+              onChanged: (value) {
+                setState(() {
+                  search = value;
+                });
+              },
+              textStyle: MaterialStateProperty.all<TextStyle>(
+                const TextStyle(color: Color(0xFFD8F3DC)),
               ),
             ),
           ),
-          body: SingleChildScrollView(child: searchResults(searchString: search)),
-          backgroundColor: const Color(0xFF081C15),
-        ));
+        ),
+      ),
+      body: SingleChildScrollView(child: searchResults(searchString: search)),
+      backgroundColor: const Color(0xFF081C15),
+    ));
   }
 }
 
-
-
 class PlantCard extends StatefulWidget {
   final String plantName;
+
   const PlantCard({super.key, required this.plantName});
 
   @override
@@ -79,18 +81,13 @@ class PlantCard extends StatefulWidget {
 class _PlantCardState extends State<PlantCard> {
   @override
   Widget build(BuildContext context) {
-    String imgPath = '';
-    for (var i in imageDict.keys) {
-      if (i == widget.plantName) {
-        imgPath = imageDict[i]!;
-      }
-    }
+    String imgPath = imageDict[widget.plantName] ?? '';
 
     return Container(
       margin: const EdgeInsets.all(5.0),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-          border: Border.all(color: const Color(0xFF2D6A4F),width: 3),
+          border: Border.all(color: const Color(0xFF2D6A4F), width: 3),
           borderRadius: BorderRadius.circular(30),
           color: const Color(0xFF1B4332)),
       child: Column(
@@ -102,7 +99,11 @@ class _PlantCardState extends State<PlantCard> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
-            child: Text(widget.plantName,style: GoogleFonts.montserrat(color: const Color(0xFFD8F3DC), fontSize: 17),),
+            child: Text(
+              widget.plantName,
+              style: GoogleFonts.montserrat(
+                  color: const Color(0xFFD8F3DC), fontSize: 17),
+            ),
           ),
         ],
       ),
@@ -128,7 +129,11 @@ class _categoryCardState extends State<categoryCard> {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(widget.categoryName, style: GoogleFonts.montserrat(color: const Color(0xFFD8F3DC),fontWeight: FontWeight.bold,fontSize: 20)),
+          child: Text(widget.categoryName,
+              style: GoogleFonts.montserrat(
+                  color: const Color(0xFFD8F3DC),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20)),
         ),
         GridView.count(
           padding: const EdgeInsets.all(8),
@@ -174,10 +179,10 @@ class _searchResultsState extends State<searchResults> {
       for (int a = 0; a < searchQueryResults1[i]!.length; ++a) {
         plantList.add(PlantCard(plantName: searchQueryResults1[i]![a]));
       }
-      plantCategoryList.add(categoryCard(categoryName: i, plantWidgets: plantList));
+      plantCategoryList
+          .add(categoryCard(categoryName: i, plantWidgets: plantList));
     }
   }
-
 
   @override
   Widget build(BuildContext context) {

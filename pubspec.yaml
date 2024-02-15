@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   google_sign_in: ^5.0.4
+  google_fonts: ^6.1.0
   cupertino_icons: ^1.0.2
   community_material_icon: ^5.4.55
 

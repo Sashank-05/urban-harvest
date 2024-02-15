@@ -1,106 +1,190 @@
 import 'package:flutter/material.dart';
-import 'package:urban_harvest/constant_colors.dart';
+import 'package:urban_harvest/landing/plant_list.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({Key? key}) : super(key: key);
+  const LandingPage({super.key});
 
   @override
-  _LandingPageState createState() => _LandingPageState();
+  State<LandingPage> createState() => _LandingPageState();
 }
 
 class _LandingPageState extends State<LandingPage> {
-  String searchQuery = '';
-
+  String search = '';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: AppColors.backgroundColor,
-        toolbarOpacity: 0,
-        title: const Text(
-          "Urban Harvest",
-          style: TextStyle(
-            fontFamily: 'Montserrat',
-            fontWeight: FontWeight.bold,
-            color: AppColors.primaryColor,
-          ),
-        ),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              const SizedBox(width: 5),
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryColor.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(20.0),
+    return MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            backgroundColor: const Color(0xFF081C15),
+            title: Padding(
+              padding: const EdgeInsets.only(top:20.0,bottom: 10),
+              child: Center(
+                child: Text(
+                  'Urban Harvest',
+                  style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: const Color(0xFFD8F3DC)),
+                ),
+              ),
+            ),
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(60),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SearchBar(
+                  leading: const Padding(
+                    padding: EdgeInsets.only(left: 5.0),
+                    child: Icon(Icons.search,color: Color(0xFF52B788),),
                   ),
-                  child: TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        searchQuery = value;
-                      });
+                  hintText:'What do you want to grow?',
+                  hintStyle: MaterialStateProperty.all<TextStyle>(
+                    GoogleFonts.montserrat(color: const Color(0xFF52B788)),
+                  ),
+                  backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                      return const Color(0xFF2D6A4F);
                     },
-                    decoration: const InputDecoration(
-                      hintText: 'What do you want to grow today?',
-                      hintStyle: TextStyle(color: AppColors.secondaryColor),
-                      prefixIcon: Icon(Icons.search, color: AppColors.primaryColor),
-                      border: InputBorder.none,
-                    ),
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      search = value;
+                    });
+                  },
+                  textStyle: MaterialStateProperty.all<TextStyle>(
+                    const TextStyle(color: Color(0xFFD8F3DC)),
                   ),
                 ),
               ),
-              const SizedBox(width: 5)
-            ],
-          ),
-          // Display pictures based on search query
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-              ),
-              itemCount: _getPicturesCount(searchQuery),
-              itemBuilder: (context, index) {
-                return _buildPictureWidget(index);
-              },
             ),
+          ),
+          body: SingleChildScrollView(child: searchResults(searchString: search)),
+          backgroundColor: const Color(0xFF081C15),
+        ));
+  }
+}
+
+class plantCard extends StatefulWidget {
+  final String plantName;
+  const plantCard({super.key, required this.plantName});
+
+  @override
+  State<plantCard> createState() => _plantCardState();
+}
+
+class _plantCardState extends State<plantCard> {
+  late String imgPath;
+  @override
+  void initState() {
+    super.initState();
+    for (var i in imageDict.keys) {
+      if (i == widget.plantName) {
+        imgPath = imageDict[i]!;
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+          border: Border.all(color: const Color(0xFF2D6A4F),width: 3),
+          borderRadius: BorderRadius.circular(30),
+          color: const Color(0xFF1B4332)),
+      child: Column(
+        children: [
+          Image.asset(
+            imgPath,
+            width: 100,
+            height: 100,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Text(widget.plantName,style: GoogleFonts.montserrat(color: const Color(0xFFD8F3DC), fontSize: 17),),
           ),
         ],
       ),
     );
   }
+}
 
-  // Function to get the number of pictures to display based on search query
-  int _getPicturesCount(String query) {
-    // For simplicity, return a fixed number of pictures
-    // You can replace this logic with your own search implementation
-    if (query.isEmpty) {
-      return 0; // No pictures to display if search query is empty
-    } else {
-      return 4; // Display 4 pictures for any non-empty search query
+class categoryCard extends StatefulWidget {
+  final String categoryName;
+  final List<Widget> plantWidgets;
+
+  const categoryCard(
+      {super.key, required this.categoryName, required this.plantWidgets});
+
+  @override
+  State<categoryCard> createState() => _categoryCardState();
+}
+
+class _categoryCardState extends State<categoryCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(widget.categoryName, style: GoogleFonts.montserrat(color: const Color(0xFFD8F3DC),fontWeight: FontWeight.bold,fontSize: 20)),
+        ),
+        GridView.count(
+          padding: const EdgeInsets.all(8),
+          crossAxisCount: 2,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: widget.plantWidgets,
+        ),
+      ],
+    );
+  }
+}
+
+class searchResults extends StatefulWidget {
+  final String searchString;
+
+  const searchResults({super.key, required this.searchString});
+
+  @override
+  State<searchResults> createState() => _searchResultsState();
+}
+
+class _searchResultsState extends State<searchResults> {
+  late List<Widget> plantCategoryList;
+
+  @override
+  void initState() {
+    super.initState();
+    updatePlantCategoryList();
+  }
+
+  @override
+  void didUpdateWidget(covariant searchResults oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    updatePlantCategoryList();
+  }
+
+  void updatePlantCategoryList() {
+    plantCategoryList = [];
+    var searchQueryResults1 = searchQueryResults(widget.searchString);
+    for (var i in searchQueryResults1.keys) {
+      List<Widget> plantList = [];
+      for (int a = 0; a < searchQueryResults1[i]!.length; ++a) {
+        plantList.add(plantCard(plantName: searchQueryResults1[i]![a]));
+      }
+      plantCategoryList
+          .add(categoryCard(categoryName: i, plantWidgets: plantList));
     }
   }
 
-  // Function to build a picture widget based on index
-  Widget _buildPictureWidget(int index) {
-    // For demonstration, create a placeholder picture widget
-    // Replace this with your own logic to load pictures dynamically
-    return Container(
-      color: Colors.grey.withOpacity(0.5),
-      child: Center(
-        child: Text(
-          'Picture ${index + 1}',
-          style: const TextStyle(color: Colors.white),
-        ),
-      ),
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: plantCategoryList,
     );
   }
 }

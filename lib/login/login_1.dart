@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:community_material_icon/community_material_icon.dart';
+import 'package:urban_harvest/landing/landing.dart';
 
 class loginPage1 extends StatefulWidget {
   const loginPage1({Key? key}) : super(key: key);
@@ -17,7 +18,6 @@ class _loginPage1State extends State<loginPage1> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: AppColors.backgroundColor2,
-
         title: const Text(
           "Urban Harvest",
           style: TextStyle(
@@ -26,34 +26,41 @@ class _loginPage1State extends State<loginPage1> {
             color: AppColors.primaryColor,
           ),
         ),
-        actions:<Widget>[
+        actions: <Widget>[
           IconButton(
-            icon:const Icon(CommunityMaterialIcons.help_circle,color:Colors.white,size:20),
+            icon: const Icon(CommunityMaterialIcons.help_circle,
+                color: Colors.white, size: 20),
             onPressed: question_pressed(),
           ),
         ],
       ),
       body: Column(
         children: <Widget>[
-        SizedBox(
-            height:300,
-            width:400,
-            child: Image.asset('assets/img/agri.jpg',fit:BoxFit.cover, ),
-        ),
-        Container(
-          child: const Text('Welcome To Urban Harvest',
-          style:TextStyle(
-            color:AppColors.textColorDark,
+          SizedBox(
+            height: 300,
+            width: 400,
+            child: Image.asset(
+              'assets/img/agri.jpg',
+              fit: BoxFit.cover,
+            ),
           ),
-          )
+          Container(
+              child: const Text(
+            'Welcome To Urban Harvest',
+            style: TextStyle(
+              color: AppColors.textColorDark,
+            ),
+          )),
+          ElevatedButton(onPressed: () {
+            if (!mounted) return;
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const LandingPage())
+            );
+          }, child: const Text("sample text for test"))
+        ],
+      ),
+    );
+  }
 
-
-        ),
-          ],
-
-        ),
-      );
-}
   question_pressed() {}
 }
-

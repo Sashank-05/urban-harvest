@@ -69,7 +69,7 @@ class _LoginPage1State extends State<LoginPage1> {
             ),
           ),
           Container(
-            padding:const EdgeInsets.only(top:15,right:150),
+            padding:const EdgeInsets.only(top:15,right:125),
             child:const Text('What is Urban Harvest ?',
                 textAlign: TextAlign.left,
                 style:TextStyle( color:Colors.white,
@@ -104,7 +104,7 @@ class _LoginPage1State extends State<LoginPage1> {
             ),
           ),
          Container(
-           padding:const EdgeInsets.only(top:3,right:75),
+           padding:const EdgeInsets.only(top:3),
            child: const Column(
              children: [
              Text('Find local farmers and community gardens',

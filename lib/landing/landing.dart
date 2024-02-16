@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:urban_harvest/homepage/homepage.dart';
 import 'package:urban_harvest/landing/plant_list.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -65,6 +66,16 @@ class _LandingPageState extends State<LandingPage> {
       ),
       body: SingleChildScrollView(child: searchResults(searchString: search)),
       backgroundColor: const Color(0xFF081C15),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomePage()));
+          },
+          child: Text('Skip for now'),
+        ),
+      ),
     ));
   }
 }

@@ -1,3 +1,37 @@
+import 'package:flutter/material.dart';
+import './guides/aloevera-guide.dart';
+import './guides/cabbage-guide.dart';
+import './guides/cauliflower-guide.dart';
+import './guides/chilli-guide.dart';
+import './guides/coriander-guide.dart';
+import './guides/green-beans-guide.dart';
+import './guides/hibiscus-guide.dart';
+import './guides/jasmine-guide.dart';
+import './guides/marigold-guide.dart';
+import './guides/mint-guide.dart';
+import './guides/rose-guide.dart';
+import './guides/sunflower-guide.dart';
+import './guides/tomato-guide.dart';
+import './guides/tropical-leaves-guide.dart';
+
+
+Map<String,Widget> guideDict = {
+  'Rose': RoseGuide(),
+  'Marigold': MarigoldGuide(),
+  'Hibiscus': HibiscusGuide(),
+  'Jasmine': JasmineGuide(),
+  'Sunflower': SunflowerGuide(),
+  'Cabbage': CabbageGuide(),
+  'Cauliflower': CauliflowerGuide(),
+  'Chilli': ChilliGuide(),
+  'Green Beans': GreenBeansGuide(),
+  'Tomato': TomatoGuide(),
+  'Aloevera': AloeveraGuide(),
+  'Coriander': CorianderGuide(),
+  'Mint': MintGuide(),
+  'Curry Leaves': CurryLeavesGuide(),
+};
+
 List<Map<String, String>> plantList = [
   {'category': 'Flowers','name': 'Rose', 'img': '/assets/img/landing/landing/flowers/rose.png'},
   {'category': 'Flowers','name': 'Marigold', 'img': '/assets/img/landing/landing/flowers/marigold.png'},

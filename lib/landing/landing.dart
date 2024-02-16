@@ -2,6 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:urban_harvest/homepage/homepage.dart';
 import 'package:urban_harvest/landing/plant_list.dart';
 import 'package:google_fonts/google_fonts.dart';
+import './guides/aloevera-guide.dart';
+import './guides/cabbage-guide.dart';
+import './guides/cauliflower-guide.dart';
+import './guides/chilli-guide.dart';
+import './guides/coriander-guide.dart';
+import './guides/green-beans-guide.dart';
+import './guides/hibiscus-guide.dart';
+import './guides/jasmine-guide.dart';
+import './guides/marigold-guide.dart';
+import './guides/mint-guide.dart';
+import './guides/rose-guide.dart';
+import './guides/sunflower-guide.dart';
+import './guides/tomato-guide.dart';
+import './guides/tropical-leaves-guide.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -18,9 +32,18 @@ class _LandingPageState extends State<LandingPage> {
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
+        toolbarHeight: 70,
         backgroundColor: const Color(0xFF081C15),
+        leading: IconButton(
+          icon: Padding(padding: EdgeInsets.only(top:15),child: Icon(Icons.arrow_back)),
+          color: Color(0xFFD8F3DC),
+          iconSize: 25,
+          onPressed:(){
+            Navigator.pop(context);
+          },
+        ),
         title: Padding(
-          padding: const EdgeInsets.only(top: 20.0, bottom: 10),
+          padding: const EdgeInsets.only(right: 50.0, bottom:40, top: 50),
           child: Center(
             child: Text(
               'Urban Harvest',
@@ -94,29 +117,40 @@ class _PlantCardState extends State<PlantCard> {
   Widget build(BuildContext context) {
     String imgPath = imageDict[widget.plantName] ?? '';
 
-    return Container(
-      margin: const EdgeInsets.all(5.0),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-          border: Border.all(color: const Color(0xFF2D6A4F), width: 3),
-          borderRadius: BorderRadius.circular(30),
-          color: const Color(0xFF1B4332)),
-      child: Column(
-        children: [
-          Image.asset(
-            imgPath,
-            width: 100,
-            height: 100,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: Text(
-              widget.plantName,
-              style: GoogleFonts.montserrat(
-                  color: const Color(0xFFD8F3DC), fontSize: 17),
+    return TextButton(
+      onPressed: (){
+        for(var i in guideDict.keys) {
+          if(i == widget.plantName){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => guideDict[i]!));
+          }
+        }
+      },
+      child: Container(
+        margin: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.all(16),
+        height: 300,
+        width: 300,
+        decoration: BoxDecoration(
+            border: Border.all(color: const Color(0xFF2D6A4F), width: 3),
+            borderRadius: BorderRadius.circular(30),
+            color: const Color(0xFF1B4332)),
+        child: Column(
+          children: [
+            Image.asset(
+              imgPath,
+              width: 100,
+              height: 100,
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Text(
+                widget.plantName,
+                style: GoogleFonts.montserrat(
+                    color: const Color(0xFFD8F3DC), fontSize: 17),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

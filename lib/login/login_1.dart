@@ -133,18 +133,18 @@ class _LoginPage1State extends State<LoginPage1> {
             children: [
               ElevatedButton.icon(
                 onPressed: () {
-                  if (!mounted) return;
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => const LandingPage())
-                  );
+                  list_farm();
+                  print('Button pressed');
                 },
                 icon: const Icon(CommunityMaterialIcons.sprout,size:45,color:Colors.green,), // Define an icon here
                 label: const Text('Select plants you grow'),
               ),
               ElevatedButton.icon(
                 onPressed: () {
-                  list_farm();
-                  print('Button pressed');
+                  if (!mounted) return;
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const LandingPage())
+                  );
                 },
                 icon: const Icon(CommunityMaterialIcons.map_search,size:45,color: Colors.black,), // Define an icon here
                 label: const Text('Find Plants to grow'),

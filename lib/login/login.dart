@@ -70,14 +70,14 @@ class _LoginFormState extends State<LoginForm> {
               height: 100,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 40.0),
-            child: const Text(
+          const Padding(
+            padding: EdgeInsets.only(bottom: 40.0),
+            child: Text(
               'Urban Harvest',
               style: TextStyle(
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
-                  fontSize: 40,
+                  fontSize: 36,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -86,15 +86,15 @@ class _LoginFormState extends State<LoginForm> {
             controller: _emailController,
             decoration: InputDecoration(
                 enabledBorder:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: BorderSide(color: Color(0xFF40916c), width: 2)),
-                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: BorderSide(color: Color(0xFF40916c), width: 2)),
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: const BorderSide(color: Color(0xFF40916c), width: 2)),
+                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: const BorderSide(color: Color(0xFF40916c), width: 2)),
                 labelText: 'Email',
                 labelStyle: const TextStyle(
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
                 ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 20)),
-            cursorColor: Color(0xFF40916c),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15)),
+            cursorColor: const Color(0xFF40916c),
           ),
           const SizedBox(height: 16.0),
           TextField(
@@ -102,15 +102,15 @@ class _LoginFormState extends State<LoginForm> {
             controller: _passwordController,
             decoration: InputDecoration(
                 enabledBorder:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: BorderSide(color: Color(0xFF40916c), width: 2)),
-                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: BorderSide(color: Color(0xFF40916c), width: 2)),
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: const BorderSide(color: Color(0xFF40916c), width: 2)),
+                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: const BorderSide(color: Color(0xFF40916c), width: 2)),
                 labelText: 'Password',
                 labelStyle: const TextStyle(
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
                 ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 20)),
-            cursorColor: Color(0xFF40916c),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15)),
+            cursorColor: const Color(0xFF40916c),
             obscureText: true,
           ),
           Row(
@@ -128,7 +128,7 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ],
           ),
-          const SizedBox(height: 50),
+          const SizedBox(height: 39),
           ElevatedButton(
               onPressed: () {
                 _signInWithEmailAndPassword();
@@ -141,17 +141,17 @@ class _LoginFormState extends State<LoginForm> {
                 style: TextStyle(
                     color: AppColors.textColorDark, fontFamily: 'Montserrat'),
               )),
-          const SizedBox(height: 30),
+          const SizedBox(height: 21),
           ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.tertiaryColor2,
               fixedSize: const Size(300, 50)), child: const Text('Sign Up', style: TextStyle(
               color: AppColors.textColorDark, fontFamily: 'Montserrat'),) ),
-          const SizedBox(height: 30,),
+          const SizedBox(height: 21,),
           ElevatedButton.icon(
             onPressed: _handleSignIn,
-            icon: Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: const ImageIcon(AssetImage("assets/img/search.png"),
+            icon: const Padding(
+              padding: EdgeInsets.only(right: 10.0),
+              child: ImageIcon(AssetImage("assets/img/search.png"),
                   size: 20, color: AppColors.tertiaryColor2),
             ),
             label: const Text(

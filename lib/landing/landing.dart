@@ -93,8 +93,11 @@ class _LandingPageState extends State<LandingPage> {
         padding: const EdgeInsets.all(20.0),
         child: ElevatedButton(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const HomePage()));
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+                  (route) => false, // Remove all routes from the stack
+            );
           },
           child: Text('Skip for now'),
         ),

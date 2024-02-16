@@ -35,15 +35,16 @@ class _LandingPageState extends State<LandingPage> {
         toolbarHeight: 70,
         backgroundColor: const Color(0xFF081C15),
         leading: IconButton(
-          icon: Padding(padding: EdgeInsets.only(top:15),child: Icon(Icons.arrow_back)),
+          icon: Padding(
+              padding: EdgeInsets.only(top: 15), child: Icon(Icons.arrow_back)),
           color: Color(0xFFD8F3DC),
           iconSize: 25,
-          onPressed:(){
+          onPressed: () {
             Navigator.pop(context);
           },
         ),
         title: Padding(
-          padding: const EdgeInsets.only(right: 50.0, bottom:40, top: 50),
+          padding: const EdgeInsets.only(right: 50.0, bottom: 40, top: 50),
           child: Center(
             child: Text(
               'Urban Harvest',
@@ -96,7 +97,7 @@ class _LandingPageState extends State<LandingPage> {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const HomePage()),
-                  (route) => false, // Remove all routes from the stack
+              (route) => false, // Remove all routes from the stack
             );
           },
           child: Text('Skip for now'),
@@ -121,10 +122,11 @@ class _PlantCardState extends State<PlantCard> {
     String imgPath = imageDict[widget.plantName] ?? '';
 
     return TextButton(
-      onPressed: (){
-        for(var i in guideDict.keys) {
-          if(i == widget.plantName){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => guideDict[i]!));
+      onPressed: () {
+        for (var i in guideDict.keys) {
+          if (i == widget.plantName) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => guideDict[i]!));
           }
         }
       },

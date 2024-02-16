@@ -139,6 +139,11 @@ class _LoginFormState extends State<LoginForm> {
                     color: AppColors.textColorDark, fontFamily: 'Montserrat'),
               )),
           const SizedBox(height: 30),
+          ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.tertiaryColor2,
+              fixedSize: const Size(300, 50)), child: const Text('Sign Up', style: TextStyle(
+              color: AppColors.textColorDark, fontFamily: 'Montserrat'),) ),
+          const SizedBox(height: 30,),
           ElevatedButton.icon(
             onPressed: _handleSignIn,
             icon: Padding(
@@ -153,6 +158,8 @@ class _LoginFormState extends State<LoginForm> {
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white, fixedSize: const Size(300, 50)),
           ),
+
+
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:urban_harvest/login/login_1.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
   runApp(const LoginApp());
@@ -129,7 +130,9 @@ class _LoginFormState extends State<LoginForm> {
           ),
           const SizedBox(height: 50),
           ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                _signInWithEmailAndPassword();
+              },
               style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.tertiaryColor2,
                   fixedSize: const Size(300, 50)),
@@ -163,6 +166,38 @@ class _LoginFormState extends State<LoginForm> {
         ],
       ),
     );
+  }
+
+  Future<void> _signInWithEmailAndPassword() async {
+    final String email = _emailController.text.trim();
+    final String password = _passwordController.text.trim();
+
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+
+    }
+    FirebaseAuth.instance
+        .authStateChanges()
+        .listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+        if (!mounted) return;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage1()),
+        );
+      }
+    });
+
   }
 
   Future<void> _handleSignIn() async {

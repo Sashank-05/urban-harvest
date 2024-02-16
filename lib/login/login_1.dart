@@ -133,8 +133,10 @@ class _LoginPage1State extends State<LoginPage1> {
             children: [
               ElevatedButton.icon(
                 onPressed: () {
+
                   list_farm();
                   print('Button pressed');
+
                 },
                 icon: const Icon(CommunityMaterialIcons.sprout,size:45,color:Colors.green,), // Define an icon here
                 label: const Text('Select plants you grow'),

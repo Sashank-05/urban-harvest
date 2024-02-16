@@ -57,7 +57,7 @@ class _CheckAuthState extends State<CheckAuth> {
     } else {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const LoginPage1()),
+        MaterialPageRoute(builder: (context) => const LoginPage()),
       );
     }
   }

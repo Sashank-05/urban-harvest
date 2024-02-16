@@ -25,17 +25,18 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         title: const Text('Sign in'),
-
-
-        titleTextStyle: TextStyle(color: AppColors.textColorDark, fontSize: 20,fontFamily: 'Montserrat'),
-
+        titleTextStyle: const TextStyle(
+            color: AppColors.textColorDark,
+            fontSize: 20,
+            fontFamily: 'Montserrat'),
         centerTitle: true,
         backgroundColor: AppColors.backgroundColor2,
       ),
-      body: const LoginForm(),
+      body: const SingleChildScrollView(child: LoginForm()),
     );
   }
 }
@@ -59,55 +60,78 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
-
         children: <Widget>[
-          Image.asset('android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png'),
-          Text('Urban Harvest',style: TextStyle(color: AppColors.textColorDark,fontFamily: 'Montserrat',fontSize: 40),),
-
-
+          Image.asset(
+            'android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png',
+            width: 150,
+            height: 150,
+          ),
+          const Text(
+            'Urban Harvest',
+            style: TextStyle(
+                color: AppColors.textColorDark,
+                fontFamily: 'Montserrat',
+                fontSize: 40),
+          ),
           TextField(
             style: const TextStyle(color: AppColors.textColorDark),
             controller: _emailController,
-            decoration:  InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-
+            decoration: InputDecoration(
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
                 labelText: 'Email',
-
-
-                labelStyle: TextStyle(color: AppColors.textColorDark,fontFamily: 'Montserrat',)
-            ),
-
-
+                labelStyle: const TextStyle(
+                  color: AppColors.textColorDark,
+                  fontFamily: 'Montserrat',
+                )),
           ),
           const SizedBox(height: 16.0),
           TextField(
             style: const TextStyle(color: AppColors.textColorDark),
             controller: _passwordController,
-
-
-            decoration:  InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-              labelText: 'Password',
-                labelStyle: TextStyle(color: AppColors.textColorDark,fontFamily: 'Montserrat')
-            ),
-
+            decoration: InputDecoration(
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+                labelText: 'Password',
+                labelStyle: const TextStyle(
+                    color: AppColors.textColorDark, fontFamily: 'Montserrat')),
             obscureText: true,
-
           ),
-
-          Row(children: [
-            TextButton(onPressed: (){}, child:Text('Forgot Password',
-              style: TextStyle(decoration:TextDecoration.underline,decorationColor: AppColors.textColorDark,color: AppColors.textColorDark,fontFamily: 'Montserrat'),),),],),
-
-
-          const SizedBox(height: 100),
-            ElevatedButton(onPressed: (){}, child: Text('Sign in',style: TextStyle(color: AppColors.textColorDark,fontFamily: 'Montserrat'),),
-                style: ElevatedButton.styleFrom(backgroundColor: AppColors.tertiaryColor2,fixedSize: Size(300,50))),
+          Row(
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'Forgot Password',
+                  style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      decorationColor: AppColors.textColorDark,
+                      color: AppColors.textColorDark,
+                      fontFamily: 'Montserrat'),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 50),
+          ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.tertiaryColor2,
+                  fixedSize: const Size(300, 50)),
+              child: const Text(
+                'Sign in',
+                style: TextStyle(
+                    color: AppColors.textColorDark, fontFamily: 'Montserrat'),
+              )),
           const SizedBox(height: 30),
-
           ElevatedButton.icon(
             onPressed: _handleSignIn,
-
-            icon: ImageIcon(AssetImage("assets/img/search.png"),size:20,color:AppColors.tertiaryColor2),
-           label:Text('Login with Google',style: TextStyle(fontFamily: 'Montserrat'),),
+            icon: const ImageIcon(AssetImage("assets/img/search.png"),
+                size: 20, color: AppColors.tertiaryColor2),
+            label: const Text(
+              'Login with Google',
+              style: TextStyle(fontFamily: 'Montserrat'),
+            ),
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white, fixedSize: const Size(300, 50)),
           ),

@@ -93,7 +93,9 @@ class _LoginFormState extends State<LoginForm> {
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
                 ),
+
               contentPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15)),
+
             cursorColor: const Color(0xFF40916c),
           ),
           const SizedBox(height: 16.0),
@@ -109,7 +111,9 @@ class _LoginFormState extends State<LoginForm> {
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
                 ),
+
               contentPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15)),
+
             cursorColor: const Color(0xFF40916c),
             obscureText: true,
           ),
@@ -152,7 +156,9 @@ class _LoginFormState extends State<LoginForm> {
             icon: const Padding(
               padding: EdgeInsets.only(right: 10.0),
               child: ImageIcon(AssetImage("assets/img/search.png"),
+
                   size: 20, color: AppColors.tertiaryColor2),
+
             ),
             label: const Text(
               'Login with Google',

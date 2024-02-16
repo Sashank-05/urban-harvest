@@ -13,8 +13,15 @@ dependencies:
   google_fonts: ^6.1.0
   cupertino_icons: ^1.0.2
   community_material_icon: ^5.4.55
+
   firebase_auth: ^4.17.4
   firebase_core: ^2.25.4
+
+  lottie: ^3.0.0
+  http: ^1.2.0
+  geolocator: ^11.0.0
+  geocoding: ^2.1.1
+
 
 dev_dependencies:
   flutter_test:

@@ -2,9 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:urban_harvest/login/login.dart';
+import 'package:urban_harvest/services/weather_service.dart';
+import '../models/wheather_model.dart'; // Ensure correct spelling of the filename
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final weatherService _weatherService = weatherService(
+      '18f721c26d5b14924ff362d01d237cde');
+  Weather? _weather;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchWeather();
+  }
+
+  _fetchWeather() async {
+    String cityName = await _weatherService
+        .getCurrentCity(); // Ensure this method exists and works as expected
+    print(cityName);
+    try {
+      final weather = await _weatherService.getWeather(cityName);
+      setState(() {
+        _weather = weather;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,12 +102,23 @@ class HomePage extends StatelessWidget {
                       color: AppColors.secondaryColor,
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Text(
-                      'Weather: Sunny',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
+                    child: Column(
+                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       crossAxisAlignment:CrossAxisAlignment.start,
+                        children: [
+                          Text(_weather?.cityName ?? "city loading",
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text('${_weather?.temperature}c',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ]
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -91,6 +133,8 @@ class HomePage extends StatelessWidget {
                         _buildHorizontalBox('Box 3'),
                         _buildHorizontalBox('Box 4'),
                         _buildHorizontalBox('Box 5'),
+                        _buildHorizontalBox('Box 6'),
+
                         // Add more boxes as needed
                       ],
                     ),

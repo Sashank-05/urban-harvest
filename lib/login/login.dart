@@ -61,40 +61,55 @@ class _LoginFormState extends State<LoginForm> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image.asset(
-            'android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png',
-            width: 150,
-            height: 150,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 30, top: 50),
+            child: Image.asset(
+              'android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png',
+              width: 100,
+              height: 100,
+            ),
           ),
-          const Text(
-            'Urban Harvest',
-            style: TextStyle(
-                color: AppColors.textColorDark,
-                fontFamily: 'Montserrat',
-                fontSize: 40),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40.0),
+            child: const Text(
+              'Urban Harvest',
+              style: TextStyle(
+                  color: AppColors.textColorDark,
+                  fontFamily: 'Montserrat',
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold),
+            ),
           ),
           TextField(
             style: const TextStyle(color: AppColors.textColorDark),
             controller: _emailController,
             decoration: InputDecoration(
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+                enabledBorder:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: BorderSide(color: Color(0xFF40916c), width: 2)),
+                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: BorderSide(color: Color(0xFF40916c), width: 2)),
                 labelText: 'Email',
                 labelStyle: const TextStyle(
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
-                )),
+                ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 20)),
+            cursorColor: Color(0xFF40916c),
           ),
           const SizedBox(height: 16.0),
           TextField(
             style: const TextStyle(color: AppColors.textColorDark),
             controller: _passwordController,
             decoration: InputDecoration(
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+                enabledBorder:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: BorderSide(color: Color(0xFF40916c), width: 2)),
+                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: BorderSide(color: Color(0xFF40916c), width: 2)),
                 labelText: 'Password',
                 labelStyle: const TextStyle(
-                    color: AppColors.textColorDark, fontFamily: 'Montserrat')),
+                  color: AppColors.textColorDark,
+                  fontFamily: 'Montserrat',
+                ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 20,vertical: 20)),
+            cursorColor: Color(0xFF40916c),
             obscureText: true,
           ),
           Row(
@@ -126,11 +141,14 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 30),
           ElevatedButton.icon(
             onPressed: _handleSignIn,
-            icon: const ImageIcon(AssetImage("assets/img/search.png"),
-                size: 20, color: AppColors.tertiaryColor2),
+            icon: Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: const ImageIcon(AssetImage("assets/img/search.png"),
+                  size: 20, color: AppColors.tertiaryColor2),
+            ),
             label: const Text(
               'Login with Google',
-              style: TextStyle(fontFamily: 'Montserrat'),
+              style: TextStyle(fontFamily: 'Montserrat', color: Color(0xFF081C15)),
             ),
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white, fixedSize: const Size(300, 50)),

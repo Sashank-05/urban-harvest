@@ -19,6 +19,7 @@ class _LoginPage1State extends State<LoginPage1> {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
+        iconTheme: IconThemeData(color :AppColors.textColorDark),
         backgroundColor: AppColors.backgroundColor2,
         title: const Text(
           "Urban Harvest",

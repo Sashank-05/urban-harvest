@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final weatherService _weatherService =
-      weatherService('18f721c26d5b14924ff362d01d237cde');
+  weatherService('18f721c26d5b14924ff362d01d237cde');
   Weather? _weather;
 
   @override

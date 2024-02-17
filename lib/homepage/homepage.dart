@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:urban_harvest/homepage/seed_trade.dart';
 import 'package:urban_harvest/login/login.dart';
 import 'package:urban_harvest/services/weather_service.dart';
-import '../models/wheather_model.dart'; // Ensure correct spelling of the filename
+import 'package:urban_harvest/models/wheather_model.dart';
+import 'package:urban_harvest/homepage/detect.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,8 +15,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final weatherService _weatherService = weatherService(
-      '18f721c26d5b14924ff362d01d237cde');
+  final weatherService _weatherService =
+      weatherService('18f721c26d5b14924ff362d01d237cde');
   Weather? _weather;
 
   @override
@@ -103,23 +105,24 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Column(
-                       mainAxisAlignment: MainAxisAlignment.spaceAround,
-                       crossAxisAlignment:CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(_weather?.cityName ?? "city loading",
+                          Text(
+                            _weather?.cityName ?? "city loading",
                             style: const TextStyle(
                               fontSize: 18,
                               color: Colors.white,
                             ),
                           ),
-                          Text('${_weather?.temperature}c',
+                          Text(
+                            '${_weather?.temperature}c',
                             style: const TextStyle(
                               fontSize: 18,
                               color: Colors.white,
                             ),
                           ),
-                        ]
-                    ),
+                        ]),
                   ),
                   const SizedBox(height: 20),
                   // Horizontally scrollable boxes
@@ -142,14 +145,24 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            ElevatedButton(onPressed: () {
-              googleSignIn.disconnect();
+            ElevatedButton(
+                onPressed: () {
+                  googleSignIn.disconnect();
 
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const LoginPage())
-              );
-            }, child: const Text("test sign out"))
-
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()));
+                },
+                child: const Text("test sign out")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CameraClassifierPage()));
+                },
+                child: const Text("test disease detection"))
           ],
         ),
       ),
@@ -174,13 +187,15 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.account_circle_outlined),
             label: 'Profile',
             backgroundColor: AppColors.backgroundColor2,
-
           ),
         ],
         selectedItemColor: AppColors.primaryColor,
         backgroundColor: AppColors.tertiaryColor,
         onTap: (int index) {
-
+          if (index == 1) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SeedTradePage()));
+          }
         },
       ),
     );

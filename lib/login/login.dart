@@ -290,7 +290,16 @@ class _LoginFormState extends State<LoginForm> {
   Future<void> _handleSignIn() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      // Use GoogleSignInAccount to authenticate with your backend server
+      final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleUser!.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+
       if (googleUser != null) {
         if (!mounted) return;
 

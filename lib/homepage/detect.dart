@@ -1,120 +1,129 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
+import 'package:flutter/services.dart';
+import 'package:tflite_flutter/tflite_flutter.dart';
+import 'package:image/image.dart' as imglib;
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:urban_harvest/homepage/disease/disease_detection.dart';
-import 'package:urban_harvest/homepage/disease/classifier.dart'; // Import your classifier class
-import 'package:tflite_flutter_helper/tflite_flutter_helper.dart' as tflite_helper;
-import 'package:image/image.dart' as img; // Import Image class from the image package
 
-class CameraClassifierPage extends StatefulWidget {
+class InferencePage extends StatefulWidget {
   @override
-  _CameraClassifierPageState createState() => _CameraClassifierPageState();
+  _InferencePageState createState() => _InferencePageState();
 }
 
-class _CameraClassifierPageState extends State<CameraClassifierPage> {
-  late DiseaseDetectionModel classifier;
-  List<CameraDescription> cameras =[];
-  late CameraController cameraController;
+class _InferencePageState extends State<InferencePage> {
+  late Interpreter _interpreter;
+  late List<String> _classes;
+  String _result = 'Select an image to run inference';
 
   @override
   void initState() {
     super.initState();
-    classifier = DiseaseDetectionModel(numThreads: 1); // Instantiate your concrete subclass
-    loadCamera();
+    _loadModel();
   }
 
-  Future<void> loadCamera() async {
-    cameras = await availableCameras();
-    cameraController = CameraController(
-      cameras[0],
-      ResolutionPreset.medium,
-    );
-    await cameraController.initialize();
-    setState(() {});
-  }
-
-  @override
-  void dispose() {
-    classifier.close();
-    cameraController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _classifyImage(img.Image image) async {
-    tflite_helper.Category prediction = classifier.predict(image);
-    print('Predicted category: ${prediction.label}');
-    // Display the prediction result in a dialog or any other UI element
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Prediction'),
-          content: Text('Predicted category: ${prediction.label}'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future<void> _captureImage() async {
+  Future<void> _loadModel() async {
     try {
-      final image = await cameraController.takePicture();
-      final File imageFile = File(image.path);
-      final img.Image capturedImage = img.decodeImage(imageFile.readAsBytesSync())!;
-      _classifyImage(capturedImage);
+      // Load the TFLite model
+      _interpreter = await Interpreter.fromAsset('assets/model.tflite');
+
+      // Load classes
+      var classFile = await rootBundle.loadString('assets/classes.txt');
+      _classes = classFile.split('\n');
+
+      setState(() {
+        _result = 'Model loaded successfully';
+      });
     } catch (e) {
-      print('Error capturing image: $e');
+      setState(() {
+        _result = 'Failed to load model: $e';
+      });
     }
   }
 
-  Future<void> _selectImageFromGallery() async {
+  Future<void> _runInference(File imageFile) async {
+    try {
+      final inputDetails = _interpreter.getInputTensors();
+      final outputDetails = _interpreter.getOutputTensors();
+      print(inputDetails[0].shape);
+
+      // Read and resize the image
+      final imageBytes = await imageFile.readAsBytes();
+      final inputImage = imglib.decodeImage(Uint8List.fromList(imageBytes))!;
+      final inputImageResized = imglib.copyResize(inputImage,
+          width: inputDetails[0].shape[1], height: inputDetails[0].shape[2]);
+
+      // Normalize pixel values
+      final inputBytes = Float32List(1 * 256 * 256 * 3);
+      var pixelIndex = 0;
+      for (var y = 0; y < inputDetails[0].shape[1]; y++) {
+        for (var x = 0; x < inputDetails[0].shape[2]; x++) {
+          final pixel = inputImageResized.getPixel(x, y);
+          inputBytes[pixelIndex++] = imglib.getRed(pixel) / 255.0;
+          inputBytes[pixelIndex++] = imglib.getGreen(pixel) / 255.0;
+          inputBytes[pixelIndex++] = imglib.getBlue(pixel) / 255.0;
+        }
+      }
+
+      // Reshape input tensor
+      final input = inputBytes
+          .reshape([1, inputDetails[0].shape[1], inputDetails[0].shape[2], 3]);
+      final output = Float32List(1 * 38).reshape([1, 38]);
+      _interpreter.run(input, output);
+
+      final outputData = output[0] as List<double>;
+      print(outputData);
+      // Print confidence scores for all diseases
+      for (int i = 0; i < outputData.length; i++) {
+        print('${_classes[i]}: ${outputData[i]}');
+      }
+      final predictedClassIdx =
+      outputData.indexOf(outputData.reduce((a, b) => a > b ? a : b));
+      final predictedClass = _classes[predictedClassIdx];
+
+      // Update UI or state
+      setState(() {
+        _result = 'Predicted class: $predictedClass';
+      });
+    } catch (e) {
+      // Handle any errors
+      setState(() {
+        _result = 'Failed to run inference: $e';
+      });
+    }
+  }
+
+
+  Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: source);
     if (pickedFile != null) {
-      final File imageFile = File(pickedFile.path);
-      final img.Image selectedImage = img.decodeImage(imageFile.readAsBytesSync())!;
-      _classifyImage(selectedImage);
+      await _runInference(File(pickedFile.path));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!cameraController.value.isInitialized) {
-      return Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Camera Classifier'),
+        title: Text('Inference Page'),
       ),
-      body: CameraPreview(cameraController),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          FloatingActionButton(
-            onPressed: _captureImage,
-            tooltip: 'Capture Image',
-            child: Icon(Icons.camera_alt),
-          ),
-          SizedBox(width: 10),
-          FloatingActionButton(
-            onPressed: _selectImageFromGallery,
-            tooltip: 'Select Image',
-            child: Icon(Icons.photo_library),
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () => _pickImage(ImageSource.camera),
+              child: Text('Take a Picture'),
+            ),
+            ElevatedButton(
+              onPressed: () => _pickImage(ImageSource.gallery),
+              child: Text('Pick an Image from Gallery'),
+            ),
+            SizedBox(height: 20),
+            Text(_result),
+          ],
+        ),
       ),
     );
   }

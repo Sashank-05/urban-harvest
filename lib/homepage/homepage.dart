@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:urban_harvest/homepage/homepagecontent.dart';
+import 'package:urban_harvest/homepage/locations.dart';
 import 'package:urban_harvest/homepage/seed_trade.dart';
 
 import 'package:urban_harvest/services/weather_service.dart';
@@ -21,7 +22,8 @@ class _HomePageState extends State<HomePage> {
 
   final List<Widget> _pages = [
     const HomePageContent(),
-    SeedTradeContent(),
+    const SeedTradeContent(),
+    const LocationPage()
   ];
 
   @override
@@ -89,6 +91,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: AppColors.tertiaryColor,
         currentIndex: _selectedIndex,
         onTap: (int index) {
+          if (!mounted) return;
           setState(() {
             _selectedIndex = index;
           });

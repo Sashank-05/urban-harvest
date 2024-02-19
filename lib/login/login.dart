@@ -5,7 +5,7 @@ import 'package:urban_harvest/firebase_options.dart';
 import 'package:urban_harvest/login/login_1.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:urban_harvest/login/profile.dart';
+import 'package:urban_harvest/login/Signup.dart';
 
 
 void main() {WidgetsFlutterBinding.ensureInitialized();
@@ -234,7 +234,7 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 5,),
 
           ElevatedButton(onPressed: (){Navigator.pushAndRemoveUntil(context,
-              MaterialPageRoute(builder: (context) => const ProfilePage()), (route)=>false,
+              MaterialPageRoute(builder: (context) => const LoginPage()), (route)=>false,
           );},
               style: ElevatedButton.styleFrom(
 

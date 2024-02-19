@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:urban_harvest/login/login.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+class SignUpPagee extends StatefulWidget {
+  const SignUpPagee({Key? key}) : super(key: key);
 
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<SignUpPagee> createState() => _SignUpPageeState();
 }
-class _ProfilePageState extends State<ProfilePage> {
+class _SignUpPageeState extends State<SignUpPagee> {
 
   final FirebaseAuthService _auth = FirebaseAuthService();
   TextEditingController _usernameController=TextEditingController();

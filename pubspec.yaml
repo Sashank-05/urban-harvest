@@ -35,7 +35,6 @@ dependencies:
 
 
 
-  cloud_firestore: ^4.15.4
   firebase_storage: ^11.6.5
 
 

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:urban_harvest/constant_colors.dart';
@@ -5,10 +6,10 @@ import 'package:urban_harvest/firebase_options.dart';
 import 'package:urban_harvest/login/login_1.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:urban_harvest/login/Signup.dart';
+import 'package:urban_harvest/login/sign_up.dart';
 
-
-void main() {WidgetsFlutterBinding.ensureInitialized();
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const LoginApp());
 }
@@ -46,64 +47,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Google Sign In',
-      home: SignInPage(),
-    );
-  }
-}
-
-class SignInPage extends StatelessWidget {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
-
-  Future<User?> _signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
-
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
-
-      final UserCredential authResult = await _auth.signInWithCredential(credential);
-      final User? user = authResult.user;
-
-      return user;
-    } catch (error) {
-      print(error);
-      return null;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Google Sign In'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            final User? user = await _signInWithGoogle();
-            if (user != null) {
-              // Navigate to another screen after successful sign-in
-              print('Signed in as: ${user.displayName}');
-            } else {
-              print('Sign in failed');
-            }
-          },
-          child: Text('Sign in with Google'),
-        ),
-      ),
-    );
-  }
-}
-
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -148,15 +91,21 @@ class _LoginFormState extends State<LoginForm> {
             style: const TextStyle(color: AppColors.textColorDark),
             controller: _emailController,
             decoration: InputDecoration(
-                enabledBorder:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: const BorderSide(color: Color(0xFF40916c), width: 2)),
-                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: const BorderSide(color: Color(0xFF40916c), width: 2)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide:
+                        const BorderSide(color: Color(0xFF40916c), width: 2)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide:
+                        const BorderSide(color: Color(0xFF40916c), width: 2)),
                 labelText: 'Email',
                 labelStyle: const TextStyle(
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
                 ),
-    contentPadding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20)),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20)),
             cursorColor: const Color(0xFF40916c),
           ),
           const SizedBox(height: 16.0),
@@ -164,17 +113,21 @@ class _LoginFormState extends State<LoginForm> {
             style: const TextStyle(color: AppColors.textColorDark),
             controller: _passwordController,
             decoration: InputDecoration(
-                enabledBorder:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: const BorderSide(color: Color(0xFF40916c), width: 2)),
-                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(30),borderSide: const BorderSide(color: Color(0xFF40916c), width: 2)),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide:
+                        const BorderSide(color: Color(0xFF40916c), width: 2)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide:
+                        const BorderSide(color: Color(0xFF40916c), width: 2)),
                 labelText: 'Password',
                 labelStyle: const TextStyle(
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
                 ),
-
-              contentPadding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15)),
-
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15)),
             cursorColor: const Color(0xFF40916c),
             obscureText: true,
           ),
@@ -206,44 +159,60 @@ class _LoginFormState extends State<LoginForm> {
                 style: TextStyle(
                     color: AppColors.textColorDark, fontFamily: 'Montserrat'),
               )),
-          const SizedBox(height: 10,),
-          const Text('OR',style: TextStyle(fontFamily: 'Montserrat',color: AppColors.textColorDark),),
-
-
+          const SizedBox(
+            height: 10,
+          ),
+          const Text(
+            'OR',
+            style: TextStyle(
+                fontFamily: 'Montserrat', color: AppColors.textColorDark),
+          ),
           const SizedBox(height: 10),
           ElevatedButton.icon(
             onPressed: _handleSignIn,
             icon: const Padding(
               padding: EdgeInsets.only(right: 10.0),
               child: ImageIcon(AssetImage("assets/img/search.png"),
-
                   size: 20, color: AppColors.tertiaryColor2),
-
             ),
             label: const Text(
               'Login with Google',
-              style: TextStyle(fontFamily: 'Montserrat', color: Color(0xFF081C15)),
+              style:
+                  TextStyle(fontFamily: 'Montserrat', color: Color(0xFF081C15)),
             ),
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white, fixedSize: const Size(300, 50)),
           ),
-          const SizedBox(height: 30,),
-          const Text("Don't have an account?",style: TextStyle(color:AppColors.textColorDark,
-              decoration: TextDecoration.underline,
-              decorationColor: AppColors.textColorDark,fontFamily: 'Montserrat'),),
-          const SizedBox(height: 5,),
-
-          ElevatedButton(onPressed: (){Navigator.pushAndRemoveUntil(context,
-              MaterialPageRoute(builder: (context) => const LoginPage()), (route)=>false,
-          );},
+          const SizedBox(
+            height: 30,
+          ),
+          const Text(
+            "Don't have an account?",
+            style: TextStyle(
+                color: AppColors.textColorDark,
+                decoration: TextDecoration.underline,
+                decorationColor: AppColors.textColorDark,
+                fontFamily: 'Montserrat'),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SignUpPage()),
+                  (route) => false,
+                );
+              },
               style: ElevatedButton.styleFrom(
-
-              backgroundColor: AppColors.tertiaryColor2,
-              fixedSize: const Size(300, 50)), child: const Text('Sign Up', style: TextStyle(
-              color: AppColors.textColorDark, fontFamily: 'Montserrat'),) ),
-
-
-
+                  backgroundColor: AppColors.tertiaryColor2,
+                  fixedSize: const Size(300, 50)),
+              child: const Text(
+                'Sign Up',
+                style: TextStyle(
+                    color: AppColors.textColorDark, fontFamily: 'Montserrat'),
+              )),
         ],
       ),
     );
@@ -254,28 +223,34 @@ class _LoginFormState extends State<LoginForm> {
     await Firebase.initializeApp();
     runApp(_signInWithEmailAndPassword() as Widget);
   }
+
   Future<void> _signInWithEmailAndPassword() async {
     final String email = _emailController.text.trim();
     final String password = _passwordController.text.trim();
 
     try {
-      final credential = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        if (kDebugMode) {
+          print('No user found for that email.');
+        }
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        if (kDebugMode) {
+          print('Wrong password provided for that user.');
+        }
       }
-
     }
-    FirebaseAuth.instance
-        .authStateChanges()
-        .listen((User? user) {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
-        print('User is currently signed out!');
+        if (kDebugMode) {
+          print('User is currently signed out!');
+        }
       } else {
-        print('User is signed in!');
+        if (kDebugMode) {
+          print('User is signed in!');
+        }
         if (!mounted) return;
         Navigator.pushReplacement(
           context,
@@ -283,34 +258,34 @@ class _LoginFormState extends State<LoginForm> {
         );
       }
     });
-
   }
-
 
   Future<void> _handleSignIn() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleUser!.authentication;
+          await googleUser!.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
 
-      final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      await FirebaseAuth.instance.signInWithCredential(credential);
 
-      if (googleUser != null) {
-        if (!mounted) return;
+      if (!mounted) return;
 
+      if (kDebugMode) {
         print('Logged in as: ${googleUser.email}');
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginPage1()),
-        );
       }
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage1()),
+      );
     } catch (error) {
-      print('Error signing in with Google: $error');
+      if (kDebugMode) {
+        print('Error signing in with Google: $error');
+      }
     }
   }
 }

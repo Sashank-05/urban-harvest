@@ -4,9 +4,6 @@ import 'package:urban_harvest/homepage/homepagecontent.dart';
 import 'package:urban_harvest/homepage/locations.dart';
 import 'package:urban_harvest/homepage/seed_trade.dart';
 
-import 'package:urban_harvest/services/weather_service.dart';
-import 'package:urban_harvest/models/wheather_model.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -15,9 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final weatherService _weatherService =
-      weatherService('18f721c26d5b14924ff362d01d237cde');
-  Weather? _weather;
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
@@ -25,26 +19,6 @@ class _HomePageState extends State<HomePage> {
     const SeedTradeContent(),
     const LocationPage()
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchWeather();
-  }
-
-  _fetchWeather() async {
-    String cityName = await _weatherService
-        .getCurrentCity(); // Ensure this method exists and works as expected
-    print(cityName);
-    try {
-      final weather = await _weatherService.getWeather(cityName);
-      setState(() {
-        _weather = weather;
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

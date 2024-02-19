@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:urban_harvest/constant_colors.dart';
@@ -20,7 +21,7 @@ class _LoginPage1State extends State<LoginPage1> {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
-        iconTheme: IconThemeData(color: AppColors.textColorDark),
+        iconTheme: const IconThemeData(color: AppColors.textColorDark),
         backgroundColor: AppColors.backgroundColor2,
         title: Text(
           'Urban Harvest',
@@ -33,7 +34,7 @@ class _LoginPage1State extends State<LoginPage1> {
           IconButton(
             icon: const Icon(CommunityMaterialIcons.help_circle,
                 color: Colors.white, size: 20),
-            onPressed: help_ontap(),
+            onPressed: helpOnTap(),
           ),
         ],
       ),
@@ -120,8 +121,10 @@ class _LoginPage1State extends State<LoginPage1> {
                     height: 60, // Set the height for both buttons
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        list_farm();
-                        print('Button pressed');
+                        listFarm();
+                        if (kDebugMode) {
+                          print('Button pressed');
+                        }
                       },
                       icon: const Icon(
                         CommunityMaterialIcons.sprout,
@@ -164,7 +167,7 @@ class _LoginPage1State extends State<LoginPage1> {
     );
   }
 
-  help_ontap() {}
+  helpOnTap() {}
 }
 
-list_farm() {}
+listFarm() {}

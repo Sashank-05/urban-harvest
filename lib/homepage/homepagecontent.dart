@@ -39,6 +39,7 @@ class _HomePageContentState extends State<HomePageContent> {
     try {
       final weather = await _weatherService.getWeather(cityName);
       setState(() {
+        if (!mounted) return;
         _weather = weather;
       });
     } catch (e) {

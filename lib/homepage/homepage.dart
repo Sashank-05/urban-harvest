@@ -68,7 +68,9 @@ class _HomePageState extends State<HomePage> {
           if (!mounted) {
             return;
           } else {
+
            // dispose();
+
           }
           setState(() {
             _selectedIndex = index;
@@ -77,4 +79,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 }
+
+

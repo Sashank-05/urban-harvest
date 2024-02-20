@@ -50,6 +50,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/img/search.png
+    - assets/img/homepage/vis/
 
     - assets/img/landing/vegetables/
     - assets/img/landing/flowers/

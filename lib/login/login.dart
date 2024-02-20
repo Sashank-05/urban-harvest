@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -274,6 +275,11 @@ class _LoginFormState extends State<LoginForm> {
       await FirebaseAuth.instance.signInWithCredential(credential);
 
       if (!mounted) return;
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(googleUser.id)
+          .set({'displayName': googleUser.displayName}, SetOptions(merge: true));
+
 
       if (kDebugMode) {
         print('Logged in as: ${googleUser.email}');

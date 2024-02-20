@@ -27,6 +27,11 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
     _tradesStream = _firestore.collection('Trades').snapshots();
     print(_currentUser);
   }
+  @override
+  void dispose() {
+    //.cancel(); // Cancel the subscription
+    super.dispose();
+  }
 
   void _getUserLocation() async {
     // Get user's current location

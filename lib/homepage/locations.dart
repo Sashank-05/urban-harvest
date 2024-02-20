@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,8 +33,9 @@ class _LocationPageState extends State<LocationPage> {
   @override
   void initState() {
     super.initState();
+    _fetchLocations();
     _getCurrentLocation();
-   // _fetchPosts();
+    // _fetchPosts();
   }
 
   _getCurrentLocation() async {
@@ -47,7 +48,6 @@ class _LocationPageState extends State<LocationPage> {
     }
 
     _currentPosition = await Geolocator.getCurrentPosition();
-    _fetchLocations();
   }
 
   _fetchLocations() async {
@@ -55,28 +55,64 @@ class _LocationPageState extends State<LocationPage> {
     final city = await getCurrentCity();
 
     if (country.isNotEmpty && city.isNotEmpty) {
-      final locationsSnapshot = await _firestore
-          .collection('Location')
-          .doc(country)
-          .collection(city)
-          .get();
-      _markers = locationsSnapshot.docs.map((doc) {
-        final List<dynamic> locations = doc['Location'];
-        return locations.map((location) {
-          GeoPoint geoPoint = location;
-          return Marker(
-            markerId: MarkerId(doc.id), // You can use a unique identifier for each marker
-            position: LatLng(geoPoint.latitude, geoPoint.longitude),
-          );
-        }).toList();
-      }).expand((element) => element).toList(); // Flatten the list of lists
-      setState(() {});
+      final countryDoc =
+          await _firestore.collection('Location').doc(country).get();
+      if (countryDoc.exists) {
+        final List<dynamic>? locations = countryDoc.data()?[city];
+        if (locations != null) {
+          final cityMarkers = locations.map((location) {
+            GeoPoint geoPoint = location;
+            return Marker(
+              markerId: MarkerId('${geoPoint.latitude}-${geoPoint.longitude}'),
+              // Use a unique identifier for each marker
+              position: LatLng(geoPoint.latitude, geoPoint.longitude),
+              infoWindow: InfoWindow(
+                title: city, // Use city name as title
+              ),
+            );
+          }).toList();
+          _markers.addAll(cityMarkers);
+          _updateCameraPosition();
+          print(_markers);
+          setState(() {});
+        } else {
+          print("Locations for $city is empty");
+        }
+      } else {
+        print("Country document does not exist");
+      }
     } else {
       print("Country or city is empty");
     }
   }
 
+  _updateCameraPosition() {
+    if (_markers.isNotEmpty && _mapController != null) {
+      LatLngBounds bounds = _boundsFromMarkers();
+      _mapController!.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50));
+    }
+  }
+  LatLngBounds _boundsFromMarkers() {
+    double minLat = _markers[0].position.latitude;
+    double minLng = _markers[0].position.longitude;
+    double maxLat = _markers[0].position.latitude;
+    double maxLng = _markers[0].position.longitude;
 
+    for (Marker marker in _markers) {
+      double lat = marker.position.latitude;
+      double lng = marker.position.longitude;
+
+      minLat = min(lat, minLat);
+      minLng = min(lng, minLng);
+      maxLat = max(lat, maxLat);
+      maxLng = max(lng, maxLng);
+    }
+
+    return LatLngBounds(
+      southwest: LatLng(minLat, minLng),
+      northeast: LatLng(maxLat, maxLng),
+    );
+  }
 /*
   _fetchPosts() async {
     final postsSnapshot = await _firestore.collection('posts').orderBy('timestamp', descending: true).get();
@@ -132,9 +168,10 @@ class _LocationPageState extends State<LocationPage> {
         children: [
           GoogleMap(
             initialCameraPosition: CameraPosition(
-              target: _currentPosition != null
-                  ? LatLng(_currentPosition!.latitude, _currentPosition!.longitude)
-                  : LatLng(0, 0),
+              target: LatLng(
+                  //_currentPosition!.latitude, _currentPosition!.longitude),
+                  12.91,
+                  77.723),
               zoom: 12,
             ),
             onMapCreated: (controller) {
@@ -144,15 +181,19 @@ class _LocationPageState extends State<LocationPage> {
             },
             markers: Set<Marker>.of(_markers),
           ),
-         // Positioned(
-         //   bottom: 16.0,
-           // right: 16.0,
-           // child: FloatingActionButton(
-             // onPressed: _handleImagePick,
-             // tooltip: 'Add Post',
-             // child: Icon(Icons.add),
-            //),
-          //),
+          if (_markers.isEmpty) // Show loading indicator if markers are empty
+            Center(
+              child: CircularProgressIndicator(),
+            ),
+          Positioned(
+            bottom: 16.0,
+            right: 16.0,
+            child: FloatingActionButton(
+              onPressed: () {}, //_handleImagePick,
+              tooltip: 'Add Post',
+              child: Icon(Icons.add),
+            ),
+          ),
         ],
       ),
     );

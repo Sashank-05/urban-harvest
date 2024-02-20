@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -11,7 +13,7 @@ import '../services/weather_service.dart';
 final weatherService _weatherService =
     weatherService('18f721c26d5b14924ff362d01d237cde');
 Weather? _weather;
-int _selectedIndex = 0;
+
 
 class HomePageContent extends StatefulWidget {
   final Weather? weather;
@@ -25,11 +27,21 @@ class HomePageContent extends StatefulWidget {
 class _HomePageContentState extends State<HomePageContent> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  late Completer<void> _fetchDataCompleter;
 
   @override
   void initState() {
     super.initState();
+    _fetchDataCompleter = Completer<void>();
     _fetchWeather();
+  }
+
+  @override
+  void dispose() {
+    if (!_fetchDataCompleter.isCompleted) {
+      _fetchDataCompleter.completeError('Cancelled');
+    }
+    super.dispose();
   }
 
   _fetchWeather() async {
@@ -38,11 +50,17 @@ class _HomePageContentState extends State<HomePageContent> {
     print(cityName);
     try {
       final weather = await _weatherService.getWeather(cityName);
+      if (!mounted) return;
+      if (!_fetchDataCompleter.isCompleted) {
+        _fetchDataCompleter.complete();
+      }
       setState(() {
-        if (!mounted) return;
         _weather = weather;
       });
     } catch (e) {
+      if (!_fetchDataCompleter.isCompleted) {
+        _fetchDataCompleter.completeError(e);
+      }
       print(e);
     }
   }

@@ -1,16 +1,57 @@
-# urban_harvest
+# Urban Harvest
 
-A new Flutter project.
+## Setting up the project
 
-## Getting Started
+### Setting up on cloud
 
-This project is a starting point for a Flutter application.
+1. Create a new Google Cloud/Firebase project.
+2. Enable Authentication and Firestore APIs.
+3. Enable Google Sign in and Email SSO in Authentication.
+4. Setup the firestore Database Collections with names "Users", "Location" and "Trades"
+5. Enable the Google Maps API and save the API key for later
 
-A few resources to get you started if this is your first Flutter project:
+The final Database structure will look like this
+```
+Users
+|----- User1 => {displayName: "Username", "Plants": [array of plants]}
+|----- User2
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Locations
+|----- Country
+          |
+          | ----- CityName => [array of geopoints]
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Trades
+|----- TradeID => {Information}
+```
+
+## Setting up locally
+
+<b>Install the required command line tools</b>
+
+Log into Firebase using your Google account by running the following command:
+
+`firebase login`
+
+Install the FlutterFire CLI by running the following command from any directory:
+
+`dart pub global activate flutterfire_cli`
+
+<b>Configure your apps to use Firebase</b>
+
+
+From your Flutter project directory, run the following command to start the app configuration workflow
+Select the Project which you have setup for this application.
+
+`flutterfire configure`
+
+Re-running the command ensures that your Flutter app's Firebase configuration is up-to-date and automatically adds any required Gradle plugins to your app.
+
+<b> Google MAPS API</b>
+
+Create a secrets.properties file in android folder and make the contents like this
+
+`MAPS_API_KEY=YOUR_API_KEY`
+
+Replace API key with the API key from Google Cloud Platform
+

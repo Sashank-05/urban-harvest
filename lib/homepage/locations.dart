@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class _LocationPageState extends State<LocationPage> {
   List<Marker> _markers = [];
 
   List<Post> _posts = [];
+  bool _showMap = false; // Variable to control map visibility
 
   @override
   void initState() {
@@ -56,7 +58,7 @@ class _LocationPageState extends State<LocationPage> {
 
     if (country.isNotEmpty && city.isNotEmpty) {
       final countryDoc =
-          await _firestore.collection('Location').doc(country).get();
+      await _firestore.collection('Location').doc(country).get();
       if (countryDoc.exists) {
         final List<dynamic>? locations = countryDoc.data()?[city];
         if (locations != null) {
@@ -157,33 +159,56 @@ class _LocationPageState extends State<LocationPage> {
         centerTitle: true,
         backgroundColor: AppColors.backgroundColor,
         toolbarOpacity: 0,
+        leading: _showMap
+            ? IconButton(
+          icon: Icon(Icons.arrow_back,color: AppColors.secondaryColor,),
+          onPressed: () {
+            setState(() {
+              _showMap = false; // Set _showMap to false to go back
+            });
+          },
+        )
+            : null,
         title: const Text(
           "Locations",
           style: TextStyle(
             fontFamily: 'Montserrat',
+            color: AppColors.primaryColor
           ),
         ),
       ),
       body: Stack(
         children: [
-          GoogleMap(
-            initialCameraPosition: CameraPosition(
-              target: LatLng(
+          if (_showMap) // Show map only if _showMap is true
+            GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(
                   //_currentPosition!.latitude, _currentPosition!.longitude),
-                  12.91,
-                  77.723),
-              zoom: 12,
+                    12.91,
+                    77.723),
+                zoom: 12,
+              ),
+              onMapCreated: (controller) {
+                setState(() {
+                  _mapController = controller;
+                });
+              },
+              markers: Set<Marker>.of(_markers),
             ),
-            onMapCreated: (controller) {
-              setState(() {
-                _mapController = controller;
-              });
-            },
-            markers: Set<Marker>.of(_markers),
-          ),
-          if (_markers.isEmpty) // Show loading indicator if markers are empty
+          if (_markers.isEmpty && _showMap) // Show loading indicator if markers are empty and map is visible
             Center(
               child: CircularProgressIndicator(),
+            ),
+          if (!_showMap) // Show button if map is not visible
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _showMap = true; // Set _showMap to true when button is clicked
+                  });
+                },
+                child: Text('Show Map'),
+              ),
             ),
           Positioned(
             bottom: 16.0,

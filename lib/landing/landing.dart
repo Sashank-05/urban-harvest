@@ -121,12 +121,14 @@ class _PlantCardState extends State<PlantCard> {
   Widget build(BuildContext context) {
     String imgPath = imageDict[widget.plantName] ?? '';
 
-    return TextButton(
-      onPressed: () {
+    return GestureDetector(
+      onTap: () {
         for (var i in guideDict.keys) {
           if (i == widget.plantName) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => guideDict[i]!));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => guideDict[i]!),
+            );
           }
         }
       },
@@ -136,9 +138,10 @@ class _PlantCardState extends State<PlantCard> {
         height: 300,
         width: 300,
         decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFF2D6A4F), width: 3),
-            borderRadius: BorderRadius.circular(30),
-            color: const Color(0xFF1B4332)),
+          border: Border.all(color: const Color(0xFF2D6A4F), width: 3),
+          borderRadius: BorderRadius.circular(30),
+          color: const Color(0xFF1B4332),
+        ),
         child: Column(
           children: [
             Image.asset(
@@ -151,7 +154,9 @@ class _PlantCardState extends State<PlantCard> {
               child: Text(
                 widget.plantName,
                 style: GoogleFonts.montserrat(
-                    color: const Color(0xFFD8F3DC), fontSize: 17),
+                  color: const Color(0xFFD8F3DC),
+                  fontSize: 17,
+                ),
               ),
             ),
           ],
@@ -160,6 +165,7 @@ class _PlantCardState extends State<PlantCard> {
     );
   }
 }
+
 
 class categoryCard extends StatefulWidget {
   final String categoryName;

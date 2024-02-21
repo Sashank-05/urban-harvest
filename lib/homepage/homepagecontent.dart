@@ -44,7 +44,7 @@ class _HomePageContentState extends State<HomePageContent> {
     super.dispose();
   }
   String getWeatherAnimation(String? mainCondition){
-    if (mainCondition==null )return 'assets/img/homepage/weather_ani/sunny.json';
+    if (mainCondition==null )return 'assets/img/homepage/vis/sunny.json';
 
     switch(mainCondition.toLowerCase()){
       case 'clouds':return 'assets/img/homepage/vis/sunny_clouded.json';
@@ -85,7 +85,6 @@ class _HomePageContentState extends State<HomePageContent> {
       print(e);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -205,7 +204,7 @@ class _HomePageContentState extends State<HomePageContent> {
             ElevatedButton(
                 onPressed: () {
                   googleSignIn.disconnect();
-
+                  FirebaseAuth.instance.signOut();
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

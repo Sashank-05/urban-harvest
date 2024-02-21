@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 import 'package:urban_harvest/constant_colors.dart';
-import 'package:urban_harvest/login/login.dart';
+import 'package:urban_harvest/models/random.dart';
 import 'package:urban_harvest/models/wheather_model.dart';
 import 'package:urban_harvest/homepage/detect.dart';
 
@@ -14,6 +15,8 @@ final weatherService _weatherService =
 weatherService('18f721c26d5b14924ff362d01d237cde');
 Weather? _weather;
 
+RandomFact randomFact = RandomFact();
+String ss = randomFact.did;
 
 class HomePageContent extends StatefulWidget {
   final Weather? weather;
@@ -43,28 +46,7 @@ class _HomePageContentState extends State<HomePageContent> {
     }
     super.dispose();
   }
-  String getWeatherAnimation(String? mainCondition){
-    if (mainCondition==null )return 'assets/img/homepage/vis/sunny.json';
 
-    switch(mainCondition.toLowerCase()){
-      case 'clouds':return 'assets/img/homepage/vis/sunny_clouded.json';
-      case 'mist':return 'assets/img/homepage/vis/mist.json';
-      case 'smoke':return 'assets/img/homepage/vis/smoke.json';
-      case 'haze':return 'assets/img/homepage/vis/haze.json';
-      case 'dust':return 'assets/img/homepage/vis/dusty.json';
-      case 'fog':return 'assets/img/homepage/vis/fog.json';
-      case 'rain':return 'assets/img/homepage/vis/rain.json';
-      case 'drizzle':return 'assets/img/homepage/vis/sunny_drizzle.json';
-      case 'shower rain':return 'assets/img/homepage/vis/sunny_drizzle.json';
-      case 'thunderstorms':return 'assets/img/homepage/vis/thunderstorm.json';
-      case 'clear': return 'assets/img/homepage/vis/sunny.json';
-
-      default:
-        return 'assets/img/homepage/vis/sunny.json';
-
-    }
-
-  }
   _fetchWeather() async {
     String cityName = await _weatherService
         .getCurrentCity(); // Ensure this method exists and works as expected
@@ -90,61 +72,77 @@ class _HomePageContentState extends State<HomePageContent> {
   Widget build(BuildContext context) {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     return Scaffold(
-
       backgroundColor: AppColors.backgroundColor,
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  const SizedBox(height: 5),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    decoration: BoxDecoration(
-                      color: AppColors.secondaryColor,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: const TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search',
-                        border: InputBorder.none,
-                        prefixIcon: Icon(Icons.search),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Some Text',
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
+              decoration: BoxDecoration(
+                //color: AppColors.tertiaryColor,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                ' Hello User !!!!',
+                style: GoogleFonts.montserrat(
+                  fontSize: 22,
+                  color: Colors.white,
+                ),
               ),
             ),
             const SizedBox(height: 20),
             Container(
+              decoration: BoxDecoration(
+                color: AppColors.tertiaryColor,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Text(
+                '  Your plants  ',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 20),
+            // Horizontally scrollable boxes
+            SizedBox(
+              height: 140,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  _buildHorizontalBox('Box 1'),
+                  _buildHorizontalBox('Box 2'),
+                  _buildHorizontalBox('Box 3'),
+                  _buildHorizontalBox('Box 4'),
+                  _buildHorizontalBox('Box 5'),
+                  _buildHorizontalBox('Box 6'),
+
+                  // Add more boxes as needed
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 20),
+            Container(
               padding: const EdgeInsets.all(20),
-              child:
-              Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   // Weather box
                   Container(
+                    height: 118,
+                    width: 200,
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: AppColors.secondaryColor,
+                      color: AppColors.tertiaryColor,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,55 +168,93 @@ class _HomePageContentState extends State<HomePageContent> {
                                   color: Colors.white,
                                 ),
                               ),
-
-                            ]
-                        ),
-                        Lottie.asset(getWeatherAnimation(_weather?.mainCondition),height:100,width: 90),
-
-
-                      ],
-
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  // Horizontally scrollable boxes
-                  SizedBox(
-                    height: 120,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        _buildHorizontalBox('Box 1'),
-                        _buildHorizontalBox('Box 2'),
-                        _buildHorizontalBox('Box 3'),
-                        _buildHorizontalBox('Box 4'),
-                        _buildHorizontalBox('Box 5'),
-                        _buildHorizontalBox('Box 6'),
-
-                        // Add more boxes as needed
+                            ]),
+                        Lottie.asset(
+                            getWeatherAnimation(_weather?.mainCondition),
+                            height: 100,
+                            width: 90),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  googleSignIn.disconnect();
-                  FirebaseAuth.instance.signOut();
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginPage()));
-                },
-                child: const Text("test sign out")),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => InferencePage()));
-                },
-                child: const Text("test disease detection"))
+
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 200,
+                    width: 180,
+                    child: InkWell(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.tertiaryColor,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(6.0),
+                                    child: Text(
+                                      'Did you know',
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ),
+                                  Lottie.asset(
+                                      'assets/img/homepage/vis/question.json',
+                                      height: 30,
+                                      width: 30),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  ss,
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        onTap: () {}),
+                  ),
+                  SizedBox(
+                    height: 200,
+                    width: 180,
+                    child: InkWell(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.tertiaryColor,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('test disease detection'),
+                            ],
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => InferencePage()));
+                        }),
+                  ),
+                ]),
           ],
         ),
       ),
@@ -244,5 +280,38 @@ class _HomePageContentState extends State<HomePageContent> {
         ),
       ),
     );
+  }
+}
+
+String getWeatherAnimation(String? mainCondition) {
+  if (mainCondition == null)
+    return 'assets/img/homepage/weather_ani/sunny.json';
+
+  switch (mainCondition.toLowerCase()) {
+    case 'clouds':
+      return 'assets/img/homepage/vis/sunny_clouded.json';
+    case 'mist':
+      return 'assets/img/homepage/vis/mist.json';
+    case 'smoke':
+      return 'assets/img/homepage/vis/smoke.json';
+    case 'haze':
+      return 'assets/img/homepage/vis/haze.json';
+    case 'dust':
+      return 'assets/img/homepage/vis/dusty.json';
+    case 'fog':
+      return 'assets/img/homepage/vis/fog.json';
+    case 'rain':
+      return 'assets/img/homepage/vis/rain.json';
+    case 'drizzle':
+      return 'assets/img/homepage/vis/sunny_drizzle.json';
+    case 'shower rain':
+      return 'assets/img/homepage/vis/sunny_drizzle.json';
+    case 'thunderstorms':
+      return 'assets/img/homepage/vis/thunderstorm.json';
+    case 'clear':
+      return 'assets/img/homepage/vis/sunny.json';
+
+    default:
+      return 'assets/img/homepage/vis/sunny.json';
   }
 }

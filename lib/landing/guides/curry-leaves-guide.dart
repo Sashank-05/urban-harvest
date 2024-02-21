@@ -37,22 +37,22 @@ Widget _buildListItem(String heading, String text) {
   );
 }
 
-class CabbageGuide extends StatefulWidget {
-  const CabbageGuide({super.key});
+class CurryLeavesGuide extends StatefulWidget {
+  const CurryLeavesGuide({super.key});
 
   @override
-  State<CabbageGuide> createState() => _CabbageGuideState();
+  State<CurryLeavesGuide> createState() => _CurryLeavesGuideState();
 }
-class _CabbageGuideState extends State<CabbageGuide> {
-  late YoutubePlayerController _controllerCabbageChoose;
+class _CurryLeavesGuideState extends State<CurryLeavesGuide> {
+  late YoutubePlayerController _controllerCurryLeavesChoose;
   late YoutubePlayerController _controllerPottingMix;
   late YoutubePlayerController _controllerWateringCan;
   @override
   void initState(){
-    final CabbageChooseId = YoutubePlayer.convertUrlToId(
-        "https://www.youtube.com/watch?v=jlidUsEzID4");
-    _controllerCabbageChoose = YoutubePlayerController(
-        initialVideoId: CabbageChooseId!,
+    final CurryLeavesChooseId = YoutubePlayer.convertUrlToId(
+        "https://www.youtube.com/watch?v=P3R5y5qFh0A&t=2s");
+    _controllerCurryLeavesChoose = YoutubePlayerController(
+        initialVideoId: CurryLeavesChooseId!,
         flags: const YoutubePlayerFlags(autoPlay: false));
     final PottingMixId = YoutubePlayer.convertUrlToId("https://www.youtube.com/watch?v=t3kx5PhCJU8");
     _controllerPottingMix = YoutubePlayerController(
@@ -85,7 +85,7 @@ class _CabbageGuideState extends State<CabbageGuide> {
             padding: const EdgeInsets.only(right: 50.0, bottom: 40, top: 50),
             child: Center(
               child: Text(
-                'Guide to growing Cabbage',
+                'Guide to growing Curry Leaves',
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -116,15 +116,15 @@ class _CabbageGuideState extends State<CabbageGuide> {
                 Container(
                   margin: const EdgeInsets.only(top: 10),
                   padding:
-                      const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildListItem('Cabbage Seeds',
-                            'Choose high-quality cabbage seeds from a reputable supplier.'),
+                        _buildListItem('Curry Leaves Seeds',
+                            'Choose high-quality curry leaves seeds from a reputable supplier or from a mature fruit.'),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
@@ -133,14 +133,14 @@ class _CabbageGuideState extends State<CabbageGuide> {
                                   fontSize: 15, color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
-                          controller: _controllerCabbageChoose,
+                          controller: _controllerCurryLeavesChoose,
                           showVideoProgressIndicator: true,
                         )
                       ]),
                 ),
                 Container(
                   padding:
-                      const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -149,7 +149,7 @@ class _CabbageGuideState extends State<CabbageGuide> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildListItem('Pot or Container',
-                            'Select deep containers or pots with drainage holes for planting cabbage seedlings.'),
+                            'Choose a pot or container that is at least 12 inches in diameter and has drainage holes at the bottom.'),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Refer to the following image:',
@@ -162,7 +162,7 @@ class _CabbageGuideState extends State<CabbageGuide> {
                 ),
                 Container(
                   padding:
-                      const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -171,7 +171,7 @@ class _CabbageGuideState extends State<CabbageGuide> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildListItem('Potting Mix',
-                            'Use well-draining potting soil suitable for cabbage.'),
+                            ' Use well-draining, nutrient-rich potting soil.'),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
@@ -186,7 +186,7 @@ class _CabbageGuideState extends State<CabbageGuide> {
                 ),
                 Container(
                   padding:
-                      const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -212,7 +212,7 @@ class _CabbageGuideState extends State<CabbageGuide> {
                 ),
                 Container(
                   padding:
-                      const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -221,7 +221,7 @@ class _CabbageGuideState extends State<CabbageGuide> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildListItem('Sunlight',
-                            'Ensure access to adequate sunlight or artificial grow lights.'),
+                      'Curry leaf plants require plenty of sunlight, so ensure they receive at least 6-8 hours of sunlight daily.'),
                       ]),
                 ),
               ],
@@ -260,10 +260,10 @@ class _SettingUpState extends State<SettingUp> {
   late YoutubePlayerController _controllerCabbageSetup;
   @override
   void initState() {
-    final CabbageSetupId = YoutubePlayer.convertUrlToId(
-        "https://www.youtube.com/watch?v=DG-KeAukx7s");
+    final CurryLeavesSetupId = YoutubePlayer.convertUrlToId(
+        "https://www.youtube.com/watch?v=bFK6sQhZRYE&t=4s");
     _controllerCabbageSetup = YoutubePlayerController(
-        initialVideoId: CabbageSetupId!,
+        initialVideoId: CurryLeavesSetupId!,
         flags: const YoutubePlayerFlags(autoPlay: false));
     super.initState();
   }
@@ -288,7 +288,7 @@ class _SettingUpState extends State<SettingUp> {
             padding: const EdgeInsets.only(right: 50.0, bottom: 40, top: 50),
             child: Center(
               child: Text(
-                'Setting up your Cabbage plant',
+                'Setting up your CurryLeaves plant',
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -359,12 +359,12 @@ class _SettingUpState extends State<SettingUp> {
                               fontSize: 16,
                               color: const Color(0xFFD8F3DC)),
                         ),
-                        _buildListItem('Start Early',
-                            'Start cabbage seeds indoors 6-8 weeks before the last frost date in your area.'),
-                        _buildListItem('Fill the seed trays',
-                            'Fill seed trays or small containers with potting mix, moisten the soil, and plant cabbage seeds about ¼ inch deep.'),
-                        _buildListItem('Place the seed trays in a suitable location',
-                            'Place the seed trays in a warm, well-lit location, ensuring consistent moisture levels until germination occurs (typically within 7-10 days).'),
+                        _buildListItem('Choose a Suitable Location',
+                            'Select a location for your curry leaf plant that receives plenty of sunlight throughout the day.'),
+                        _buildListItem('Prepare the Pot or Container',
+                            ' Fill the pot or container with well-draining potting soil, leaving about an inch of space at the top.'),
+                        _buildListItem('Planting the Seeds or Seedlings',
+                            'If using seeds, plant them about 1/2 to 1 inch deep in the soil. Water the soil lightly after planting.'),
                       ]),
                 ),
                 Container(
@@ -384,12 +384,8 @@ class _SettingUpState extends State<SettingUp> {
                               fontSize: 16,
                               color: const Color(0xFFD8F3DC)),
                         ),
-                        _buildListItem('Ready for transplanting',
-                            'Once the cabbage seedlings develop 2-4 true leaves, they are ready for transplanting into individual containers.'),
-                        _buildListItem('Choosing containers',
-                            'Choose sturdy, well-draining containers with ample space for root development.'),
                         _buildListItem('Carefully transplant',
-                            'Carefully transplant the seedlings into the containers, ensuring that the soil level matches the level of the seedlings roots.'),
+                            'If using seedlings, gently transplant them into the prepared pot, ensuring the roots are covered with soil.'),
                       ]),
                 ),
                 Container(
@@ -411,8 +407,8 @@ class _SettingUpState extends State<SettingUp> {
                         ),
                         _buildListItem('Sunny Location',
                             'Place the containers in a sunny location with at least 6-8 hours of direct sunlight per day. If natural light is insufficient, supplement with grow lights to ensure optimal growth.'),
-                        _buildListItem('Consistent Temperatures',
-                            'Maintain consistent temperatures between 60-75°F (15-24°C) to encourage robust growth and development.'),
+                        _buildListItem('Protection from Frost',
+                            'If you live in a region with frosty winters, bring your curry leaf plant indoors or provide protection during cold weather to prevent frost damage.'),
                       ]),
                 ),
                 Container(
@@ -433,9 +429,9 @@ class _SettingUpState extends State<SettingUp> {
                               color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Evenly Moist soil',
-                            'Keep the soil evenly moist but not waterlogged. Water the cabbage plants whenever the top inch of soil feels dry to the touch.'),
-                        _buildListItem('Avoid Overhead watering',
-                            'Avoid overhead watering, as it can increase the risk of fungal diseases. Instead, water at the base of the plants to prevent moisture-related issues.'),
+                            'Water the curry leaf plant regularly, keeping the soil consistently moist but not waterlogged. Allow the top inch of soil to dry out between waterings.'),
+                        _buildListItem('Watering Frequency',
+                            'Adjust the frequency of watering based on environmental conditions such as temperature and humidity.'),
                       ]),
                 ),
                 Container(
@@ -455,8 +451,9 @@ class _SettingUpState extends State<SettingUp> {
                               fontSize: 16,
                               color: const Color(0xFFD8F3DC)),
                         ),
-                        _buildListItem('Monitor the cabbage',
-                            'Monitor the cabbage plants regularly for signs of pests such as aphids, cabbage loopers, and cabbage worms. Use organic pest control methods or insecticidal soap to manage pest infestations.'),
+                        _buildListItem('Monitor the curry leaves plant',
+                            'Monitor your curry leaf plant for pests such as aphids, scale insects, or mites. '),
+                        _buildListItem('Treatment and Prevention', ' Treat any infestations promptly with insecticidal soap or neem oil.Ensure good air circulation around the plant to prevent fungal diseases.'),
                       ]),
                 ),
                 Container(
@@ -470,16 +467,14 @@ class _SettingUpState extends State<SettingUp> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Temperature & Humidity',
+                          'Fertilizing',
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                               color: const Color(0xFFD8F3DC)),
                         ),
-                        _buildListItem('Prevent Stress',
-                            'Aloe vera prefers temperatures between 60°F to 80°F (15°C to 27°C). Keep the plant away from drafts or extreme temperature fluctuations, as they can stress the plant. Aloe vera is tolerant of low humidity levels but benefits from occasional misting during dry periods.'),
-                        _buildListItem('Good gardening hygiene',
-                            'Practice good garden hygiene by removing debris and fallen leaves to reduce the risk of fungal diseases.'),
+                        _buildListItem('Application of Fertilizer',
+                            'Apply a balanced, slow-release fertilizer to the soil every 4-6 weeks during the growing season (spring and summer).'),
                       ]),
                 ),
                 Container(
@@ -499,10 +494,10 @@ class _SettingUpState extends State<SettingUp> {
                               fontSize: 16,
                               color: const Color(0xFFD8F3DC)),
                         ),
-                        _buildListItem('Full size',
-                            'Cabbage heads are ready for harvest when they reach their full size and feel firm to the touch.'),
-                        _buildListItem('Sharp knife',
-                            'Use a sharp knife to cut the cabbage heads at the base of the plant, leaving a few outer leaves intact to protect the inner leaves.'),
+                        _buildListItem('When to harvest',
+                            'Once your curry leaf plant is well-established (usually after 6-12 months), you can start harvesting leaves for culinary use'),
+                        _buildListItem('Snip the leaves from the stem',
+                            'Harvest leaves as needed by snipping them from the stems. Avoid removing more than one-third of the plants foliage at a time to ensure continued growth.'),
                       ]),
                 ),
               ],
@@ -605,8 +600,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                               fontSize: 16,
                               color: const Color(0xFFD8F3DC)),
                         ),
-                        _buildListItem('Keep soil consistenly moist',
-                            'Keep the soil consistently moist throughout the cabbage growing season. Cabbage plants require adequate moisture to support healthy growth and development.'),
+                        _buildListItem('Keep soil consistently moist',
+                            'Check the soil moisture regularly by inserting your finger into the soil. If the top inch of soil feels dry to the touch, its time to water.'),
                       ]),
                 ),
                 Container(
@@ -626,8 +621,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                               fontSize: 16,
                               color: const Color(0xFFD8F3DC)),
                         ),
-                        _buildListItem('Regularly water',
-                            'Water the cabbage plants regularly, ensuring that the soil remains evenly moist but not waterlogged. Aim to water the plants whenever the top inch of soil feels dry to the touch.'),
+                        _buildListItem('Adjust watering frequency as per weather ',
+                            'Adjust the frequency of watering based on environmental conditions such as temperature and humidity.During hot, dry weather, you may need to water more frequently to prevent the soil from drying out completely.'),
                       ]),
                 ),
                 Container(
@@ -648,7 +643,7 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                               color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Watering can or spray nozzle',
-                            'Use a watering can or a gentle spray nozzle to water the cabbage plants at the base, near the soil surface. Avoid overhead watering, as it can increase the risk of fungal diseases and foliage damage.'),
+                            'Use a watering can or a gentle spray nozzle to water the curry leaves plants at the base, near the soil surface. Always water the soil directly at the base of the plant to avoid wetting the foliage excessively, which can increase the risk of fungal diseases.'),
                       ]),
                 ),
                 Container(
@@ -669,7 +664,7 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                               color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Proper Drainage holes',
-                            'Ensure that the containers or pots have proper drainage holes to allow excess water to escape. Poor drainage can lead to waterlogging, which may cause root rot and other moisture-related issues.'),
+                            'Ensure that the containers or pots have proper drainage holes to allow excess water to escape. Poor drainage can lead to water logging, which may cause root rot and other moisture-related issues.'),
                       ]),
                 ),
                 Container(
@@ -690,7 +685,7 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                               color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Consistent watering schedule',
-                            'Maintain a consistent watering schedule, especially during hot, dry periods or when the cabbage plants are actively growing. Consistent moisture levels help prevent stress and ensure optimal plant health.'),
+                            'Maintain a consistent watering schedule. Consistent moisture levels help prevent stress and ensure optimal plant health.'),
                       ]),
                 ),
                 Container(
@@ -711,28 +706,7 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                               color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Root rot',
-                            'While its essential to keep the soil consistently moist, avoid overwatering the cabbage plants. Soggy, waterlogged soil can lead to root rot and other moisture-related problems. Always check the soil moisture level before watering and adjust as needed.'),
-                      ]),
-                ),
-                Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: const EdgeInsets.only(top: 10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: const Color(0xFF2D6A4F)),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Mulching(Optional)',
-                          style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: const Color(0xFFD8F3DC)),
-                        ),
-                        _buildListItem('Apply layer of organic mulch',
-                            'Consider applying a layer of organic mulch, such as straw or compost, around the base of the cabbage plants. Mulch helps retain soil moisture, reduces water evaporation, and suppresses weed growth.'),
+                            'While its essential to keep the soil consistently moist, avoid overwatering the curry leaves plants. Soggy, waterlogged soil can lead to root rot and other moisture-related problems. Always check the soil moisture level before watering and adjust as needed.'),
                       ]),
                 ),
               ],

@@ -6,6 +6,8 @@ import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as imglib;
 import 'package:image_picker/image_picker.dart';
 
+import '../constant_colors.dart';
+
 class InferencePage extends StatefulWidget {
   @override
   _InferencePageState createState() => _InferencePageState();
@@ -83,7 +85,7 @@ class _InferencePageState extends State<InferencePage> {
 
       // Update UI or state
       setState(() {
-        _result = 'Predicted class: $predictedClass';
+        _result = 'Predicted plant condition: $predictedClass';
       });
     } catch (e) {
       // Handle any errors
@@ -105,23 +107,46 @@ class _InferencePageState extends State<InferencePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Inference Page'),
+      backgroundColor: AppColors.backgroundColor,
+      appBar: AppBar( backgroundColor: AppColors.backgroundColor2,
+        leading: IconButton(
+          icon: Padding(
+              padding: EdgeInsets.only(top: 15), child: Icon(Icons.arrow_back)),
+          color: Color(0xFFD8F3DC),
+          iconSize: 25,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text('Detect Dieases ', style: TextStyle(
+        fontFamily: 'Montserrat',
+        color: AppColors.primaryColor),
+       ),
       ),
-      body: Center(
+    body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () => _pickImage(ImageSource.camera),
-              child: Text('Take a Picture'),
+          children: <Widget>[
+            const Padding(
+              padding: EdgeInsets.only(bottom: 40.0,left: 20,right: 20),
+              child: Text(
+                'Know what is Ailing your Plant with a Click!',
+                style: TextStyle(
+                    color: AppColors.textColorDark,
+                    fontFamily: 'Montserrat',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
-            ElevatedButton(
-              onPressed: () => _pickImage(ImageSource.gallery),
-              child: Text('Pick an Image from Gallery'),
-            ),
+            SizedBox(height: 40),
+            ElevatedButton.icon(onPressed: () => _pickImage(ImageSource.camera), icon:Image.asset('assets/img/camera.png',width: 40,height: 40,), label: Text('Take a Picture',style: TextStyle(color: AppColors.textColorDark,fontFamily: 'Montserrat'),),style: ElevatedButton.styleFrom(backgroundColor: AppColors.tertiaryColor2,fixedSize: const Size(350, 50)),)
+    ,
             SizedBox(height: 20),
-            Text(_result),
+
+            ElevatedButton.icon(onPressed: () => _pickImage(ImageSource.gallery), icon:Image.asset('assets/img/gallery.png',width: 40,height: 40,), label: Text('Pick an Image from Gallery',style: TextStyle(color: AppColors.textColorDark,fontFamily: 'Montserrat'),),style: ElevatedButton.styleFrom(backgroundColor: AppColors.tertiaryColor2,fixedSize: const Size(350, 50)),)
+            ,
+            SizedBox(height: 20),
+            Text(_result,style: TextStyle(color: AppColors.textColorDark),textAlign: TextAlign.center,),
           ],
         ),
       ),

@@ -15,7 +15,7 @@ import './guides/mint-guide.dart';
 import './guides/rose-guide.dart';
 import './guides/sunflower-guide.dart';
 import './guides/tomato-guide.dart';
-import './guides/tropical-leaves-guide.dart';
+import './guides/curry-leaves-guide.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});

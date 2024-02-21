@@ -55,3 +55,5 @@ Create a secrets.properties file in android folder and make the contents like th
 
 Replace API key with the API key from Google Cloud Platform
 
+### You might have to run install.bat to install the required tensorflow Lite binaries
+

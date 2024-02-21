@@ -285,7 +285,7 @@ class _HomePageContentState extends State<HomePageContent> {
 
 String getWeatherAnimation(String? mainCondition) {
   if (mainCondition == null)
-    return 'assets/img/homepage/weather_ani/sunny.json';
+    return 'assets/img/homepage/vis/sunny.json';
 
   switch (mainCondition.toLowerCase()) {
     case 'clouds':

@@ -9,6 +9,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:urban_harvest/login/sign_up.dart';
 
+import '../homepage/homepage.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -137,7 +139,8 @@ class _LoginFormState extends State<LoginForm> {
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
                 ),
-                contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: 15, vertical: 15),
                 suffixIcon: IconButton(
                   icon: Icon(Icons.visibility),
                   onPressed: () {
@@ -262,6 +265,7 @@ class _LoginFormState extends State<LoginForm> {
       }
       _showErrorSnackbar(errorMessage);
     }
+    _navigateToNextPage();
   }
 
   Future<void> _handleSignIn() async {
@@ -276,23 +280,44 @@ class _LoginFormState extends State<LoginForm> {
       );
 
       await FirebaseAuth.instance.signInWithCredential(credential);
-
-      if (!mounted) return;
-      await FirebaseFirestore.instance
+      FirebaseFirestore.instance
           .collection('Users')
-          .doc(googleUser.id)
+          .doc(FirebaseAuth.instance.currentUser?.uid)
           .set(
           {'displayName': googleUser.displayName}, SetOptions(merge: true));
+
+      if (!mounted) return;
+
 
       if (kDebugMode) {
         print('Logged in as: ${googleUser.email}');
       }
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage1()),
-      );
+      _navigateToNextPage();
     } catch (error) {
       _showErrorSnackbar('Error signing in with Google: $error');
     }
+  }
+
+  void _navigateToNextPage() {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    DocumentReference userDocRef =
+    FirebaseFirestore.instance.collection('Users').doc(userId);
+
+    userDocRef.get().then((doc) {
+      if (doc.exists) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        if (!data.containsKey('plants')) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginPage1()),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomePage()),
+          );
+        }
+      }
+    });
   }
 }

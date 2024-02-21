@@ -56,7 +56,7 @@ flutter:
     - assets/img/landing/greens/
     - assets/img/agriculture.jpg
 
-
+    - assets/img/homepage/profile/user.png
     - android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 
     - assets/classes.txt

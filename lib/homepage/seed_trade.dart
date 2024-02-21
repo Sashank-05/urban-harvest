@@ -44,8 +44,8 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
         title: Text(
-          "Trade Seeds",
-          style: TextStyle(color: AppColors.primaryColor),
+          "Trade",
+          style: TextStyle(color: AppColors.primaryColor, fontFamily: 'Montserrat', ),
         ),
         actions: [
           IconButton(

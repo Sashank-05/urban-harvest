@@ -50,13 +50,18 @@ flutter:
   uses-material-design: true
   assets:
     - assets/img/search.png
+    - assets/img/homepage/vis/
 
     - assets/img/landing/vegetables/
     - assets/img/landing/flowers/
     - assets/img/landing/greens/
     - assets/img/agriculture.jpg
+
     - assets/img/camera.png
     - assets/img/gallery.png
+
+
+    - assets/img/homepage/profile/user.png
 
     - android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
 

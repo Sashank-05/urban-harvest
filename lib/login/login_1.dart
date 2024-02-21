@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:urban_harvest/landing/landing.dart';
+import 'package:urban_harvest/landing/selectable_landing.dart';
 
 class LoginPage1 extends StatefulWidget {
   const LoginPage1({Key? key}) : super(key: key);
@@ -121,7 +122,14 @@ class _LoginPage1State extends State<LoginPage1> {
                     height: 60, // Set the height for both buttons
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        listFarm();
+                        if (!mounted) return;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SelectableLandingPage(),
+                          ),
+                        );
+
                         if (kDebugMode) {
                           print('Button pressed');
                         }

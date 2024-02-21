@@ -3,7 +3,7 @@ import 'package:urban_harvest/constant_colors.dart';
 import 'package:urban_harvest/homepage/homepagecontent.dart';
 import 'package:urban_harvest/homepage/locations.dart';
 import 'package:urban_harvest/homepage/seed_trade.dart';
-
+import 'package:urban_harvest/homepage/profile.dart';
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -17,7 +17,9 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     const HomePageContent(),
     const SeedTradeContent(),
-    const LocationPage()
+    const LocationPage(),
+    ProfilePage()
+
   ];
 
   @override
@@ -32,6 +34,7 @@ class _HomePageState extends State<HomePage> {
           style: TextStyle(
             fontFamily: 'Montserrat',
             fontWeight: FontWeight.bold,
+            fontSize: 24,
             color: AppColors.primaryColor,
           ),
         ),
@@ -47,7 +50,7 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.local_florist),
-            label: 'Trade Seeds',
+            label: 'Trade',
             backgroundColor: AppColors.backgroundColor2,
           ),
           BottomNavigationBarItem(
@@ -65,7 +68,13 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: AppColors.tertiaryColor,
         currentIndex: _selectedIndex,
         onTap: (int index) {
-          if (!mounted) return;
+          if (!mounted) {
+            return;
+          } else {
+
+           // dispose();
+
+          }
           setState(() {
             _selectedIndex = index;
           });
@@ -73,4 +82,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 }
+
+

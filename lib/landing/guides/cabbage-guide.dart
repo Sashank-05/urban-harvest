@@ -171,7 +171,8 @@ class _CabbageGuideState extends State<CabbageGuide> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildListItem('Potting Mix',
-                            'Use well-draining potting soil suitable for cabbage.'),
+                            'Use well-draining potting soil suitable for cabbages.'),
+
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
@@ -291,7 +292,7 @@ class _SettingUpState extends State<SettingUp> {
                 'Setting up your Cabbage plant',
                 style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    fontSize: 17,
                     color: const Color(0xFFD8F3DC)),
               ),
             ),

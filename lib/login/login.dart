@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -7,6 +8,8 @@ import 'package:urban_harvest/login/login_1.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:urban_harvest/login/sign_up.dart';
+
+import '../homepage/homepage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,6 +62,15 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  late bool _obscureText = true;
+
+  void _showErrorSnackbar(String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      duration: Duration(seconds: 3),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,43 +106,54 @@ class _LoginFormState extends State<LoginForm> {
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                     borderSide:
-                        const BorderSide(color: Color(0xFF40916c), width: 2)),
+                    const BorderSide(color: Color(0xFF40916c), width: 2)),
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                     borderSide:
-                        const BorderSide(color: Color(0xFF40916c), width: 2)),
+                    const BorderSide(color: Color(0xFF40916c), width: 2)),
                 labelText: 'Email',
                 labelStyle: const TextStyle(
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
                 ),
                 contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20)),
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 20)),
             cursorColor: const Color(0xFF40916c),
           ),
           const SizedBox(height: 16.0),
+
           TextField(
-            style: const TextStyle(color: AppColors.textColorDark),
+            style: TextStyle(color: AppColors.textColorDark),
             controller: _passwordController,
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
-                    borderSide:
-                        const BorderSide(color: Color(0xFF40916c), width: 2)),
+                    borderSide: BorderSide(color: Color(0xFF40916c), width: 2)
+                ),
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
-                    borderSide:
-                        const BorderSide(color: Color(0xFF40916c), width: 2)),
+                    borderSide: BorderSide(color: Color(0xFF40916c), width: 2)
+                ),
                 labelText: 'Password',
-                labelStyle: const TextStyle(
+                labelStyle: TextStyle(
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
                 ),
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15)),
-            cursorColor: const Color(0xFF40916c),
-            obscureText: true,
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: 15, vertical: 15),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.visibility),
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
+                )
+            ),
+            cursorColor: Color(0xFF40916c),
+            obscureText: _obscureText,
           ),
+
           Row(
             children: [
               TextButton(
@@ -178,7 +201,7 @@ class _LoginFormState extends State<LoginForm> {
             label: const Text(
               'Login with Google',
               style:
-                  TextStyle(fontFamily: 'Montserrat', color: Color(0xFF081C15)),
+              TextStyle(fontFamily: 'Montserrat', color: Color(0xFF081C15)),
             ),
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white, fixedSize: const Size(300, 50)),
@@ -202,7 +225,7 @@ class _LoginFormState extends State<LoginForm> {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => const SignUpPage()),
-                  (route) => false,
+                      (route) => false,
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -229,42 +252,27 @@ class _LoginFormState extends State<LoginForm> {
     final String password = _passwordController.text.trim();
 
     try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
     } on FirebaseAuthException catch (e) {
+      String errorMessage = '$e';
       if (e.code == 'user-not-found') {
-        if (kDebugMode) {
-          print('No user found for that email.');
-        }
+        errorMessage = 'No user found for that email.';
       } else if (e.code == 'wrong-password') {
-        if (kDebugMode) {
-          print('Wrong password provided for that user.');
-        }
+        errorMessage = 'Wrong password provided for that user.';
       }
+      _showErrorSnackbar(errorMessage);
     }
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        if (kDebugMode) {
-          print('User is currently signed out!');
-        }
-      } else {
-        if (kDebugMode) {
-          print('User is signed in!');
-        }
-        if (!mounted) return;
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginPage1()),
-        );
-      }
-    });
+    _navigateToNextPage();
   }
 
   Future<void> _handleSignIn() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleUser!.authentication;
+      await googleUser!.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
@@ -272,20 +280,44 @@ class _LoginFormState extends State<LoginForm> {
       );
 
       await FirebaseAuth.instance.signInWithCredential(credential);
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .set(
+          {'displayName': googleUser.displayName}, SetOptions(merge: true));
 
       if (!mounted) return;
+
 
       if (kDebugMode) {
         print('Logged in as: ${googleUser.email}');
       }
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage1()),
-      );
+      _navigateToNextPage();
     } catch (error) {
-      if (kDebugMode) {
-        print('Error signing in with Google: $error');
-      }
+      _showErrorSnackbar('Error signing in with Google: $error');
     }
+  }
+
+  void _navigateToNextPage() {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    DocumentReference userDocRef =
+    FirebaseFirestore.instance.collection('Users').doc(userId);
+
+    userDocRef.get().then((doc) {
+      if (doc.exists) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        if (!data.containsKey('plants')) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginPage1()),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomePage()),
+          );
+        }
+      }
+    });
   }
 }

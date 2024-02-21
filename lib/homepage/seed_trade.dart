@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import '../constant_colors.dart';
+import 'addtrade.dart';
 
 class SeedTradeContent extends StatefulWidget {
   const SeedTradeContent({Key? key});
@@ -27,6 +28,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
     _tradesStream = _firestore.collection('Trades').snapshots();
     print(_currentUser);
   }
+
   @override
   void dispose() {
     //.cancel(); // Cancel the subscription
@@ -50,7 +52,10 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
         backgroundColor: AppColors.backgroundColor,
         title: Text(
           "Trade",
-          style: TextStyle(color: AppColors.primaryColor, fontFamily: 'Montserrat', ),
+          style: TextStyle(
+            color: AppColors.primaryColor,
+            fontFamily: 'Montserrat',
+          ),
         ),
         actions: [
           IconButton(
@@ -95,7 +100,10 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Implement navigation to create trade page
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddTradePage()),
+          );
         },
         child: const Icon(Icons.add),
         backgroundColor: AppColors.primaryColor,
@@ -112,30 +120,36 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
       final tradeItems = trade.get('tradeItem') as List<dynamic>;
       final address = _convertLatLonToAddress(location); // Optional conversion
 
-      return GestureDetector(
-        onTap: () {
-          // Navigate to trade details page
-          _navigateToTradeDetailsPage(context, trade);
-        },
-        child: _buildTradeBox(
-          itemName,
-          tradeItems[0] as String, // Assuming first item is trade type
-          tradeItems[1] as String, // Assuming second item is trade value
-          imageUrl: imageUrl,
-          address: address,
+      return Padding( // Add Padding widget here
+        padding: EdgeInsets.symmetric(vertical: 8), // Adjust the vertical spacing as needed
+        child: GestureDetector(
+          onTap: () {
+            // Navigate to trade details page
+            _navigateToTradeDetailsPage(context, trade);
+          },
+          child: _buildTradeBox(
+            itemName,
+            tradeItems[0] as String, // Assuming first item is trade type
+            tradeItems[1] as String, // Assuming second item is trade value
+            imageUrl: imageUrl,
+            address: address,
+          ),
         ),
       );
     }).toList();
   }
 
+
   Widget _buildTradeBox(
-      String seedName,
-      String tradeType,
-      String tradeValue, {
-        String? imageUrl,
-        String? address,
-      }) {
-    return Container(
+    String seedName,
+    String tradeType,
+    String tradeValue, {
+    String? imageUrl,
+    String? address,
+  }) {
+    return SizedBox(
+
+        child: Container(
       width: MediaQuery.of(context).size.width * 0.9,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -200,13 +214,11 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
           ),
         ],
       ),
-    );
+    ));
   }
 
-  // Optional: Implement this function to convert GeoPoint to address
   String? _convertLatLonToAddress(GeoPoint location) {
     // TODO: Implement address conversion logic here
-    // You can use geocoding services or libraries for this
     return null;
   }
 
@@ -216,8 +228,10 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
     trades.sort((a, b) {
       final aLocation = a['location'] as GeoPoint;
       final bLocation = b['location'] as GeoPoint;
-      final aDistance = _calculateDistance(aLocation.latitude, aLocation.longitude);
-      final bDistance = _calculateDistance(bLocation.latitude, bLocation.longitude);
+      final aDistance =
+          _calculateDistance(aLocation.latitude, aLocation.longitude);
+      final bDistance =
+          _calculateDistance(bLocation.latitude, bLocation.longitude);
       return aDistance.compareTo(bDistance);
     });
     return trades;
@@ -245,7 +259,8 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
     return degrees * (pi / 180);
   }
 
-  void _navigateToTradeDetailsPage(BuildContext context, QueryDocumentSnapshot trade) {
+  void _navigateToTradeDetailsPage(
+      BuildContext context, QueryDocumentSnapshot trade) {
     Navigator.push(
       context,
       MaterialPageRoute(

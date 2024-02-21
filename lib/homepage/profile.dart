@@ -12,7 +12,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  bool _isLocationSharingEnabled = true; // Placeholder for location sharing state
+  bool _isLocationSharingEnabled =
+      true; // Placeholder for location sharing state
   String _displayName = ''; // Placeholder for displayName
 
   @override
@@ -24,7 +25,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _loadDisplayName() async {
     try {
       final User? user = FirebaseAuth.instance.currentUser;
-      final userData = await FirebaseFirestore.instance.collection('Users').doc(user!.uid).get();
+      final userData = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(user!.uid)
+          .get();
       setState(() {
         _displayName = userData['displayName'];
       });
@@ -46,8 +50,18 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _deleteAccount() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
+
       await user?.delete();
-      // Optionally, you can also delete user data from Firestore or other databases here.
+      DocumentReference documentReference =
+          FirebaseFirestore.instance.collection('Users').doc(user?.uid);
+
+      // Call the delete method to delete the document
+      documentReference.delete().then((value) {
+        print('Document deleted successfully');
+      }).catchError((error) {
+        print('Failed to delete document: $error');
+      });
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -76,7 +90,8 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ),
-      body: SingleChildScrollView( // Wrap with SingleChildScrollView to avoid overflow
+      body: SingleChildScrollView(
+        // Wrap with SingleChildScrollView to avoid overflow
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -98,7 +113,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 margin: const EdgeInsets.symmetric(vertical: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),

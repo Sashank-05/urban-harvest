@@ -67,7 +67,13 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: AppColors.tertiaryColor,
         currentIndex: _selectedIndex,
         onTap: (int index) {
-          if (!mounted) return;
+          if (!mounted) {
+            return;
+          } else {
+
+           // dispose();
+
+          }
           setState(() {
             _selectedIndex = index;
           });
@@ -75,4 +81,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 }
+
+

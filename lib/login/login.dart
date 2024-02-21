@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:urban_harvest/firebase_options.dart';
-import 'package:urban_harvest/homepage/homepage.dart';
 import 'package:urban_harvest/login/login_1.dart';
-import 'package:urban_harvest/login/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:urban_harvest/login/sign_up.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +16,7 @@ void main() {
 }
 
 class LoginApp extends StatelessWidget {
-  const LoginApp({Key? key}) : super(key: key);
+  const LoginApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class LoginApp extends StatelessWidget {
 }
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +38,9 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Sign in'),
         titleTextStyle: const TextStyle(
-          color: AppColors.textColorDark,
-          fontSize: 20,
-          fontFamily: 'Montserrat',
-        ),
+            color: AppColors.textColorDark,
+            fontSize: 20,
+            fontFamily: 'Montserrat'),
         centerTitle: true,
         backgroundColor: AppColors.backgroundColor2,
       ),
@@ -52,7 +50,7 @@ class LoginPage extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+  const LoginForm({super.key});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -62,6 +60,15 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  late bool _obscureText = true;
+
+  void _showErrorSnackbar(String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      duration: Duration(seconds: 3),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,71 +91,66 @@ class _LoginFormState extends State<LoginForm> {
             child: Text(
               'Urban Harvest',
               style: TextStyle(
-                color: AppColors.textColorDark,
-                fontFamily: 'Montserrat',
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-              ),
+                  color: AppColors.textColorDark,
+                  fontFamily: 'Montserrat',
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           TextField(
             style: const TextStyle(color: AppColors.textColorDark),
             controller: _emailController,
             decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(21),
-                borderSide: const BorderSide(
-                  color: Color(0xFF40916c),
-                  width: 2,
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide:
+                    const BorderSide(color: Color(0xFF40916c), width: 2)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide:
+                    const BorderSide(color: Color(0xFF40916c), width: 2)),
+                labelText: 'Email',
+                labelStyle: const TextStyle(
+                  color: AppColors.textColorDark,
+                  fontFamily: 'Montserrat',
                 ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: const BorderSide(
-                  color: Color(0xFF40916c),
-                  width: 2,
-                ),
-              ),
-              labelText: 'Email',
-              labelStyle: const TextStyle(
-                color: AppColors.textColorDark,
-                fontFamily: 'Montserrat',
-              ),
-              contentPadding:
-              const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            ),
+                contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 20)),
             cursorColor: const Color(0xFF40916c),
           ),
           const SizedBox(height: 16.0),
+
           TextField(
-            style: const TextStyle(color: AppColors.textColorDark),
+            style: TextStyle(color: AppColors.textColorDark),
             controller: _passwordController,
             decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(21),
-                borderSide: const BorderSide(
-                  color: Color(0xFF40916c),
-                  width: 2,
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(color: Color(0xFF40916c), width: 2)
                 ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: const BorderSide(
-                  color: Color(0xFF40916c),
-                  width: 2,
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30),
+                    borderSide: BorderSide(color: Color(0xFF40916c), width: 2)
                 ),
-              ),
-              labelText: 'Password',
-              labelStyle: const TextStyle(
-                color: AppColors.textColorDark,
-                fontFamily: 'Montserrat',
-              ),
-              contentPadding:
-              const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                labelText: 'Password',
+                labelStyle: TextStyle(
+                  color: AppColors.textColorDark,
+                  fontFamily: 'Montserrat',
+                ),
+                contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.visibility),
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
+                )
             ),
-            cursorColor: const Color(0xFF40916c),
-            obscureText: true,
+            cursorColor: Color(0xFF40916c),
+            obscureText: _obscureText,
           ),
+
           Row(
             children: [
               TextButton(
@@ -156,95 +158,90 @@ class _LoginFormState extends State<LoginForm> {
                 child: const Text(
                   'Forgot Password',
                   style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    decorationColor: AppColors.textColorDark,
-                    color: AppColors.textColorDark,
-                    fontFamily: 'Montserrat',
-                  ),
+                      decoration: TextDecoration.underline,
+                      decorationColor: AppColors.textColorDark,
+                      color: AppColors.textColorDark,
+                      fontFamily: 'Montserrat'),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 25),
           ElevatedButton(
-            onPressed: _signInWithEmailAndPassword,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.tertiaryColor2,
-              fixedSize: const Size(300, 50),
-            ),
-            child: const Text(
-              'Sign in',
-              style: TextStyle(
-                color: AppColors.textColorDark,
-                fontFamily: 'Montserrat',
-              ),
-            ),
+              onPressed: () {
+                _signInWithEmailAndPassword();
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.tertiaryColor2,
+                  fixedSize: const Size(300, 50)),
+              child: const Text(
+                'Sign in',
+                style: TextStyle(
+                    color: AppColors.textColorDark, fontFamily: 'Montserrat'),
+              )),
+          const SizedBox(
+            height: 10,
           ),
-          const SizedBox(height: 10),
           const Text(
             'OR',
             style: TextStyle(
-              fontFamily: 'Montserrat',
-              color: AppColors.textColorDark,
-            ),
+                fontFamily: 'Montserrat', color: AppColors.textColorDark),
           ),
           const SizedBox(height: 10),
           ElevatedButton.icon(
             onPressed: _handleSignIn,
             icon: const Padding(
               padding: EdgeInsets.only(right: 10.0),
-              child: ImageIcon(
-                AssetImage("assets/img/search.png"),
-                size: 20,
-                color: AppColors.tertiaryColor2,
-              ),
+              child: ImageIcon(AssetImage("assets/img/search.png"),
+                  size: 20, color: AppColors.tertiaryColor2),
             ),
             label: const Text(
               'Login with Google',
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                color: Color(0xFF081C15),
-              ),
+              style:
+              TextStyle(fontFamily: 'Montserrat', color: Color(0xFF081C15)),
             ),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              fixedSize: const Size(300, 50),
-            ),
+                backgroundColor: Colors.white, fixedSize: const Size(300, 50)),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(
+            height: 30,
+          ),
           const Text(
             "Don't have an account?",
             style: TextStyle(
-              color: AppColors.textColorDark,
-              decoration: TextDecoration.underline,
-              decorationColor: AppColors.textColorDark,
-              fontFamily: 'Montserrat',
-            ),
-          ),
-          const SizedBox(height: 5),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const SignUpPage()),
-                    (route) => false,
-              );
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.tertiaryColor2,
-              fixedSize: const Size(300, 50),
-            ),
-            child: const Text(
-              'Sign Up',
-              style: TextStyle(
                 color: AppColors.textColorDark,
-                fontFamily: 'Montserrat',
-              ),
-            ),
+                decoration: TextDecoration.underline,
+                decorationColor: AppColors.textColorDark,
+                fontFamily: 'Montserrat'),
           ),
+          const SizedBox(
+            height: 5,
+          ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SignUpPage()),
+                      (route) => false,
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.tertiaryColor2,
+                  fixedSize: const Size(300, 50)),
+              child: const Text(
+                'Sign Up',
+                style: TextStyle(
+                    color: AppColors.textColorDark, fontFamily: 'Montserrat'),
+              )),
         ],
       ),
     );
+  }
+
+  void main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+    runApp(_signInWithEmailAndPassword() as Widget);
   }
 
   Future<void> _signInWithEmailAndPassword() async {
@@ -257,49 +254,14 @@ class _LoginFormState extends State<LoginForm> {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
+      String errorMessage = '$e';
       if (e.code == 'user-not-found') {
-        if (kDebugMode) {
-          print('No user found for that email.');
-        }
+        errorMessage = 'No user found for that email.';
       } else if (e.code == 'wrong-password') {
-        if (kDebugMode) {
-          print('Wrong password provided for that user.');
-        }
+        errorMessage = 'Wrong password provided for that user.';
       }
+      _showErrorSnackbar(errorMessage);
     }
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        if (kDebugMode) {
-          print('User is currently signed out!');
-        }
-      } else {
-        if (kDebugMode) {
-          print('User is signed in!');
-        }
-        if (!mounted) return;
-        String userId = FirebaseAuth.instance.currentUser!.uid;
-        DocumentReference userDocRef =
-        FirebaseFirestore.instance.collection('Users').doc(userId);
-
-        userDocRef.get().then((doc) {
-          if (doc.exists) {
-            Map<String, dynamic> data =
-            doc.data() as Map<String, dynamic>;
-            if (!data.containsKey('plants')) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginPage1()),
-              );
-            } else {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
-              );
-            }
-          }
-        });
-      }
-    });
   }
 
   Future<void> _handleSignIn() async {
@@ -318,45 +280,19 @@ class _LoginFormState extends State<LoginForm> {
       if (!mounted) return;
       await FirebaseFirestore.instance
           .collection('Users')
-          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .doc(googleUser.id)
           .set(
           {'displayName': googleUser.displayName}, SetOptions(merge: true));
 
       if (kDebugMode) {
         print('Logged in as: ${googleUser.email}');
       }
-
-      String userId = FirebaseAuth.instance.currentUser!.uid;
-      DocumentReference userDocRef =
-      FirebaseFirestore.instance.collection('Users').doc(userId);
-
-      userDocRef.get().then((doc) {
-        if (doc.exists) {
-          Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-          if (!data.containsKey('plants')) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginPage1()),
-            );
-          } else {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-            );
-          }
-        }
-      });
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage1()),
+      );
     } catch (error) {
-      if (kDebugMode) {
-        print('Error signing in with Google: $error');
-      }
+      _showErrorSnackbar('Error signing in with Google: $error');
     }
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
   }
 }

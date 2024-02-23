@@ -35,7 +35,8 @@ class _SelectableLandingPageState extends State<SelectableLandingPage> {
           backgroundColor: const Color(0xFF081C15),
           leading: IconButton(
             icon: Padding(
-                padding: EdgeInsets.only(top: 15), child: Icon(Icons.arrow_back)),
+                padding: EdgeInsets.only(top: 15),
+                child: Icon(Icons.arrow_back)),
             color: Color(0xFFD8F3DC),
             iconSize: 25,
             onPressed: () {
@@ -123,7 +124,8 @@ class _PlantCardState extends State<PlantCard> {
     setState(() {
       _isSelected = !_isSelected;
       String userId = FirebaseAuth.instance.currentUser!.uid;
-      DocumentReference userDocRef = FirebaseFirestore.instance.collection('Users').doc(userId);
+      DocumentReference userDocRef = FirebaseFirestore.instance.collection(
+          'Users').doc(userId);
 
       // Get the user's document
       userDocRef.get().then((doc) {
@@ -146,11 +148,13 @@ class _PlantCardState extends State<PlantCard> {
             userDocRef.set({'plants': selectedPlants}, SetOptions(merge: true));
           } else {
             // 'plants' field doesn't exist, create it with the selected plant
-            userDocRef.set({'plants': [widget.plantName]}, SetOptions(merge: true));
+            userDocRef.set(
+                {'plants': [widget.plantName]}, SetOptions(merge: true));
           }
         } else {
           // User document doesn't exist, create it with the selected plant
-          userDocRef.set({'plants': [widget.plantName]}, SetOptions(merge: true));
+          userDocRef.set(
+              {'plants': [widget.plantName]}, SetOptions(merge: true));
         }
       });
     });
@@ -172,7 +176,8 @@ class _PlantCardState extends State<PlantCard> {
             decoration: BoxDecoration(
               border: Border.all(color: const Color(0xFF2D6A4F), width: 3),
               borderRadius: BorderRadius.circular(30),
-              color: _isSelected ? Colors.black.withOpacity(0.5) : const Color(0xFF1B4332),
+              color: _isSelected ? Colors.black.withOpacity(0.5) : const Color(
+                  0xFF1B4332),
             ),
             child: Column(
               children: [
@@ -206,7 +211,8 @@ class _PlantCardState extends State<PlantCard> {
                   child: Text(
                     widget.plantName,
                     style: GoogleFonts.montserrat(
-                      color: _isSelected ? Colors.white : const Color(0xFFD8F3DC),
+                      color: _isSelected ? Colors.white : const Color(
+                          0xFFD8F3DC),
                       fontSize: 17,
                     ),
                   ),
@@ -214,23 +220,24 @@ class _PlantCardState extends State<PlantCard> {
               ],
             ),
           ),
-          if (_isSelected)
-            Positioned(
-              bottom: 10,
-              right: 0,
-              left: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      // Open guide here
-                    },
-                    child: const Text('Open Guide'),
-                  ),
-                ],
-              ),
+
+          Positioned(
+            bottom: 0,
+            right: 0,
+            left: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => guideDict[widget.plantName]!));
+                  },
+                  child: const Text('Open Guide'),
+                ),
+              ],
             ),
+          ),
         ],
       ),
     );

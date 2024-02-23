@@ -46,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     await googleSignIn.disconnect();
     await FirebaseAuth.instance.signOut();
-    if(!mounted) return;
+    if (!mounted) return;
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -57,20 +57,21 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       final user = FirebaseAuth.instance.currentUser;
 
-      await user?.delete();
       DocumentReference documentReference =
           FirebaseFirestore.instance.collection('Users').doc(user?.uid);
-
       // Call the delete method to delete the document
-      documentReference.delete().then((value) {
+      documentReference.delete();
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+
+
+      await user?.delete();
+      try {
+        await googleSignIn.disconnect();
+      } catch (e) {
         if (kDebugMode) {
-          print('Document deleted successfully');
+          print("User is probably not signed in through google");
         }
-      }).catchError((error) {
-        if (kDebugMode) {
-          print('Failed to delete document: $error');
-        }
-      });
+      }
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
@@ -231,4 +232,3 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
-

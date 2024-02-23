@@ -197,7 +197,7 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(primary: Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -499,7 +499,7 @@ class _SettingUpState extends State<SettingUp> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(primary: Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -675,7 +675,7 @@ class _WateringInstructionsState extends State<WateringInstructions> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(primary: Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,

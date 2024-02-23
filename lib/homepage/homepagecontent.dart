@@ -1,38 +1,24 @@
 import 'dart:async';
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 import 'package:urban_harvest/constant_colors.dart';
-import 'package:urban_harvest/models/random.dart';
-import 'package:urban_harvest/models/wheather_model.dart';
 import 'package:urban_harvest/homepage/detect.dart';
 import 'package:urban_harvest/landing/plant_list.dart';
-import '../services/weather_service.dart';
-import 'package:urban_harvest/landing/guides/aloevera-guide.dart';
-import 'package:urban_harvest/landing/guides/cabbage-guide.dart';
-import 'package:urban_harvest/landing/guides/cauliflower-guide.dart';
-import 'package:urban_harvest/landing/guides/chilli-guide.dart';
-import 'package:urban_harvest/landing/guides/coriander-guide.dart';
-import 'package:urban_harvest/landing/guides/green-beans-guide.dart';
-import 'package:urban_harvest/landing/guides/hibiscus-guide.dart';
-import 'package:urban_harvest/landing/guides/jasmine-guide.dart';
-import 'package:urban_harvest/landing/guides/marigold-guide.dart';
-import 'package:urban_harvest/landing/guides/mint-guide.dart';
-import 'package:urban_harvest/landing/guides/rose-guide.dart';
-import 'package:urban_harvest/landing/guides/sunflower-guide.dart';
-import 'package:urban_harvest/landing/guides/tomato-guide.dart';
-import 'package:urban_harvest/landing/guides/tropical-leaves-guide.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:http/http.dart' as http;
 
 List<String> userPlants = ['Rose', 'Cauliflower', 'Cabbage'];
 
 class WateringReminderWidget extends StatefulWidget {
+  const WateringReminderWidget({super.key});
+
   @override
-  _WateringReminderWidgetState createState() => _WateringReminderWidgetState();
+  State<WateringReminderWidget> createState() => _WateringReminderWidgetState();
 }
 
 class _WateringReminderWidgetState extends State<WateringReminderWidget> {
@@ -106,8 +92,8 @@ class _WateringReminderWidgetState extends State<WateringReminderWidget> {
   }
 }
 
-final weatherService _weatherService =
-    weatherService('18f721c26d5b14924ff362d01d237cde');
+final WeatherService _weatherService =
+    WeatherService('18f721c26d5b14924ff362d01d237cde');
 Weather? _weather;
 
 RandomFact randomFact = RandomFact();
@@ -119,11 +105,10 @@ class HomePageContent extends StatefulWidget {
   const HomePageContent({Key? key, this.weather}) : super(key: key);
 
   @override
-  _HomePageContentState createState() => _HomePageContentState();
+  State<HomePageContent> createState() => _HomePageContentState();
 }
 
 class _HomePageContentState extends State<HomePageContent> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
   late Completer<void> _fetchDataCompleter;
 
@@ -237,7 +222,9 @@ class _HomePageContentState extends State<HomePageContent> {
   _fetchWeather() async {
     String cityName = await _weatherService
         .getCurrentCity(); // Ensure this method exists and works as expected
-    print(cityName);
+    if (kDebugMode) {
+      print(cityName);
+    }
     try {
       final weather = await _weatherService.getWeather(cityName);
       if (!mounted) return;
@@ -251,13 +238,14 @@ class _HomePageContentState extends State<HomePageContent> {
       if (!_fetchDataCompleter.isCompleted) {
         _fetchDataCompleter.completeError(e);
       }
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: Padding(
@@ -312,7 +300,7 @@ class _HomePageContentState extends State<HomePageContent> {
                   ],
                 ),
               ),
-              WateringReminderWidget(),
+              const WateringReminderWidget(),
               Container(
                 padding: const EdgeInsets.all(20),
                 child: Column(
@@ -513,8 +501,9 @@ class _HomePageContentState extends State<HomePageContent> {
   }
 
   String getWeatherAnimation(String? mainCondition) {
-    if (mainCondition == null)
-      return 'assets/img/homepage/weather_ani/sunny.json';
+    if (mainCondition == null) {
+      return 'assets/img/homepage/vis/sunny.json';
+    }
     switch (mainCondition.toLowerCase()) {
       case 'clouds':
         return 'assets/img/homepage/vis/sunny_clouded.json';
@@ -542,5 +531,110 @@ class _HomePageContentState extends State<HomePageContent> {
       default:
         return 'assets/img/homepage/vis/sunny.json';
     }
+  }
+}
+
+class RandomFact {
+  List<String> mess = [
+    'Bamboo is the fastest-growing woody plant in the world. It can grow up to 35 inches in a single day.',
+    'Tomato juice is the official state beverage of Ohio, honoring the part A. W. Livingston of Reynoldsburg, Ohio, played in popularizing the tomato in the late 1800s.',
+    'Vanilla flavoring comes from the pod of an orchid, Vanilla planifolia. Though the pods are called vanilla beans, they are not actually in the legume family like green beans.',
+    'Saffron, used as a flavoring in Mediterranean cooking, is harvested from the stigmas of a type of fall-blooming crocus, Crocus sativus.',
+    'The first potatoes were cultivated in Peru about 7,000 years ago.',
+    'The average strawberry has 200 seeds. It is the only fruit that bears its seeds on the outside.',
+    'There are over 300,000 identified plant species and the list is growing all the time!',
+    'Oak trees don’t produce acorns until they are 50 years old!'
+  ];
+
+  late String did;
+
+  RandomFact() {
+    shuffleMess();
+  }
+
+  String shuffleMess() {
+    mess.shuffle();
+    did = mess.first;
+    return (did);
+  }
+}
+
+class Weather {
+  late final String cityName;
+  late final String temperature;
+  late final String mainCondition;
+
+  Weather({
+    required this.cityName,
+    required this.mainCondition,
+    required this.temperature,
+  });
+
+  factory Weather.fromJson(Map<String, dynamic> json) {
+    return Weather(
+      cityName: json['name'],
+      mainCondition: json['weather'][0]['main'],
+      temperature: json['main']['temp'].toString(),
+    );
+  }
+}
+
+class WeatherService {
+  static const baseUrl = 'http://api.openweathermap.org/data/2.5/weather';
+  late final String apiKey;
+
+  WeatherService(this.apiKey);
+
+  Future<Weather> getWeather(String cityName) async {
+    final response = await http
+        .get(Uri.parse('$baseUrl?q=$cityName&appid=$apiKey&units=metric'));
+    if (response.statusCode == 200) {
+      return Weather.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('failed to load weather data');
+    }
+  }
+
+  Future<String> getCurrentCity() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+
+    Position? position;
+    try {
+      position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error getting current position: $e");
+      }
+      return ""; // Return empty string if unable to get position
+    }
+
+    List<Placemark> placemarks = [];
+    try {
+      placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error getting placemarks: $e");
+      }
+      return ""; // Return empty string if unable to get placemarks
+    }
+
+    if (placemarks.isEmpty) {
+      if (kDebugMode) {
+        print("Placemarks is empty");
+      }
+      return ""; // Return empty string if placemarks is empty
+    }
+
+    String? city = placemarks[0].locality;
+
+    return city ?? "";
   }
 }

@@ -1,15 +1,13 @@
 import 'dart:math' show asin, cos, pi, pow, sin, sqrt;
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import '../constant_colors.dart';
-import 'addtrade.dart';
+import 'add_trade.dart';
 
 class SeedTradeContent extends StatefulWidget {
-  const SeedTradeContent({Key? key});
-
+  const SeedTradeContent({super.key});
   @override
   State<SeedTradeContent> createState() => _SeedTradeContentState();
 }
@@ -26,12 +24,10 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
     _currentUser = FirebaseAuth.instance.currentUser;
     _getUserLocation();
     _tradesStream = _firestore.collection('Trades').snapshots();
-    print(_currentUser);
   }
 
   @override
   void dispose() {
-    //.cancel(); // Cancel the subscription
     super.dispose();
   }
 
@@ -50,7 +46,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
-        title: Text(
+        title: const Text(
           "Trade",
           style: TextStyle(
             color: AppColors.primaryColor,
@@ -71,16 +67,16 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             StreamBuilder<QuerySnapshot>(
               stream: _tradesStream,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  return Center(child: Text('Error loading trades'));
+                  return const Center(child: Text('Error loading trades'));
                 }
 
                 if (!snapshot.hasData) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(
                       color: AppColors.primaryColor,
                     ),
@@ -105,8 +101,8 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
             MaterialPageRoute(builder: (context) => const AddTradePage()),
           );
         },
-        child: const Icon(Icons.add),
         backgroundColor: AppColors.primaryColor,
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -121,7 +117,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
       final address = _convertLatLonToAddress(location); // Optional conversion
 
       return Padding( // Add Padding widget here
-        padding: EdgeInsets.symmetric(vertical: 8), // Adjust the vertical spacing as needed
+        padding: const EdgeInsets.symmetric(vertical: 8), // Adjust the vertical spacing as needed
         child: GestureDetector(
           onTap: () {
             // Navigate to trade details page
@@ -165,7 +161,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
               width: MediaQuery.of(context).size.width * 0.9,
               height: MediaQuery.of(context).size.height * 0.25,
             ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           if (address != null)
@@ -184,7 +180,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                   color: Colors.white,
                 ),
               ),
-              Text("for", style: TextStyle(color: AppColors.primaryColor)),
+              const Text("for", style: TextStyle(color: AppColors.primaryColor)),
               Column(
                 children: [
                   Text(
@@ -194,9 +190,9 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                       color: Colors.white,
                     ),
                   ),
-                  Text(
+                  const Text(
                     "or",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
                       color: Colors.white,
                     ),
@@ -285,7 +281,7 @@ class TradeDetailsPage extends StatelessWidget {
         title: Text(itemName),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

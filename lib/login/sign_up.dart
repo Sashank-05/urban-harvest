@@ -214,11 +214,13 @@ class _SignUpPageState extends State<SignUpPage> {
             .collection('Users')
             .doc(userCredential.user!.uid)
             .set({'displayName': username}, SetOptions(merge: true));
+        if (!mounted) return;
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const LoginPage1()),
         );
       } else {
+        if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Failed to create user. Please try again later.'),
@@ -232,6 +234,7 @@ class _SignUpPageState extends State<SignUpPage> {
       } else if (e.code == 'email-already-in-use') {
         errorMessage += 'The account already exists for that email.';
       }
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(errorMessage),
@@ -241,6 +244,7 @@ class _SignUpPageState extends State<SignUpPage> {
       if (kDebugMode) {
         print(e.toString());
       }
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('An error occurred. Please try again later.'),

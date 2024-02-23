@@ -39,6 +39,8 @@ dependencies:
   firebase_storage: ^11.6.5
   google_maps_flutter: ^2.5.3
   flutter_local_notifications: ^16.3.2
+  firebase_crashlytics: ^3.4.15
+  firebase_analytics: ^10.8.6
 
 
 dev_dependencies:

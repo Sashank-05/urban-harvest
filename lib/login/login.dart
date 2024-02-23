@@ -67,7 +67,7 @@ class _LoginFormState extends State<LoginForm> {
   void _showErrorSnackbar(String message) {
     final snackBar = SnackBar(
       content: Text(message),
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
@@ -123,26 +123,26 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 16.0),
 
           TextField(
-            style: TextStyle(color: AppColors.textColorDark),
+            style: const TextStyle(color: AppColors.textColorDark),
             controller: _passwordController,
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Color(0xFF40916c), width: 2)
+                    borderSide: const BorderSide(color: Color(0xFF40916c), width: 2)
                 ),
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(color: Color(0xFF40916c), width: 2)
+                    borderSide: const BorderSide(color: Color(0xFF40916c), width: 2)
                 ),
                 labelText: 'Password',
-                labelStyle: TextStyle(
+                labelStyle: const TextStyle(
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
                 ),
-                contentPadding: EdgeInsets.symmetric(
+                contentPadding: const EdgeInsets.symmetric(
                     horizontal: 15, vertical: 15),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.visibility),
+                  icon: const Icon(Icons.visibility),
                   onPressed: () {
                     setState(() {
                       _obscureText = !_obscureText;
@@ -150,7 +150,7 @@ class _LoginFormState extends State<LoginForm> {
                   },
                 )
             ),
-            cursorColor: Color(0xFF40916c),
+            cursorColor: const Color(0xFF40916c),
             obscureText: _obscureText,
           ),
 

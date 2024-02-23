@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:urban_harvest/constant_colors.dart';
@@ -7,8 +8,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../login/login.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
@@ -33,7 +36,9 @@ class _ProfilePageState extends State<ProfilePage> {
         _displayName = userData['displayName'];
       });
     } catch (e) {
-      print("Error loading displayName: $e");
+      if (kDebugMode) {
+        print("Error loading displayName: $e");
+      }
     }
   }
 
@@ -41,6 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     await googleSignIn.disconnect();
     await FirebaseAuth.instance.signOut();
+    if(!mounted) return;
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -57,9 +63,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
       // Call the delete method to delete the document
       documentReference.delete().then((value) {
-        print('Document deleted successfully');
+        if (kDebugMode) {
+          print('Document deleted successfully');
+        }
       }).catchError((error) {
-        print('Failed to delete document: $error');
+        if (kDebugMode) {
+          print('Failed to delete document: $error');
+        }
       });
       if (!mounted) return;
       Navigator.pushReplacement(
@@ -68,7 +78,9 @@ class _ProfilePageState extends State<ProfilePage> {
       );
     } catch (e) {
       // Handle error while deleting account
-      print("Error deleting account: $e");
+      if (kDebugMode) {
+        print("Error deleting account: $e");
+      }
     }
   }
 
@@ -220,8 +232,3 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: ProfilePage(),
-  ));
-}

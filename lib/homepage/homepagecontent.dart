@@ -18,8 +18,6 @@ import 'package:http/http.dart' as http;
 import '../firebase_options.dart';
 import '../login/login.dart';
 
-List<String> userPlants = ['Rose', 'Cauliflower', 'Cabbage'];
-
 class WateringReminderWidget extends StatefulWidget {
   const WateringReminderWidget({Key? key}) : super(key: key);
 
@@ -109,7 +107,7 @@ class _WateringReminderWidgetState extends State<WateringReminderWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
           color: AppColors.backgroundColor3,
@@ -126,23 +124,25 @@ class _WateringReminderWidgetState extends State<WateringReminderWidget> {
                 fontSize: 18),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 10),
+            margin: const EdgeInsets.only(top: 10, ),
             padding:
-                const EdgeInsets.only(top: 10, bottom: 20, left: 7, right: 7),
+            const EdgeInsets.only(top: 10, bottom: 20, left: 10, right: 10),
             decoration: BoxDecoration(
                 color: AppColors.tertiaryColor2,
-                borderRadius: BorderRadius.circular(30)),
+                borderRadius: BorderRadius.circular(20)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    const Text(
-                      'Did you water your plants today?',
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: AppColors.primaryColor,
-                        fontFamily: 'Montserrat',
+                    const Expanded(
+                      child: Text(
+                        'Did you water your plants today?',
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: AppColors.primaryColor,
+                          fontFamily: 'Montserrat',
+                        ),
                       ),
                     ),
                     Checkbox(
@@ -158,13 +158,13 @@ class _WateringReminderWidgetState extends State<WateringReminderWidget> {
                 ),
                 _isWatered
                     ? const Text(
-                        'Yay! Your plants are happy 🌱😄 ',
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: AppColors.primaryColor,
-                          fontFamily: 'Montserrat',
-                        ),
-                      )
+                  'Yay! Your plants are happy 🌱😄 ',
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: AppColors.primaryColor,
+                    fontFamily: 'Montserrat',
+                  ),
+                )
                     : const SizedBox(),
               ],
             ),
@@ -173,6 +173,7 @@ class _WateringReminderWidgetState extends State<WateringReminderWidget> {
       ),
     );
   }
+
 }
 
 final WeatherService _weatherService =
@@ -194,12 +195,32 @@ class HomePageContent extends StatefulWidget {
 class _HomePageContentState extends State<HomePageContent> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   late Completer<void> _fetchDataCompleter;
+  List<String> userPlants = [];
 
   @override
   void initState() {
     super.initState();
     _fetchDataCompleter = Completer<void>();
     _fetchWeather();
+    _fetchPlants();
+  }
+
+  _fetchPlants() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final firestore = FirebaseFirestore.instance;
+      DocumentSnapshot snapshot =
+          await firestore.collection('Users').doc(user.uid).get();
+      if (snapshot.exists) {
+        Map<String, dynamic>? userData =
+            snapshot.data() as Map<String, dynamic>?;
+        if (userData != null && userData.containsKey('plants')) {
+          setState(() {
+            userPlants = List<String>.from(userData['plants']);
+          });
+        }
+      }
+    }
   }
 
   Widget _buildHorizontalBox(String label, String imagePath, Widget guideName) {
@@ -243,10 +264,10 @@ class _HomePageContentState extends State<HomePageContent> {
                         backgroundColor:
                             MaterialStateProperty.all(AppColors.tertiaryColor)),
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => guideName),
-                          (route) => false);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => guideName),
+                      );
                     },
                     child: Container(
                       padding: const EdgeInsets.all(10),

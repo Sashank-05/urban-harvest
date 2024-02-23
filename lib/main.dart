@@ -33,7 +33,7 @@ Future main() async {
   FlutterLocalNotificationsPlugin();
   flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
       AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
-  await AndroidAlarmManager.periodic(const Duration(seconds: 5), allowWhileIdle: true, 0, checkDatabase);
+  await AndroidAlarmManager.periodic(const Duration(hours: 2), allowWhileIdle: true, 0, checkDatabase);
 }
 
 class LoginApp extends StatelessWidget {

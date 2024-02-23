@@ -519,10 +519,10 @@ class _HomePageContentState extends State<HomePageContent> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text('test disease detection'),
+                                Text('Disease Detection',style: TextStyle(fontFamily: 'Montserrat',fontSize: 14),),
                               ],
                             ),
                           ),

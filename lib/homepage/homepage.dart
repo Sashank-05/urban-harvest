@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:urban_harvest/homepage/homepagecontent.dart';
 import 'package:urban_harvest/homepage/locations.dart';
@@ -29,10 +30,9 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         backgroundColor: AppColors.backgroundColor,
         toolbarOpacity: 0,
-        title: const Text(
+        title:Text(
           "Urban Harvest",
-          style: TextStyle(
-            fontFamily: 'Montserrat',
+          style: GoogleFonts.montserrat(
             fontWeight: FontWeight.bold,
             fontSize: 24,
             color: AppColors.primaryColor,

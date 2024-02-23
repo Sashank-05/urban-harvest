@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:urban_harvest/homepage/homepage.dart';
 import 'package:urban_harvest/landing/plant_list.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:urban_harvest/constant_colors.dart';
 
 class SelectableLandingPage extends StatefulWidget {
   const SelectableLandingPage({Key? key});
@@ -34,10 +35,17 @@ class _SelectableLandingPageState extends State<SelectableLandingPage> {
           toolbarHeight: 70,
           backgroundColor: const Color(0xFF081C15),
           leading: IconButton(
+<<<<<<< Updated upstream
             icon: Padding(
                 padding: EdgeInsets.only(top: 15),
                 child: Icon(Icons.arrow_back)),
             color: Color(0xFFD8F3DC),
+=======
+            icon: const Padding(
+                padding: EdgeInsets.only(top: 15),
+                child: Icon(Icons.arrow_back)),
+            color: const Color(0xFFD8F3DC),
+>>>>>>> Stashed changes
             iconSize: 25,
             onPressed: () {
               Navigator.pop(context);
@@ -72,7 +80,7 @@ class _SelectableLandingPageState extends State<SelectableLandingPage> {
                   GoogleFonts.montserrat(color: const Color(0xFF52B788)),
                 ),
                 backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                      (Set<MaterialState> states) {
+                  (Set<MaterialState> states) {
                     return const Color(0xFF2D6A4F);
                   },
                 ),
@@ -97,7 +105,7 @@ class _SelectableLandingPageState extends State<SelectableLandingPage> {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const HomePage()),
-                    (route) => false, // Remove all routes from the stack
+                (route) => false, // Remove all routes from the stack
               );
             },
             child: Text(_anyPlantsSelected ? 'Next' : 'Skip for now'),
@@ -124,8 +132,13 @@ class _PlantCardState extends State<PlantCard> {
     setState(() {
       _isSelected = !_isSelected;
       String userId = FirebaseAuth.instance.currentUser!.uid;
+<<<<<<< Updated upstream
       DocumentReference userDocRef = FirebaseFirestore.instance.collection(
           'Users').doc(userId);
+=======
+      DocumentReference userDocRef =
+          FirebaseFirestore.instance.collection('Users').doc(userId);
+>>>>>>> Stashed changes
 
       // Get the user's document
       userDocRef.get().then((doc) {
@@ -148,6 +161,7 @@ class _PlantCardState extends State<PlantCard> {
             userDocRef.set({'plants': selectedPlants}, SetOptions(merge: true));
           } else {
             // 'plants' field doesn't exist, create it with the selected plant
+<<<<<<< Updated upstream
             userDocRef.set(
                 {'plants': [widget.plantName]}, SetOptions(merge: true));
           }
@@ -155,6 +169,17 @@ class _PlantCardState extends State<PlantCard> {
           // User document doesn't exist, create it with the selected plant
           userDocRef.set(
               {'plants': [widget.plantName]}, SetOptions(merge: true));
+=======
+            userDocRef.set({
+              'plants': [widget.plantName]
+            }, SetOptions(merge: true));
+          }
+        } else {
+          // User document doesn't exist, create it with the selected plant
+          userDocRef.set({
+            'plants': [widget.plantName]
+          }, SetOptions(merge: true));
+>>>>>>> Stashed changes
         }
       });
     });
@@ -176,22 +201,29 @@ class _PlantCardState extends State<PlantCard> {
             decoration: BoxDecoration(
               border: Border.all(color: const Color(0xFF2D6A4F), width: 3),
               borderRadius: BorderRadius.circular(30),
+<<<<<<< Updated upstream
               color: _isSelected ? Colors.black.withOpacity(0.5) : const Color(
                   0xFF1B4332),
+=======
+              color: _isSelected
+                  ? Colors.black.withOpacity(0.5)
+                  : const Color(0xFF1B4332),
+>>>>>>> Stashed changes
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Stack(
                   alignment: Alignment.topRight,
                   children: [
                     Image.asset(
                       imgPath,
-                      width: 100,
-                      height: 100,
+                      width: 70,
+                      height: 70,
                     ),
                     if (_isSelected)
                       Container(
-                        margin: EdgeInsets.only(top: 5, right: 5),
+                        margin: const EdgeInsets.only(top: 5, right: 5),
                         width: 30,
                         height: 30,
                         decoration: BoxDecoration(
@@ -211,15 +243,44 @@ class _PlantCardState extends State<PlantCard> {
                   child: Text(
                     widget.plantName,
                     style: GoogleFonts.montserrat(
+<<<<<<< Updated upstream
                       color: _isSelected ? Colors.white : const Color(
                           0xFFD8F3DC),
+=======
+                      color:
+                          _isSelected ? Colors.white : const Color(0xFFD8F3DC),
+>>>>>>> Stashed changes
                       fontSize: 17,
                     ),
                   ),
                 ),
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          AppColors.backgroundColor3)),
+                  onPressed: () {
+                    for (var i in guideDict.keys) {
+                      if (i == widget.plantName) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => guideDict[i]!));
+                      }
+                    }
+                  },
+                  child: const Text(
+                    'View Guide',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 15,
+                      color: AppColors.primaryColor,
+                    ),
+                  ),
+                )
               ],
             ),
           ),
+<<<<<<< Updated upstream
 
           Positioned(
             bottom: 0,
@@ -238,6 +299,8 @@ class _PlantCardState extends State<PlantCard> {
               ],
             ),
           ),
+=======
+>>>>>>> Stashed changes
         ],
       ),
     );

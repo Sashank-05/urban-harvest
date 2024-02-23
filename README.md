@@ -1,59 +1,68 @@
-# Urban Harvest
+# Urban Harvest: Setting up the Project Guide
 
-## Setting up the project
+Urban Harvest is a project aimed at facilitating urban gardening and plant/seed trading. Below is a comprehensive guide on setting up the project both on the cloud and locally.
 
-### Setting up on cloud
+## Setting up on Cloud
 
-1. Create a new Google Cloud/Firebase project.
-2. Enable Authentication and Firestore APIs.
-3. Enable Google Sign in and Email SSO in Authentication.
-4. Setup the firestore Database Collections with names "Users", "Location" and "Trades"
-5. Enable the Google Maps API and save the API key for later
+1. **Create a New Project on Google Cloud/Firebase:**
+    - Begin by creating a new project on Google Cloud or Firebase, depending on your preference and requirements.
 
-The final Database structure will look like this
-```
-Users
-|----- User1 => {displayName: "Username", "Plants": [array of plants]}
-|----- User2
+2. **Enable Authentication and Firestore APIs:**
+    - Within your project settings, navigate to the APIs & Services section and enable both the Authentication and Firestore APIs.
 
-Locations
-|----- Country
-          |
-          | ----- CityName => [array of geopoints]
+3. **Configure Authentication Settings:**
+    - In the Authentication section, enable Google Sign-in and Email Single Sign-On (SSO) to allow users to authenticate via Google accounts or email addresses.
 
-Trades
-|----- TradeID => {Information}
-```
+4. **Setup Firestore Database Collections:**
+    - Create three collections in your Firestore database: "Users", "Locations", and "Trades". These collections will store user data, location information, and trade details respectively.
 
-## Setting up locally
+5. **Enable Google Maps API:**
+    - Enable the Google Maps API in the Google Cloud Console and save the API key for later use. This API key will be utilized for integrating maps into the application.
 
-<b>Install the required command line tools</b>
+   The final structure of your database should resemble the following:
 
-Log into Firebase using your Google account by running the following command:
+   ```
+   Users
+   |----- User1 => {displayName: "Username", "Plants": [array of plants]}
+   |----- User2
 
-`firebase login`
+   Locations
+   |----- Country
+            |
+            | ----- CityName => [array of geopoints]
 
-Install the FlutterFire CLI by running the following command from any directory:
+   Trades
+   |----- TradeID => {Information}
+   ```
 
-`dart pub global activate flutterfire_cli`
+## Setting up Locally
 
-<b>Configure your apps to use Firebase</b>
+### Install Required Command Line Tools
 
+- **Firebase CLI:**
+    - Log into Firebase using your Google account by running `firebase login` in your terminal.
 
-From your Flutter project directory, run the following command to start the app configuration workflow
-Select the Project which you have setup for this application.
+- **FlutterFire CLI:**
+    - Install the FlutterFire CLI globally by running `dart pub global activate flutterfire_cli` in your terminal.
 
-`flutterfire configure`
+### Configure Your Apps to Use Firebase
 
-Re-running the command ensures that your Flutter app's Firebase configuration is up-to-date and automatically adds any required Gradle plugins to your app.
+- From your Flutter project directory, initiate the app configuration workflow by running `flutterfire configure`.
+- Select the project previously set up for Urban Harvest. This command ensures that your Flutter app's Firebase configuration is up-to-date and adds any required Gradle plugins automatically.
 
-<b> Google MAPS API</b>
+### Google Maps API Integration
 
-Create a secrets.properties file in android folder and make the contents like this
+- Create a `secrets.properties` file in the android folder of your Flutter project.
+- Add the following content to `secrets.properties`:
 
-`MAPS_API_KEY=YOUR_API_KEY`
+  ```
+  MAPS_API_KEY=YOUR_API_KEY
+  ```
 
-Replace API key with the API key from Google Cloud Platform
+  Replace `YOUR_API_KEY` with the API key obtained from the Google Cloud Platform for the Google Maps API.
 
-### You might have to run install.bat to install the required tensorflow Lite binaries
+### Additional Steps
 
+- Run `install.bat` to install any required TensorFlow Lite binaries if necessary for your project.
+
+By following these steps, you'll have Urban Harvest set up both on the cloud and locally, ready for development and deployment.

@@ -128,7 +128,7 @@ class _WateringReminderWidgetState extends State<WateringReminderWidget> {
           Container(
             margin: const EdgeInsets.only(top: 10),
             padding:
-                const EdgeInsets.only(top: 10, bottom: 20, left: 10, right: 10),
+                const EdgeInsets.only(top: 10, bottom: 20, left: 7, right: 7),
             decoration: BoxDecoration(
                 color: AppColors.tertiaryColor2,
                 borderRadius: BorderRadius.circular(30)),

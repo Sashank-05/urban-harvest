@@ -26,6 +26,8 @@ Future main() async {
 
   FirebaseAnalytics.instance;
 
+
+
   runApp(const LoginApp());
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();

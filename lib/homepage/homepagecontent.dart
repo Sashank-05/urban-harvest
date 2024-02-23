@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -14,13 +15,13 @@ import 'package:urban_harvest/constant_colors.dart';
 import 'package:urban_harvest/homepage/detect.dart';
 import 'package:urban_harvest/landing/plant_list.dart';
 import 'package:http/http.dart' as http;
+import '../firebase_options.dart';
 import '../login/login.dart';
-
 
 List<String> userPlants = ['Rose', 'Cauliflower', 'Cabbage'];
 
 class WateringReminderWidget extends StatefulWidget {
-  const WateringReminderWidget({super.key});
+  const WateringReminderWidget({Key? key}) : super(key: key);
 
   @override
   State<WateringReminderWidget> createState() => _WateringReminderWidgetState();
@@ -28,6 +29,82 @@ class WateringReminderWidget extends StatefulWidget {
 
 class _WateringReminderWidgetState extends State<WateringReminderWidget> {
   bool _isWatered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIfWateredToday();
+  }
+
+  Future<void> _checkIfWateredToday() async {
+    // Get current date
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+
+    final firestore = FirebaseFirestore.instance;
+
+    // Fetch the document from Firestore
+    DocumentSnapshot snapshot = await firestore
+        .collection('Users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .get();
+    if (snapshot.exists) {
+      Map<String, dynamic> userData = snapshot.data() as Map<String, dynamic>;
+      if (userData.containsKey('dates') && userData['dates'] is List) {
+        List<dynamic> dates = userData['dates'];
+        bool isTodayInList =
+            dates.any((date) => DateTime.parse(date).isAtSameMomentAs(today));
+        setState(() {
+          _isWatered = isTodayInList;
+        });
+      }
+    }
+  }
+
+  Future<void> _updateWateringStatus(bool value) async {
+    // Get current date
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+
+    final firestore = FirebaseFirestore.instance;
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      // Fetch the document from Firestore
+      DocumentSnapshot snapshot =
+          await firestore.collection('Users').doc(user.uid).get();
+      if (snapshot.exists) {
+        List<dynamic> dates = [];
+
+        // Ensure that the data is correctly casted to a Map
+        Map<String, dynamic> userData = snapshot.data() as Map<String, dynamic>;
+
+        // Check if 'dates' field exists and is a list
+        if (userData.containsKey('dates') && userData['dates'] is List) {
+          dates = List.from(userData['dates']);
+        } else {
+          firestore
+              .collection('Users')
+              .doc(user.uid)
+              .set({"dates": []}, SetOptions(merge: true));
+        }
+
+        // Toggle today's date in the list
+        if (value) {
+          if (!dates.contains(today.toIso8601String())) {
+            dates.add(today.toIso8601String());
+          }
+        } else {
+          dates.remove(today.toIso8601String());
+        }
+
+        // Update the document in Firestore
+        await firestore.collection('Users').doc(user.uid).update({
+          'dates': dates,
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +151,7 @@ class _WateringReminderWidgetState extends State<WateringReminderWidget> {
                         onChanged: (value) {
                           setState(() {
                             _isWatered = value!;
+                            _updateWateringStatus(value);
                           });
                         }),
                   ],
@@ -644,9 +722,10 @@ class WeatherService {
   }
 }
 
-
 Future<void> checkDatabase() async {
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   DateTime now = DateTime.now();
   DateTime today = DateTime(now.year, now.month, now.day);
 
@@ -655,13 +734,14 @@ Future<void> checkDatabase() async {
 
   if (user != null) {
     DocumentSnapshot snapshot =
-    await firestore.collection('Users').doc(user.uid).get();
+        await firestore.collection('Users').doc(user.uid).get();
     if (snapshot.exists) {
       Map<String, dynamic>? userData = snapshot.data() as Map<String, dynamic>?;
       if (userData != null && userData['dates'] is List) {
         List<dynamic> dates = userData['dates'];
-        if (!dates.any((date) => DateTime.parse(date).isAtSameMomentAs(today))) {
-          if (now.hour < 20) {
+        if (!dates
+            .any((date) => DateTime.parse(date).isAtSameMomentAs(today))) {
+          if (now.hour < 22) {
             await _showNotification();
           }
         }
@@ -670,20 +750,18 @@ Future<void> checkDatabase() async {
   }
 }
 
-
-
-
 Future<void> _showNotification() async {
   var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
-    'your_channel_id',
-    'your_channel_name',
+    'abc12i3',
+    'Urban Harvest',
+    icon: "@mipmap/ic_launcher",
     importance: Importance.max,
     priority: Priority.high,
   );
   var platformChannelSpecifics =
-  NotificationDetails(android: androidPlatformChannelSpecifics);
+      NotificationDetails(android: androidPlatformChannelSpecifics);
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   await flutterLocalNotificationsPlugin.show(
     0,

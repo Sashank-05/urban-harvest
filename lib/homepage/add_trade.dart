@@ -87,6 +87,7 @@ class _AddTradePageState extends State<AddTradePage> {
               ),
             ),
             TextField(
+              style: const TextStyle(color: AppColors.textColorDark),
               controller: _itemNameController,
               decoration: InputDecoration(
                 labelText: 'Item Name',
@@ -94,6 +95,7 @@ class _AddTradePageState extends State<AddTradePage> {
               ),
             ),
             TextField(
+              style: const TextStyle(color: AppColors.textColorDark),
               controller: _tradeOtherController,
               decoration: InputDecoration(
                 labelText: 'Trading for',
@@ -101,6 +103,7 @@ class _AddTradePageState extends State<AddTradePage> {
               ),
             ),
             TextField(
+              style: const TextStyle(color: AppColors.textColorDark),
               controller: _tradeValueController,
               decoration: InputDecoration(
                 labelText: 'Trade Value',

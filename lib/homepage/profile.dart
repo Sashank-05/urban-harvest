@@ -216,10 +216,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     'Delete Account',
                     style: TextStyle(
                       fontFamily: 'Montserrat',
-                      fontSize: 15,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: AppColors.primaryColor,
-                    ),
+                    ),textAlign: TextAlign.center,
                   ),
                 ),
               ),

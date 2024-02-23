@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +14,8 @@ import 'package:urban_harvest/constant_colors.dart';
 import 'package:urban_harvest/homepage/detect.dart';
 import 'package:urban_harvest/landing/plant_list.dart';
 import 'package:http/http.dart' as http;
+import '../login/login.dart';
+
 
 List<String> userPlants = ['Rose', 'Cauliflower', 'Cabbage'];
 
@@ -637,4 +642,58 @@ class WeatherService {
 
     return city ?? "";
   }
+}
+
+
+Future<void> checkDatabase() async {
+
+  DateTime now = DateTime.now();
+  DateTime today = DateTime(now.year, now.month, now.day);
+
+  final firestore = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser;
+
+  if (user != null) {
+    DocumentSnapshot snapshot =
+    await firestore.collection('Users').doc(user.uid).get();
+    if (snapshot.exists) {
+      Map<String, dynamic>? userData = snapshot.data() as Map<String, dynamic>?;
+      if (userData != null && userData['dates'] is List) {
+        List<dynamic> dates = userData['dates'];
+        if (!dates.any((date) => DateTime.parse(date).isAtSameMomentAs(today))) {
+          if (now.hour < 20) {
+            await _showNotification();
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+Future<void> _showNotification() async {
+  var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
+    'your_channel_id',
+    'your_channel_name',
+    importance: Importance.max,
+    priority: Priority.high,
+  );
+  var platformChannelSpecifics =
+  NotificationDetails(android: androidPlatformChannelSpecifics);
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  FlutterLocalNotificationsPlugin();
+
+  await flutterLocalNotificationsPlugin.show(
+    0,
+    'Notification Title',
+    'Notification Body',
+    platformChannelSpecifics,
+    payload: 'New Payload',
+  );
+}
+
+Future<void> onSelectNotification(String? payload) async {
+  runApp(const LoginApp());
 }

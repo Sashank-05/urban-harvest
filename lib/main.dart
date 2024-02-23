@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:urban_harvest/firebase_options.dart';
 import 'homepage/homepage.dart';
+import 'homepage/homepagecontent.dart';
 import 'login/login.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
@@ -21,7 +23,7 @@ Future main() async {
   };
 
   FirebaseAnalytics.instance;
-
+  await AndroidAlarmManager.periodic(Duration(hours: 2), 0, checkDatabase);
   runApp(const LoginApp());
 }
 

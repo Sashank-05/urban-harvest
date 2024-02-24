@@ -33,7 +33,6 @@ class _WateringReminderWidgetState extends State<WateringReminderWidget> {
   void initState() {
     super.initState();
     _checkIfWateredToday();
-
   }
 
   Future<void> _checkIfWateredToday() async {
@@ -697,7 +696,32 @@ class _HomePageContentState extends State<HomePageContent> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(true);
+                String userId = FirebaseAuth.instance.currentUser!.uid;
+                DocumentReference userDocRef =
+                    FirebaseFirestore.instance.collection('Users').doc(userId);
+
+                userDocRef.get().then((doc) {
+                  if (doc.exists) {
+                    Map<String, dynamic> data =
+                        doc.data() as Map<String, dynamic>;
+                    if (data.containsKey('plants')) {
+                      // Get the current list of selected plants
+                      List<String> selectedPlants =
+                          List<String>.from(data['plants']);
+
+                      // Remove the deselected plant from the list
+                      selectedPlants.remove(label);
+
+                      // Update the list of selected plants in the user's document
+                      userDocRef.set(
+                          {'plants': selectedPlants}, SetOptions(merge: true));
+                      setState(() {
+                        _fetchPlants();
+                      });
+                      Navigator.of(context).pop(true);
+                    }
+                  }
+                });
               },
               child: Container(
                   width: 70,
@@ -784,35 +808,33 @@ class Weather {
   late final String mainCondition;
   late final String dayLight;
 
-  Weather({
-    required this.cityName,
-    required this.mainCondition,
-    required this.temperature,
-    required this.dayLight
-  });
+  Weather(
+      {required this.cityName,
+      required this.mainCondition,
+      required this.temperature,
+      required this.dayLight});
 
   factory Weather.fromJson(Map<String, dynamic> json) {
-    var sunrise = DateTime.fromMillisecondsSinceEpoch(
-        json['sys']['sunrise'] * 1000)
-        .toString();
-    var sunset = DateTime.fromMillisecondsSinceEpoch(
-        json['sys']['sunset'] * 1000)
-        .toString();
+    var sunrise =
+        DateTime.fromMillisecondsSinceEpoch(json['sys']['sunrise'] * 1000)
+            .toString();
+    var sunset =
+        DateTime.fromMillisecondsSinceEpoch(json['sys']['sunset'] * 1000)
+            .toString();
     final sunriseDateTime = DateTime.parse(sunrise);
     final sunsetDateTime = DateTime.parse(sunset);
     final daylightDuration = sunsetDateTime.difference(sunriseDateTime);
     final daylightHoursDouble = daylightDuration.inHours.toDouble();
-    final daylightMinutesDouble = daylightDuration.inMinutes.toDouble();
-    final remainingMinutes = daylightMinutesDouble - (daylightHoursDouble * 60);
+    //final daylightMinutesDouble = daylightDuration.inMinutes.toDouble();
+    // final remainingMinutes = daylightMinutesDouble - (daylightHoursDouble * 60);
     final daylightHours = '$daylightHoursDouble hours';
     var daylight = daylightHours.toString();
 
     return Weather(
-      cityName: json['name'],
-      mainCondition: json['weather'][0]['main'],
-      temperature: json['main']['temp'].toString(),
-      dayLight: daylight
-    );
+        cityName: json['name'],
+        mainCondition: json['weather'][0]['main'],
+        temperature: json['main']['temp'].toString(),
+        dayLight: daylight);
   }
 }
 
@@ -919,16 +941,13 @@ Future<void> _showNotification() async {
 
   await flutterLocalNotificationsPlugin.show(
     0,
-    'Notification Title',
-    'Notification Body',
+    'Did you water your plants?',
+    'Water them so they don\'t die!',
     platformChannelSpecifics,
-    payload: 'New Payload',
+    payload: 'test Payload',
   );
 }
 
 Future<void> onSelectNotification(String? payload) async {
   runApp(const LoginApp());
 }
-
-
-

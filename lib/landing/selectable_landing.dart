@@ -121,6 +121,33 @@ class PlantCard extends StatefulWidget {
 class _PlantCardState extends State<PlantCard> {
   bool _isSelected = false;
 
+  @override
+  void initState() {
+    super.initState();
+    checkIfSelected();
+  }
+
+  void checkIfSelected() {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    DocumentReference userDocRef =
+        FirebaseFirestore.instance.collection('Users').doc(userId);
+
+    userDocRef.get().then((doc) {
+      if (doc.exists) {
+        // Check if the 'plants' field exists
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        if (data.containsKey('plants')) {
+          // Get the current list of selected plants
+          List<String> selectedPlants = List<String>.from(data['plants']);
+          // Check if the current plant is in the list of selected plants
+          setState(() {
+            _isSelected = selectedPlants.contains(widget.plantName);
+          });
+        }
+      }
+    });
+  }
+
   void _toggleSelection() {
     setState(() {
       _isSelected = !_isSelected;
@@ -213,7 +240,7 @@ class _PlantCardState extends State<PlantCard> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: const EdgeInsets.only(top: 5.0),
                   child: Text(
                     widget.plantName,
                     style: GoogleFonts.montserrat(
@@ -249,26 +276,6 @@ class _PlantCardState extends State<PlantCard> {
               ],
             ),
           ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            left: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                guideDict[widget.plantName]!));
-                  },
-                  child: const Text('Open Guide'),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );
@@ -300,12 +307,12 @@ class _categoryCardState extends State<categoryCard> {
                   fontSize: 20)),
         ),
         GridView.count(
-          padding: const EdgeInsets.all(8),
-          crossAxisCount: 2,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          children: widget.plantWidgets,
-        ),
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            children: widget.plantWidgets,
+          ),
+
       ],
     );
   }

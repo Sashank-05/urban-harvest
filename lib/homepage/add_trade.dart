@@ -61,104 +61,106 @@ class _AddTradePageState extends State<AddTradePage> {
       backgroundColor: AppColors.backgroundColor, // Set scaffold background color
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor, // Use AppColors in app bar
-        title: Text(
+        title: const Text(
           'Add New Trade',
           style: TextStyle(color: AppColors.primaryColor),
         ),
-        iconTheme: IconThemeData(color: AppColors.primaryColor), // Set icon color
+        iconTheme: const IconThemeData(color: AppColors.primaryColor), // Set icon color
       ),
 
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (_image != null)
-              Image.file(
-                _image!,
-                height: 200,
-                fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (_image != null)
+                Image.file(
+                  _image!,
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
+              ElevatedButton(
+                onPressed: getImage,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryColor,
+                ),
+                child: const Text('Take Picture'),
               ),
-            ElevatedButton(
-              onPressed: getImage,
-              child: Text('Take Picture'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryColor,
+              TextField(
+                style: const TextStyle(color: AppColors.textColorDark),
+                controller: _itemNameController,
+                decoration: const InputDecoration(
+                  labelText: 'Item Name',
+                  labelStyle: TextStyle(color: AppColors.textColorDark),
+                ),
               ),
-            ),
-            TextField(
-              style: const TextStyle(color: AppColors.textColorDark),
-              controller: _itemNameController,
-              decoration: InputDecoration(
-                labelText: 'Item Name',
-                labelStyle: TextStyle(color: AppColors.textColorDark),
+              TextField(
+                style: const TextStyle(color: AppColors.textColorDark),
+                controller: _tradeOtherController,
+                decoration: const InputDecoration(
+                  labelText: 'Trading for',
+                  labelStyle: TextStyle(color: AppColors.textColorDark),
+                ),
               ),
-            ),
-            TextField(
-              style: const TextStyle(color: AppColors.textColorDark),
-              controller: _tradeOtherController,
-              decoration: InputDecoration(
-                labelText: 'Trading for',
-                labelStyle: TextStyle(color: AppColors.textColorDark),
+              TextField(
+                style: const TextStyle(color: AppColors.textColorDark),
+                controller: _tradeValueController,
+                decoration: const InputDecoration(
+                  labelText: 'Trade Value',
+                  labelStyle: TextStyle(color: AppColors.textColorDark),
+                ),
               ),
-            ),
-            TextField(
-              style: const TextStyle(color: AppColors.textColorDark),
-              controller: _tradeValueController,
-              decoration: InputDecoration(
-                labelText: 'Trade Value',
-                labelStyle: TextStyle(color: AppColors.textColorDark),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () async {
+                  final imageUrl = await uploadImageToFirebase();
+        
+                  // Get user email
+                  final String? userEmail =
+                      FirebaseAuth.instance.currentUser?.email;
+        
+                  // Get current position
+                  Position? currentPosition;
+                  try {
+                    currentPosition = await Geolocator.getCurrentPosition(
+                      desiredAccuracy: LocationAccuracy.high,
+                    );
+                  } catch (e) {
+                    print("Error getting current position: $e");
+                  }
+        
+                  // Construct trade data
+                  final Map<String, dynamic> tradeData = {
+                    'city': await getCurrentCity(currentPosition),
+                    'image': imageUrl ?? 'https://picsum.photos/300/100',
+                    'itemName': _itemNameController.text,
+                    'location': GeoPoint(
+                      currentPosition?.latitude ?? 0.0,
+                      currentPosition?.longitude ?? 0.0,
+                    ),
+                    'sellerEmail': userEmail,
+                    'tradeItem': [
+                      _tradeValueController.text,
+                      _tradeOtherController.text,
+                    ],
+                  };
+        
+                  // Add trade to Firestore
+                  await FirebaseFirestore.instance
+                      .collection('Trades')
+                      .doc()
+                      .set(tradeData);
+                  // Navigate back
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryColor,
+                ),
+                child: const Text('Add Trade'),
               ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                final imageUrl = await uploadImageToFirebase();
-
-                // Get user email
-                final String? userEmail =
-                    FirebaseAuth.instance.currentUser?.email;
-
-                // Get current position
-                Position? currentPosition;
-                try {
-                  currentPosition = await Geolocator.getCurrentPosition(
-                    desiredAccuracy: LocationAccuracy.high,
-                  );
-                } catch (e) {
-                  print("Error getting current position: $e");
-                }
-
-                // Construct trade data
-                final Map<String, dynamic> tradeData = {
-                  'city': await getCurrentCity(currentPosition),
-                  'image': imageUrl ?? 'https://picsum.photos/300/100',
-                  'itemName': _itemNameController.text,
-                  'location': GeoPoint(
-                    currentPosition?.latitude ?? 0.0,
-                    currentPosition?.longitude ?? 0.0,
-                  ),
-                  'sellerEmail': userEmail,
-                  'tradeItem': [
-                    _tradeValueController.text,
-                    _tradeOtherController.text,
-                  ],
-                };
-
-                // Add trade to Firestore
-                await FirebaseFirestore.instance
-                    .collection('Trades')
-                    .doc()
-                    .set(tradeData);
-                // Navigate back
-                Navigator.pop(context);
-              },
-              child: Text('Add Trade'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryColor,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

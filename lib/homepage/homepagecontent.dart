@@ -34,6 +34,7 @@ class _WateringReminderWidgetState extends State<WateringReminderWidget> {
   void initState() {
     super.initState();
     _checkIfWateredToday();
+
   }
 
   Future<void> _checkIfWateredToday() async {
@@ -960,3 +961,6 @@ Future<void> _showNotification() async {
 Future<void> onSelectNotification(String? payload) async {
   runApp(const LoginApp());
 }
+
+
+

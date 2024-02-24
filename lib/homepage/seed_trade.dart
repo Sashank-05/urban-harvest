@@ -1,5 +1,6 @@
 import 'dart:math' show asin, cos, pi, pow, sin, sqrt;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -273,24 +274,145 @@ class TradeDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final itemName = trade['itemName'];
     final tradeItems = trade['tradeItem'] as List<dynamic>;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(itemName),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Trade Type: ${tradeItems[0]}'),
-            Text('Trade Value: ${tradeItems[1]}'),
-            // Add more details here as needed
-          ],
+        backgroundColor: AppColors.backgroundColor2,
+        title: Text(itemName,
+        style: const TextStyle(
+          fontWeight:FontWeight.w600,
+          color: AppColors.primaryColor,
+        ),
         ),
       ),
+      body: Container(
+          decoration:  const BoxDecoration(
+          color: AppColors.backgroundColor,
+
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(35),
+                  color: AppColors.tertiaryColor2
+
+              ),
+
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 300,
+                      width:700,
+                      padding:const EdgeInsets.only(top:20,right:5,left:5,bottom:10) ,
+                      child: Image.network(trade.get('image'),
+                        //width: MediaQuery.of(context).size.width * 0.9,
+                        //height: MediaQuery.of(context).size.height * 0.25,
+                        fit: BoxFit.cover,
+                      ),
+                      ),
+                    const SizedBox(height:20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: Container(
+                              padding:const EdgeInsets.all(6) ,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(35),
+                              color: AppColors.primaryColor
+                            ),
+                              child: Text('Trade Type: ${tradeItems[0]}',
+                              style:const TextStyle(
+                                fontSize: 17,
+                              )
+                              )
+                          ),
+                        ),
+                    const SizedBox(width:10,),
+                    Expanded(
+                      child: Container(
+                          padding:const EdgeInsets.all(6) ,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(35),
+                              color: AppColors.primaryColor
+                          ),
+                          child: Text('Trade Value: ${tradeItems[1]}',
+                          style: const TextStyle(
+                            fontSize: 17,
+                          ),)
+                      ),
+                    ),
+                    // Add more details here as needed
+                ],
+              ),
+                    const SizedBox(height: 20,),
+                    Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(35),
+                            color: AppColors.backgroundColor3
+                        ),
+                        child:  Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.all(6),
+                                child: Text('Have Queries ?? 🤔',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                    color: AppColors.textColorDark
+                                ),
+                                ),
+                              ),
+
+
+                           const SizedBox(height:5),
+
+                            const Padding(
+                              padding: EdgeInsets.all(6),
+                              child: Text('Chat with seller ? ',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: AppColors.textColorDark
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                height: 60,
+                                child: ElevatedButton.icon(
+                                  onPressed: () {
+                                    print("hello");
+                                  },
+                                  icon: const Icon(
+                                  CommunityMaterialIcons.message_bulleted,
+                                  size: 40,
+                                  color: Colors.black,
+                                ),
+                                  label: const Text('chat'),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+
     );
   }
+
+
 }

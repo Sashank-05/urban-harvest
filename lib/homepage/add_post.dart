@@ -1,7 +1,11 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
+
+import '../constant_colors.dart';
 
 class AddPostPage extends StatefulWidget {
   const AddPostPage({Key? key}) : super(key: key);
@@ -21,42 +25,79 @@ class _AddPostPageState extends State<AddPostPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Post'),
+        title: const Text('Add Post',
+        style: TextStyle(
+          color: AppColors.primaryColor,
+        ),
+        ),
+        backgroundColor: AppColors.backgroundColor,
+        iconTheme:const IconThemeData(color: AppColors.primaryColor) ,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextFormField(
-              controller: _contentController,
-              maxLines: 5,
-              decoration: InputDecoration(
-                hintText: 'Enter your post content...',
-                border: OutlineInputBorder(),
+      body: Container(
+        decoration: const BoxDecoration(
+          color: AppColors.backgroundColor2,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextFormField(
+                controller: _contentController,
+                maxLines: 5,
+                decoration:  InputDecoration(
+                    filled: true,
+                  fillColor:AppColors.secondaryColor ,
+                  hintText: 'Enter your post content...',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                await _handleImagePick();
-              },
-              child: Text('Add Image'),
-            ),
-            SizedBox(height: 20),
-            if (_imageUrl.isNotEmpty)
-              Image.network(_imageUrl), // Display the uploaded image if available
-            Spacer(),
-            Center(
-              child: ElevatedButton(
+              const SizedBox(height: 20),
+              ElevatedButton.icon(
                 onPressed: () async {
-                  await _createPost();
-                  Navigator.pop(context); // Close the page after creating the post
+                  await _handleImagePick();
                 },
-                child: Text('Post'),
+                icon:const Icon( CommunityMaterialIcons.camera_image,
+                size:30,
+                color: Colors.black54,),
+                label: const Text('Add Image',
+                style: TextStyle(
+                  color: AppColors.textColorLight,
+                  fontSize: 15,
+                ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.secondaryColor,
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              if (_imageUrl.isNotEmpty)
+                Image.network(_imageUrl, height: 200,
+                  fit: BoxFit.cover,), // Display the uploaded image if available
+              const Spacer(),
+              Center(
+                child: ElevatedButton.icon(
+                  onPressed: () async {
+                    await _createPost();
+                    Navigator.pop(context); // Close the page after creating the post
+                  },
+                  icon:const Icon( CommunityMaterialIcons.arrow_collapse_up,
+                  size:30,
+                  color: Colors.black54,),
+                  label: const Text('Post', style: TextStyle(
+                    color: AppColors.textColorLight,
+                    fontSize: 15,
+                  ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.secondaryColor,
+                  ),
+
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

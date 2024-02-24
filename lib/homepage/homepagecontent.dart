@@ -645,10 +645,14 @@ class _HomePageContentState extends State<HomePageContent> {
                   ],
                 ),
               ),
+<<<<<<< Updated upstream
                   ]
           ),
 
 
+=======
+            ],
+>>>>>>> Stashed changes
           ),
         ),
 

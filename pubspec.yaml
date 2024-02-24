@@ -64,12 +64,20 @@ flutter:
     - assets/img/homepage/disease.png
     - assets/img/camera.png
     - assets/img/gallery.png
-
-
+    - assets/img/landing/logo.png
+    - assets/img/landing/plant.png
+    - assets/img/landing/2ndPage.png
     - assets/img/homepage/profile/user.png
-
+    - assets/img/landing/gardening.png
+    - assets/img/landing/plantdisease.png
+    - assets/img/landing/camera.png
+    - assets/img/landing/network.png
+    - assets/img/landing/comments.png
+    - assets/img/landing/trade.png
+    - assets/img/landing/surplus.png
+    - assets/img/landing/joincom.png
+    - assets/img/landing/grid.png
     - android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
-
     - assets/classes.txt
     - assets/model.tflite
 

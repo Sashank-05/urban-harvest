@@ -146,7 +146,7 @@ class _LocationPageState extends State<LocationPage> {
         backgroundColor: AppColors.backgroundColor2,
         title: Text(
           _showMap ? "Map (${_markers.length} markers)" : "Locations",
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: 'Montserrat',
             color: AppColors.primaryColor, // Use color constant
           ),
@@ -180,7 +180,7 @@ class _LocationPageState extends State<LocationPage> {
                             ),
                             zoom: 12,
                           )
-                        : CameraPosition(
+                        : const CameraPosition(
                             target: LatLng(0, 0),
                             zoom: 1,
                           ),
@@ -192,7 +192,7 @@ class _LocationPageState extends State<LocationPage> {
                     markers: Set<Marker>.of(_markers),
                   ),
                 if (_markers.isEmpty)
-                  Center(
+                  const Center(
                     child: Text(
                       "No markers available for this location.",
                       style: TextStyle(
@@ -206,8 +206,8 @@ class _LocationPageState extends State<LocationPage> {
               itemCount: _posts.length,
               itemBuilder: (context, index) {
                 return Container(
-                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  padding: EdgeInsets.all(10),
+                  margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: AppColors.backgroundColor3, // Use color constant
                     borderRadius: BorderRadius.circular(15),
@@ -216,7 +216,7 @@ class _LocationPageState extends State<LocationPage> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 2,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
@@ -226,20 +226,20 @@ class _LocationPageState extends State<LocationPage> {
                       // Image
                       if (_posts[index].imageUrl.isNotEmpty)
                         Image.network(_posts[index].imageUrl),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       // Content
                       Text(
                         _posts[index].content,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           color: AppColors.textColorDark, // Use color constant
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       // Comments
                       Text(
                         "Comments: ${_posts[index].comments.length}",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           color: AppColors.textColorLight, // Use color constant
                         ),

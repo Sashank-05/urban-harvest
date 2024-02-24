@@ -17,7 +17,6 @@ import 'package:urban_harvest/landing/plant_list.dart';
 import 'package:http/http.dart' as http;
 import '../firebase_options.dart';
 import '../login/login.dart';
-import './detect.dart';
 import 'package:urban_harvest/landing/selectable_landing.dart';
 
 class WateringReminderWidget extends StatefulWidget {
@@ -647,89 +646,13 @@ class _HomePageContentState extends State<HomePageContent> {
                   ],
                 ),
               ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 200,
-                      width: 180,
-                      child: InkWell(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.tertiaryColor,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(6.0),
-                                      child: Text(
-                                        'Did you know',
-                                        style: GoogleFonts.montserrat(
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                    ),
-                                    Lottie.asset(
-                                        'assets/img/homepage/vis/question.json',
-                                        height: 30,
-                                        width: 30),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    ss,
-                                    style: const TextStyle(
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          onTap: () {}),
-                    ),
-                    SizedBox(
-                      height: 200,
-                      width: 180,
-                      child: InkWell(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.tertiaryColor,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: const Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Disease Detection',
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat', fontSize: 14),
-                                ),
-                              ],
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => InferencePage()));
-                          }),
-                    ),
-                  ]),
-            ],
+                  ]
+          ),
+
+
           ),
         ),
-      ),
+
     );
   }
 

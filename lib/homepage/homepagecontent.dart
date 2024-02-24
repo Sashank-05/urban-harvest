@@ -623,7 +623,6 @@ class _HomePageContentState extends State<HomePageContent> {
                   ],
                 ),
               ),
-<<<<<<< Updated upstream
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -699,8 +698,6 @@ class _HomePageContentState extends State<HomePageContent> {
                           }),
                     ),
                   ]),
-=======
->>>>>>> Stashed changes
             ],
           ),
         ),

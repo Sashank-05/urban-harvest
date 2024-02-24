@@ -16,20 +16,20 @@ import './guides/curry-leaves-guide.dart';
 
 
 Map<String,Widget> guideDict = {
-  'Rose': RoseGuide(),
-  'Marigold': MarigoldGuide(),
-  'Hibiscus': HibiscusGuide(),
-  'Jasmine': JasmineGuide(),
-  'Sunflower': SunflowerGuide(),
-  'Cabbage': CabbageGuide(),
-  'Cauliflower': CauliflowerGuide(),
-  'Chilli': ChilliGuide(),
-  'Green Beans': GreenBeansGuide(),
-  'Tomato': TomatoGuide(),
-  'Aloevera': AloeveraGuide(),
-  'Coriander': CorianderGuide(),
-  'Mint': MintGuide(),
-  'Curry Leaves': CurryLeavesGuide(),
+  'Rose': const RoseGuide(),
+  'Marigold': const MarigoldGuide(),
+  'Hibiscus': const HibiscusGuide(),
+  'Jasmine': const JasmineGuide(),
+  'Sunflower': const SunflowerGuide(),
+  'Cabbage': const CabbageGuide(),
+  'Cauliflower': const CauliflowerGuide(),
+  'Chilli': const ChilliGuide(),
+  'Green Beans': const GreenBeansGuide(),
+  'Tomato': const TomatoGuide(),
+  'Aloevera': const AloeveraGuide(),
+  'Coriander': const CorianderGuide(),
+  'Mint': const MintGuide(),
+  'Curry Leaves': const CurryLeavesGuide(),
 };
 
 List<Map<String, String>> plantList = [

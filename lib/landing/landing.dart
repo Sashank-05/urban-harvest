@@ -2,20 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:urban_harvest/homepage/homepage.dart';
 import 'package:urban_harvest/landing/plant_list.dart';
 import 'package:google_fonts/google_fonts.dart';
-import './guides/aloevera-guide.dart';
-import './guides/cabbage-guide.dart';
-import './guides/cauliflower-guide.dart';
-import './guides/chilli-guide.dart';
-import './guides/coriander-guide.dart';
-import './guides/green-beans-guide.dart';
-import './guides/hibiscus-guide.dart';
-import './guides/jasmine-guide.dart';
-import './guides/marigold-guide.dart';
-import './guides/mint-guide.dart';
-import './guides/rose-guide.dart';
-import './guides/sunflower-guide.dart';
-import './guides/tomato-guide.dart';
-import './guides/curry-leaves-guide.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});

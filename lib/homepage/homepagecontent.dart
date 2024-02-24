@@ -372,290 +372,280 @@ class _HomePageContentState extends State<HomePageContent> {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                decoration: BoxDecoration(
-                  //color: AppColors.tertiaryColor,
-                  borderRadius: BorderRadius.circular(20),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              decoration: BoxDecoration(
+                //color: AppColors.tertiaryColor,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                'Hello $username',
+                style: GoogleFonts.montserrat(
+                  fontSize: 22,
+                  color: Colors.white,
                 ),
-                child: Text(
-                  'Hello $username',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 22,
-                    color: Colors.white,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: AppColors.backgroundColor3,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      'Weather Report 🌦️',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor,
+                        fontFamily: 'Montserrat',
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: AppColors.backgroundColor3,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Text(
-                        'Weather Report 🌦️',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primaryColor,
-                          fontFamily: 'Montserrat',
-                        ),
-                      ),
+                  // Weather box
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: AppColors.tertiaryColor2,
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                    // Weather box
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: AppColors.tertiaryColor2,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  _weather?.cityName ?? "Loading",
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.primaryColor,
-                                    fontFamily: 'Montserrat',
-                                  ),
-                                ),
-                                Text(
-                                  '${_weather?.temperature}°C',
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.primaryColor,
-                                    fontFamily: 'Montserrat',
-                                  ),
-                                ),
-                                Text(
-                                  '${_weather?.mainCondition}',
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.primaryColor,
-                                    fontFamily: 'Montserrat',
-                                  ),
-                                ),
-                                Text(
-                                  '${_weather?.dayLight} of daylight',
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.primaryColor,
-                                    fontFamily: 'Montserrat',
-                                  ),
-                                ),
-                              ]),
-                          Lottie.asset(
-                              getWeatherAnimation(_weather?.mainCondition),
-                              height: 100,
-                              width: 90),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const WateringReminderWidget(),
-              Container(
-                margin: const EdgeInsets.only(bottom: 20),
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: AppColors.backgroundColor3),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Text(
-                        'Something fishy with your plant?🤨',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primaryColor,
-                          fontFamily: 'Montserrat',
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: AppColors.tertiaryColor2,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: 100,
-                                width: 100,
-                                child: Image.asset(
-                                    'assets/img/homepage/disease.png'),
-                              ),
-                              const Text(
-                                'Detect any plant diseases \n before it\'s too late!',
-                                style: TextStyle(
-                                  fontSize: 17,
+                              Text(
+                                _weather?.cityName ?? "Loading",
+                                style: const TextStyle(
+                                  fontSize: 18,
                                   color: AppColors.primaryColor,
                                   fontFamily: 'Montserrat',
                                 ),
                               ),
-                            ],
-                          ),
-                          Center(
-                              child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                      AppColors.tertiaryColor,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                InferencePage()));
-                                  },
-                                  child: (const Text(
-                                    'Detect Disease',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: AppColors.primaryColor,
-                                      fontFamily: 'Montserrat',
-                                    ),
-                                  ))))
-                        ],
-                      ),
+                              Text(
+                                '${_weather?.temperature}°C',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: AppColors.primaryColor,
+                                  fontFamily: 'Montserrat',
+                                ),
+                              ),
+                              Text(
+                                '${_weather?.mainCondition}',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: AppColors.primaryColor,
+                                  fontFamily: 'Montserrat',
+                                ),
+                              ),
+                              Text(
+                                '${_weather?.dayLight} of daylight',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  color: AppColors.primaryColor,
+                                  fontFamily: 'Montserrat',
+                                ),
+                              ),
+                            ]),
+                        Lottie.asset(
+                            getWeatherAnimation(_weather?.mainCondition),
+                            height: 100,
+                            width: 90),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    color: AppColors.backgroundColor3,
-                    borderRadius: BorderRadius.circular(30)),
-                height: 300,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Text(
-                        'Your plants 🌱 ',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: AppColors.primaryColor,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: buildBoxes(),
-                      ),
-                    ),
-                    Center(
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            AppColors.tertiaryColor,
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SelectableLandingPage()));
-                        },
-                        child: const Center(
-                          child: Text(
-                            'Add Plants!',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: AppColors.primaryColor,
-                              fontFamily: 'Montserrat',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.backgroundColor3,
+            ),
+            const WateringReminderWidget(),
+            Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                ),
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.symmetric(vertical: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Text(
-                        'Did you know ❔',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primaryColor,
-                        ),
+                  color: AppColors.backgroundColor3),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      'Something fishy with your plant?🤨',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor,
+                        fontFamily: 'Montserrat',
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: AppColors.tertiaryColor2,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: AppColors.tertiaryColor2,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 100,
+                              width: 100,
+                              child: Image.asset(
+                                  'assets/img/homepage/disease.png'),
+                            ),
+                            const Text(
+                              'Detect any plant diseases \n before it\'s too late!',
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: AppColors.primaryColor,
+                                fontFamily: 'Montserrat',
+                              ),
+                            ),
+                          ],
+                        ),
+                        Center(
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                    AppColors.tertiaryColor,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              InferencePage()));
+                                },
+                                child: (const Text(
+                                  'Detect Disease',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: AppColors.primaryColor,
+                                    fontFamily: 'Montserrat',
+                                  ),
+                                ))))
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: AppColors.backgroundColor3,
+                  borderRadius: BorderRadius.circular(30)),
+              height: 300,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      'Your plants 🌱 ',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: AppColors.primaryColor,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: buildBoxes(),
+                    ),
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          AppColors.tertiaryColor,
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const SelectableLandingPage()));
+                      },
+                      child: const Center(
                         child: Text(
-                          ss,
-                          style: const TextStyle(
-                            fontSize: 17,
+                          'Add Plants!',
+                          style: TextStyle(
+                            fontSize: 15,
                             color: AppColors.primaryColor,
                             fontFamily: 'Montserrat',
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-<<<<<<< Updated upstream
-                  ]
-          ),
-
-
-=======
-            ],
->>>>>>> Stashed changes
-          ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: AppColors.backgroundColor3,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Text(
+                      'Did you know ❔',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: AppColors.tertiaryColor2,
+                        borderRadius: BorderRadius.circular(30)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text(
+                        ss,
+                        style: const TextStyle(
+                          fontSize: 17,
+                          color: AppColors.primaryColor,
+                          fontFamily: 'Montserrat',
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ]),
         ),
-
+      ),
     );
   }
 

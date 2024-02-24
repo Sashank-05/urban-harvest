@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     const HomePageContent(),
     const SeedTradeContent(),
     const LocationPage(),
-    ProfilePage()
+    const ProfilePage()
 
   ];
 

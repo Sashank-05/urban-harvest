@@ -59,12 +59,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
       DocumentReference documentReference =
           FirebaseFirestore.instance.collection('Users').doc(user?.uid);
-      // Call the delete method to delete the document
+
       documentReference.delete();
+
       final GoogleSignIn googleSignIn = GoogleSignIn();
-
-
       await user?.delete();
+
       try {
         await googleSignIn.disconnect();
       } catch (e) {

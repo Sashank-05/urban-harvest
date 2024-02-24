@@ -198,21 +198,36 @@ class HomePageContent extends StatefulWidget {
 
 class _HomePageContentState extends State<HomePageContent> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  final user = FirebaseAuth.instance.currentUser;
   late Completer<void> _fetchDataCompleter;
   List<String> userPlants = [];
+  final firestore = FirebaseFirestore.instance;
+
+  late String username;
 
   @override
   void initState() {
     super.initState();
+    _fetchUsername();
     _fetchDataCompleter = Completer<void>();
     _fetchWeather();
     _fetchPlants();
   }
 
+  _fetchUsername() async {
+    final user = this.user;
+    final userData = await FirebaseFirestore.instance
+        .collection('Users')
+        .doc(user!.uid)
+        .get();
+    setState(() {
+      username = userData['displayName'];
+    });
+  }
+
   _fetchPlants() async {
-    final user = FirebaseAuth.instance.currentUser;
+    final user = this.user;
     if (user != null) {
-      final firestore = FirebaseFirestore.instance;
       DocumentSnapshot snapshot =
           await firestore.collection('Users').doc(user.uid).get();
       if (snapshot.exists) {
@@ -370,7 +385,7 @@ class _HomePageContentState extends State<HomePageContent> {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  'Hello UserName',
+                  'Hello $username',
                   style: GoogleFonts.montserrat(
                     fontSize: 22,
                     color: Colors.white,
@@ -414,7 +429,7 @@ class _HomePageContentState extends State<HomePageContent> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  _weather?.cityName ?? "City Loading",
+                                  _weather?.cityName ?? "Loading",
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: AppColors.primaryColor,
@@ -431,6 +446,14 @@ class _HomePageContentState extends State<HomePageContent> {
                                 ),
                                 Text(
                                   '${_weather?.mainCondition}',
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: AppColors.primaryColor,
+                                    fontFamily: 'Montserrat',
+                                  ),
+                                ),
+                                Text(
+                                  '${_weather?.dayLight} of daylight',
                                   style: const TextStyle(
                                     fontSize: 18,
                                     color: AppColors.primaryColor,
@@ -687,7 +710,11 @@ class _HomePageContentState extends State<HomePageContent> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text('Disease Detection',style: TextStyle(fontFamily: 'Montserrat',fontSize: 14),),
+                                Text(
+                                  'Disease Detection',
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat', fontSize: 14),
+                                ),
                               ],
                             ),
                           ),
@@ -832,18 +859,36 @@ class Weather {
   late final String cityName;
   late final String temperature;
   late final String mainCondition;
+  late final String dayLight;
 
   Weather({
     required this.cityName,
     required this.mainCondition,
     required this.temperature,
+    required this.dayLight
   });
 
   factory Weather.fromJson(Map<String, dynamic> json) {
+    var sunrise = DateTime.fromMillisecondsSinceEpoch(
+        json['sys']['sunrise'] * 1000)
+        .toString();
+    var sunset = DateTime.fromMillisecondsSinceEpoch(
+        json['sys']['sunset'] * 1000)
+        .toString();
+    final sunriseDateTime = DateTime.parse(sunrise);
+    final sunsetDateTime = DateTime.parse(sunset);
+    final daylightDuration = sunsetDateTime.difference(sunriseDateTime);
+    final daylightHoursDouble = daylightDuration.inHours.toDouble();
+    final daylightMinutesDouble = daylightDuration.inMinutes.toDouble();
+    final remainingMinutes = daylightMinutesDouble - (daylightHoursDouble * 60);
+    final daylightHours = '$daylightHoursDouble hours';
+    var daylight = daylightHours.toString();
+
     return Weather(
       cityName: json['name'],
       mainCondition: json['weather'][0]['main'],
       temperature: json['main']['temp'].toString(),
+      dayLight: daylight
     );
   }
 }

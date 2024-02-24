@@ -326,6 +326,19 @@ class _HomePageContentState extends State<HomePageContent> {
 
   List<Widget> buildBoxes() {
     List<Widget> boxes = [];
+    if (userPlants.isEmpty) {
+      boxes.add(const Center(
+        child: Text(
+          'You haven\'t added any plants \nyet!',
+          style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primaryColor,
+              fontFamily: 'Montserrat'),
+        ),
+      ));
+      return boxes;
+    }
     for (String name in userPlants) {
       boxes.add(_buildHorizontalBox(name, imageDict[name]!, guideDict[name]!));
     }

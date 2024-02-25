@@ -124,15 +124,25 @@ class _LocationPageState extends State<LocationPage> {
         .collection('Posts')
         .orderBy('timestamp', descending: true)
         .get();
-    _posts = postsSnapshot.docs.map((doc) {
+
+    _posts = await Future.wait(postsSnapshot.docs.map((doc) async {
+      final posterUid = doc['posterUid'] as String;
+      final posterDoc =
+          await _firestore.collection('Users').doc(posterUid).get();
+      final posterName =
+          posterDoc.exists ? posterDoc.get('displayName') as String : 'Unknown';
+
       return Post(
         id: doc.id,
         content: doc['content'],
         imageUrl: doc['imageUrl'],
         timestamp: doc['timestamp'].toDate(),
         comments: List<String>.from(doc['comments']),
+        uid: posterUid,
+        displayName: posterName,
       );
-    }).toList();
+    }).toList());
+
     print(_posts);
     setState(() {});
   }
@@ -191,25 +201,17 @@ class _LocationPageState extends State<LocationPage> {
                     },
                     markers: Set<Marker>.of(_markers),
                   ),
-                if (_markers.isEmpty)
-                  const Center(
-                    child: Text(
-                      "No markers available for this location.",
-                      style: TextStyle(
-                        color: AppColors.textColorLight, // Use color constant
-                      ),
-                    ),
-                  ),
               ],
             )
           : ListView.builder(
               itemCount: _posts.length,
               itemBuilder: (context, index) {
                 return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: AppColors.backgroundColor3, // Use color constant
+                    color: AppColors.backgroundColor3,
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
@@ -223,7 +225,7 @@ class _LocationPageState extends State<LocationPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Image
+                      Text("Posted by ${_posts[index].displayName}"),
                       if (_posts[index].imageUrl.isNotEmpty)
                         Image.network(_posts[index].imageUrl),
                       const SizedBox(height: 10),
@@ -256,7 +258,10 @@ class _LocationPageState extends State<LocationPage> {
             MaterialPageRoute(builder: (context) => const AddPostPage()),
           );
         },
-        child: const Icon(Icons.add,color: AppColors.backgroundColor2,),
+        child: const Icon(
+          Icons.add,
+          color: AppColors.backgroundColor2,
+        ),
       ),
     );
   }
@@ -268,6 +273,8 @@ class Post {
   final String imageUrl;
   final DateTime timestamp;
   final List<String> comments;
+  final String uid;
+  final String displayName;
 
   Post({
     required this.id,
@@ -275,6 +282,8 @@ class Post {
     required this.imageUrl,
     required this.timestamp,
     required this.comments,
+    required this.uid,
+    required this.displayName,
   });
 }
 

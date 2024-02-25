@@ -197,7 +197,7 @@ class _InferencePageState extends State<InferencePage> {
     try {
       final inputDetails = _interpreter.getInputTensors();
       final outputDetails = _interpreter.getOutputTensors();
-      print(inputDetails[0].shape);
+      // print(inputDetails[0].shape);
 
       // Read and resize the image
       final imageBytes = await imageFile.readAsBytes();
@@ -226,9 +226,9 @@ class _InferencePageState extends State<InferencePage> {
       final outputData = output[0] as List<double>;
       print(outputData);
       // Print confidence scores for all diseases
-      for (int i = 0; i < outputData.length; i++) {
-        print('${_classes[i]}: ${outputData[i]}');
-      }
+     // for (int i = 0; i < outputData.length; i++) {
+       // print('${_classes[i]}: ${outputData[i]}');
+     // }
       final predictedClassIdx =
           outputData.indexOf(outputData.reduce((a, b) => a > b ? a : b));
       final predictedClass = _classes[predictedClassIdx];

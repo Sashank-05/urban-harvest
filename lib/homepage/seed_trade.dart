@@ -17,7 +17,8 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
   final _firestore = FirebaseFirestore.instance;
   Stream<QuerySnapshot>? _tradesStream;
   late User? _currentUser;
-  late Position? _userPosition;
+  Position? _userPosition;// Assuming Position() is a valid default constructor
+
 
   @override
   void initState() {

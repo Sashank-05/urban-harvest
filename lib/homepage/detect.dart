@@ -19,6 +19,8 @@ class InferenceResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String result = inferenceResult.split('___').last.replaceAll('_', ' ');
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
@@ -101,7 +103,7 @@ class InferenceResultPage extends StatelessWidget {
                   decoration: BoxDecoration(color: AppColors.tertiaryColor2, borderRadius: BorderRadius.circular(30)),
                   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                   child: Text(
-                    inferenceResult,
+                    "Likely $result",
                     style: const TextStyle(
                       color: AppColors.primaryColor,
                       fontFamily: 'Montserrat',

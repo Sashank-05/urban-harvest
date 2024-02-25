@@ -11,7 +11,7 @@ class ChatroomPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chatroom'),
+        title: const Text('Chatroom'),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -22,7 +22,7 @@ class ChatroomPage extends StatelessWidget {
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

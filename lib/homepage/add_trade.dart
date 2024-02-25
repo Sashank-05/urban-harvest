@@ -87,7 +87,7 @@ class _AddTradePageState extends State<AddTradePage> {
                 ),
                 child: const Text('Take Picture'),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               ElevatedButton(
                 onPressed: () async {
                   final pickedFile = await picker.pickImage(

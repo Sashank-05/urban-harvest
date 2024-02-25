@@ -157,7 +157,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
             throw Exception('UID is null or empty');
           }
           if (!snapshot.data!.exists) {
-            return Text('User not found',style: TextStyle(color:AppColors.primaryColor),);
+            return const Text('User not found',style: TextStyle(color:AppColors.primaryColor),);
           }
           final trader = snapshot.data!.get("displayName") ?? 'Unknown';
 
@@ -233,7 +233,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
           );
         } catch (e) {
           print('Error fetching user data: $e');
-          return Text('Unknown');
+          return const Text('Unknown');
         }
       },
     );
@@ -312,7 +312,7 @@ class TradeDetailsPage extends StatelessWidget {
             color: AppColors.primaryColor,
           ),
         ),
-        iconTheme: IconThemeData(color: AppColors.primaryColor),
+        iconTheme: const IconThemeData(color: AppColors.primaryColor),
       ),
       backgroundColor: AppColors.backgroundColor,
       body: Container(

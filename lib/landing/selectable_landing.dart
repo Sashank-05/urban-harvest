@@ -35,10 +35,10 @@ class _SelectableLandingPageState extends State<SelectableLandingPage> {
           toolbarHeight: 70,
           backgroundColor: const Color(0xFF081C15),
           leading: IconButton(
-            icon: Padding(
+            icon: const Padding(
                 padding: EdgeInsets.only(top: 15),
                 child: Icon(Icons.arrow_back)),
-            color: Color(0xFFD8F3DC),
+            color: const Color(0xFFD8F3DC),
             iconSize: 25,
             onPressed: () {
               Navigator.pop(context);

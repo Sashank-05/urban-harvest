@@ -21,9 +21,9 @@ class _LandingPageState extends State<LandingPage> {
         toolbarHeight: 70,
         backgroundColor: const Color(0xFF081C15),
         leading: IconButton(
-          icon: Padding(
+          icon: const Padding(
               padding: EdgeInsets.only(top: 15), child: Icon(Icons.arrow_back)),
-          color: Color(0xFFD8F3DC),
+          color: const Color(0xFFD8F3DC),
           iconSize: 25,
           onPressed: () {
             Navigator.pop(context);
@@ -86,7 +86,7 @@ class _LandingPageState extends State<LandingPage> {
               (route) => false, // Remove all routes from the stack
             );
           },
-          child: Text('Skip for now'),
+          child: const Text('Skip for now'),
         ),
       ),
     ));

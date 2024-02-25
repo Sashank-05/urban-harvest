@@ -282,6 +282,7 @@ class _InferencePageState extends State<InferencePage> {
           style: TextStyle(
               fontFamily: 'Montserrat', color: AppColors.primaryColor),
         ),
+
       ),
       body: Center(
         child: Column(
@@ -302,6 +303,7 @@ class _InferencePageState extends State<InferencePage> {
               ),
             ),
             const SizedBox(height: 40),
+
             ElevatedButton.icon(
               onPressed: () => _pickImage(context, ImageSource.camera),
               icon: Image.asset(
@@ -336,6 +338,7 @@ class _InferencePageState extends State<InferencePage> {
                   fixedSize: const Size(350, 50)),
             ),
             const SizedBox(height: 20),
+
           ],
         ),
       ),

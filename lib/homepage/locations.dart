@@ -27,7 +27,7 @@ class _LocationPageState extends State<LocationPage> {
 
   GoogleMapController? _mapController;
   Position? _currentPosition;
-  List<Marker> _markers = [];
+  final List<Marker> _markers = [];
 
   List<Post> _posts = [];
   bool _showMap = false; // Variable to control map visibility

@@ -201,7 +201,7 @@ class _HomePageContentState extends State<HomePageContent> {
   List<String> userPlants = [];
   final firestore = FirebaseFirestore.instance;
 
-  late String username;
+  String? username;
 
   @override
   void initState() {
@@ -394,7 +394,7 @@ class _HomePageContentState extends State<HomePageContent> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
-                'Hello $username',
+                'Hello ${username ?? "User!"}',
                 style: GoogleFonts.montserrat(
                   fontSize: 22,
                   color: Colors.white,
@@ -446,7 +446,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                 ),
                               ),
                               Text(
-                                '${_weather?.temperature}°C',
+                                '${_weather?.temperature ?? "0"}°C',
                                 style: const TextStyle(
                                   fontSize: 18,
                                   color: AppColors.primaryColor,
@@ -454,7 +454,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                 ),
                               ),
                               Text(
-                                '${_weather?.mainCondition}',
+                                _weather?.mainCondition ?? " ",
                                 style: const TextStyle(
                                   fontSize: 18,
                                   color: AppColors.primaryColor,
@@ -462,7 +462,7 @@ class _HomePageContentState extends State<HomePageContent> {
                                 ),
                               ),
                               Text(
-                                '${_weather?.dayLight} of daylight',
+                                '${_weather?.dayLight ?? "0 hours"} of daylight',
                                 style: const TextStyle(
                                   fontSize: 18,
                                   color: AppColors.primaryColor,
@@ -924,9 +924,9 @@ Future<void> checkDatabase() async {
         List<dynamic> dates = userData['dates'];
         if (!dates
             .any((date) => DateTime.parse(date).isAtSameMomentAs(today))) {
-          if (now.hour < 22) {
+         // if (now.hour < 22) {
             await _showNotification();
-          }
+         // }
         }
       }
     }
@@ -934,6 +934,7 @@ Future<void> checkDatabase() async {
 }
 
 Future<void> _showNotification() async {
+  print("Notification called");
   var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
     'abc12i3',
     'Urban Harvest',
@@ -949,7 +950,7 @@ Future<void> _showNotification() async {
   await flutterLocalNotificationsPlugin.show(
     0,
     'Did you water your plants?',
-    'Water them so they don\'t die!',
+    'Water them now!',
     platformChannelSpecifics,
     payload: 'test Payload',
   );

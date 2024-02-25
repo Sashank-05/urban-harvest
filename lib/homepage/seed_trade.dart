@@ -17,7 +17,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
   final _firestore = FirebaseFirestore.instance;
   Stream<QuerySnapshot>? _tradesStream;
   late User? _currentUser;
-  late Position _userPosition;
+  late Position? _userPosition;
 
   @override
   void initState() {
@@ -237,8 +237,8 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
   double _calculateDistance(double lat, double lon) {
     const earthRadius = 6371.0; // in kilometers
 
-    final userLat = _userPosition.latitude;
-    final userLon = _userPosition.longitude;
+    final userLat = _userPosition?.latitude ?? 0;
+    final userLon = _userPosition?.longitude ?? 0;
 
     final dLat = _degreesToRadians(lat - userLat);
     final dLon = _degreesToRadians(lon - userLon);
@@ -274,145 +274,167 @@ class TradeDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final itemName = trade['itemName'];
     final tradeItems = trade['tradeItem'] as List<dynamic>;
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.backgroundColor2,
-        title: Text(itemName,
-        style: const TextStyle(
-          fontWeight:FontWeight.w600,
-          color: AppColors.primaryColor,
-        ),
-        ),
-      ),
-      body: Container(
-          decoration:  const BoxDecoration(
-          color: AppColors.backgroundColor,
-
+        backgroundColor: AppColors.backgroundColor,
+        title: Text(
+          itemName,
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
+            color: AppColors.primaryColor,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(35),
-                  color: AppColors.tertiaryColor2
-
-              ),
-
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 300,
-                      width:700,
-                      padding:const EdgeInsets.only(top:20,right:5,left:5,bottom:10) ,
-                      child: Image.network(trade.get('image'),
-                        //width: MediaQuery.of(context).size.width * 0.9,
-                        //height: MediaQuery.of(context).size.height * 0.25,
-                        fit: BoxFit.cover,
-                      ),
-                      ),
-                    const SizedBox(height:20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: Container(
-                              padding:const EdgeInsets.all(6) ,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(35),
-                              color: AppColors.primaryColor
-                            ),
-                              child: Text('Trade Type: ${tradeItems[0]}',
-                              style:const TextStyle(
-                                fontSize: 17,
-                              )
-                              )
-                          ),
-                        ),
-                    const SizedBox(width:10,),
-                    Expanded(
-                      child: Container(
-                          padding:const EdgeInsets.all(6) ,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(35),
-                              color: AppColors.primaryColor
-                          ),
-                          child: Text('Trade Value: ${tradeItems[1]}',
-                          style: const TextStyle(
-                            fontSize: 17,
-                          ),)
-                      ),
-                    ),
-                    // Add more details here as needed
-                ],
-              ),
-                    const SizedBox(height: 20,),
-                    Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(35),
-                            color: AppColors.backgroundColor3
-                        ),
-                        child:  Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(6),
-                                child: Text('Have Queries ?? 🤔',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                    color: AppColors.textColorDark
-                                ),
-                                ),
-                              ),
-
-
-                           const SizedBox(height:5),
-
-                            const Padding(
-                              padding: EdgeInsets.all(6),
-                              child: Text('Chat with seller ? ',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: AppColors.textColorDark
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(
-                                height: 60,
-                                child: ElevatedButton.icon(
-                                  onPressed: () {
-                                    print("hello");
-                                  },
-                                  icon: const Icon(
-                                  CommunityMaterialIcons.message_bulleted,
-                                  size: 40,
-                                  color: Colors.black,
-                                ),
-                                  label: const Text('chat'),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                  ],
+        ),
+        iconTheme: IconThemeData(color: AppColors.primaryColor),
+      ),
+      backgroundColor: AppColors.backgroundColor,
+      body: Container(
+        padding: const EdgeInsets.all(10),
+        child: Card(
+          color: AppColors.backgroundColor2, // Set inner background color
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          elevation: 5,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(
+                height: 300,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    trade.get('image'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: AppColors.primaryColor,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'You give',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.textColorLight,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            '${tradeItems[0]} or ${tradeItems[1]}',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: AppColors.textColorLight,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: AppColors.primaryColor,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'You get',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.textColorLight,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            itemName,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: AppColors.textColorLight,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 20),
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                color: AppColors.backgroundColor3,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Text(
+                        'Have Queries?',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textColorDark,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      const Text(
+                        'Chat with the seller',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: AppColors.textColorDark,
+                        ),
+                      ),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          print("hello");
+                        },
+                        icon: const Icon(
+                          CommunityMaterialIcons.message_bulleted,
+                          size: 30,
+                          color: Colors.black,
+                        ),
+                        label: const Text('Chat'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.secondaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 20,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-
+      ),
     );
   }
-
-
 }

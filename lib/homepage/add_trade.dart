@@ -13,7 +13,7 @@ class AddTradePage extends StatefulWidget {
   const AddTradePage({Key? key}) : super(key: key);
 
   @override
-  _AddTradePageState createState() => _AddTradePageState();
+  State<AddTradePage> createState() => _AddTradePageState();
 }
 
 class _AddTradePageState extends State<AddTradePage> {
@@ -24,18 +24,6 @@ class _AddTradePageState extends State<AddTradePage> {
   File? _image;
 
   final picker = ImagePicker();
-
-  Future getImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
-  }
 
   Future<String?> uploadImageToFirebase() async {
     if (_image == null) return null;
@@ -81,12 +69,45 @@ class _AddTradePageState extends State<AddTradePage> {
                   fit: BoxFit.cover,
                 ),
               ElevatedButton(
-                onPressed: getImage,
+                onPressed: () async {
+                  final pickedFile = await picker.pickImage(
+                    source: ImageSource.camera,
+                  );
+
+                  setState(() {
+                    if (pickedFile != null) {
+                      _image = File(pickedFile.path);
+                    } else {
+                      print('No image selected.');
+                    }
+                  });
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryColor,
                 ),
                 child: const Text('Take Picture'),
               ),
+              SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: () async {
+                  final pickedFile = await picker.pickImage(
+                    source: ImageSource.gallery,
+                  );
+
+                  setState(() {
+                    if (pickedFile != null) {
+                      _image = File(pickedFile.path);
+                    } else {
+                      print('No image selected.');
+                    }
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryColor,
+                ),
+                child: const Text('Choose from Gallery'),
+              ),
+
               TextField(
                 style: const TextStyle(color: AppColors.textColorDark),
                 controller: _itemNameController,
@@ -117,8 +138,8 @@ class _AddTradePageState extends State<AddTradePage> {
                   final imageUrl = await uploadImageToFirebase();
         
                   // Get user email
-                  final String? userEmail =
-                      FirebaseAuth.instance.currentUser?.email;
+                  final user =
+                      FirebaseAuth.instance.currentUser;
         
                   // Get current position
                   Position? currentPosition;
@@ -139,7 +160,8 @@ class _AddTradePageState extends State<AddTradePage> {
                       currentPosition?.latitude ?? 0.0,
                       currentPosition?.longitude ?? 0.0,
                     ),
-                    'sellerEmail': userEmail,
+                    'sellerEmail': user?.email,
+                    'sellerUid' : user?.uid,
                     'tradeItem': [
                       _tradeValueController.text,
                       _tradeOtherController.text,

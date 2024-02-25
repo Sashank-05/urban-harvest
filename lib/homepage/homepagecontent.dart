@@ -201,7 +201,7 @@ class _HomePageContentState extends State<HomePageContent> {
   List<String> userPlants = [];
   final firestore = FirebaseFirestore.instance;
 
-  late String username;
+   String? username;
 
   @override
   void initState() {
@@ -394,7 +394,7 @@ class _HomePageContentState extends State<HomePageContent> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
-                'Hello $username',
+                username == null ? 'loading' : 'Hello $username',
                 style: GoogleFonts.montserrat(
                   fontSize: 22,
                   color: Colors.white,

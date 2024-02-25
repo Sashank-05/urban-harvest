@@ -13,6 +13,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 import 'package:urban_harvest/constant_colors.dart';
 import 'package:urban_harvest/homepage/detect.dart';
+import 'package:urban_harvest/homepage/locations.dart';
 import 'package:urban_harvest/landing/plant_list.dart';
 import 'package:http/http.dart' as http;
 import '../firebase_options.dart';
@@ -201,16 +202,29 @@ class _HomePageContentState extends State<HomePageContent> {
   List<String> userPlants = [];
   final firestore = FirebaseFirestore.instance;
 
-
-   String? username;
+  String? username;
 
   @override
   void initState() {
     super.initState();
     _fetchUsername();
+    _updateLocation();
     _fetchDataCompleter = Completer<void>();
     _fetchWeather();
     _fetchPlants();
+  }
+
+  _updateLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+
+    // Extract country name from the placemarks
+    String? countryName = placemarks.first.country;
+    addCurrentLocationToFirestore(countryName!, await getCurrentCity(),
+        position.latitude, position.longitude);
+    print("Trying to update");
   }
 
   _fetchUsername() async {
@@ -395,7 +409,6 @@ class _HomePageContentState extends State<HomePageContent> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
-
                 'Hello ${username ?? "User!"}',
                 style: GoogleFonts.montserrat(
                   fontSize: 22,
@@ -926,9 +939,9 @@ Future<void> checkDatabase() async {
         List<dynamic> dates = userData['dates'];
         if (!dates
             .any((date) => DateTime.parse(date).isAtSameMomentAs(today))) {
-         // if (now.hour < 22) {
-            await _showNotification();
-         // }
+          // if (now.hour < 22) {
+          await _showNotification();
+          // }
         }
       }
     }
@@ -961,3 +974,51 @@ Future<void> _showNotification() async {
 Future<void> onSelectNotification(String? payload) async {
   runApp(const LoginApp());
 }
+
+void addCurrentLocationToFirestore(
+    String countryName, String cityName, double latitude, double longitude) async {
+  DocumentReference countryDocRef =
+  FirebaseFirestore.instance.collection('Location').doc(countryName);
+
+  DocumentSnapshot countrySnapshot = await countryDocRef.get();
+
+  if (countrySnapshot.exists) {
+    Map<String, dynamic>? data = countrySnapshot.data() as Map<String, dynamic>?;
+
+    if (data != null) {
+      List<dynamic>? cityLocations = data[cityName] as List<dynamic>?;
+
+      if (cityLocations != null) {
+        // Check if the location already exists
+        bool locationExists = cityLocations.any((location) {
+          double existingLat = (location as GeoPoint).latitude;
+          double existingLon = (location as GeoPoint).longitude;
+          return _areCoordinatesEqual(latitude, existingLat) &&
+              _areCoordinatesEqual(longitude, existingLon);
+        });
+
+        if (locationExists) {
+          print("Location already exists in the city.");
+          return;
+        }
+
+        // Add new location to the array
+        GeoPoint newLocation = GeoPoint(latitude, longitude);
+        cityLocations.add(newLocation);
+        await countryDocRef.update({cityName: cityLocations});
+        print("Location added successfully.");
+      } else {
+        print("City does not exist.");
+      }
+    } else {
+      print("Country data is null.");
+    }
+  } else {
+    print("Country document does not exist.");
+  }
+}
+
+bool _areCoordinatesEqual(double coord1, double coord2, {double tolerance = 0.0001}) {
+  return (coord1 - coord2).abs() < tolerance;
+}
+

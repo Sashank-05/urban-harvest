@@ -9,6 +9,7 @@ import 'add_trade.dart';
 
 class SeedTradeContent extends StatefulWidget {
   const SeedTradeContent({super.key});
+
   @override
   State<SeedTradeContent> createState() => _SeedTradeContentState();
 }
@@ -116,103 +117,126 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
       final itemName = trade.get('itemName');
       final location = trade.get('location');
       final tradeItems = trade.get('tradeItem') as List<dynamic>;
-      final address = _convertLatLonToAddress(location); // Optional conversion
+      final address = _convertLatLonToAddress(location);
+      final sellerUID = trade.get("uid");
 
-      return Padding( // Add Padding widget here
-        padding: const EdgeInsets.symmetric(vertical: 8), // Adjust the vertical spacing as needed
+      return Padding(
+        // Add Padding widget here
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        // Adjust the vertical spacing as needed
         child: GestureDetector(
           onTap: () {
             // Navigate to trade details page
             _navigateToTradeDetailsPage(context, trade);
           },
           child: _buildTradeBox(
-            itemName,
-            tradeItems[0] as String, // Assuming first item is trade type
-            tradeItems[1] as String, // Assuming second item is trade value
-            imageUrl: imageUrl,
-            address: address,
-          ),
+              itemName,
+              tradeItems[0] as String, // Assuming first item is trade type
+              tradeItems[1] as String, // Assuming second item is trade value
+              imageUrl: imageUrl,
+              uid: sellerUID),
         ),
       );
     }).toList();
   }
 
+  Widget _buildTradeBox(String seedName, String tradeType, String tradeValue,
+      {String? imageUrl, String? address, String? uid}) {
+    return FutureBuilder<DocumentSnapshot>(
+      future: FirebaseFirestore.instance.collection('Users').doc(uid).get(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
 
-  Widget _buildTradeBox(
-    String seedName,
-    String tradeType,
-    String tradeValue, {
-    String? imageUrl,
-    String? address,
-  }) {
-    return SizedBox(
+        try {
+          if (uid == null || uid.isEmpty) {
+            throw Exception('UID is null or empty');
+          }
+          if (!snapshot.data!.exists) {
+            return Text('User not found',style: TextStyle(color:AppColors.primaryColor),);
+          }
+          final trader = snapshot.data!.get("displayName") ?? 'Unknown';
 
-        child: Container(
-      width: MediaQuery.of(context).size.width * 0.9,
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: AppColors.backgroundColor2,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (imageUrl != null)
-            Image.network(
-              imageUrl,
+          return SizedBox(
+            child: Container(
               width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.25,
-            ),
-          const SizedBox(
-            height: 20,
-          ),
-          if (address != null)
-            Text(
-              address,
-              style: const TextStyle(color: AppColors.secondaryColor),
-            ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                seedName,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: AppColors.backgroundColor2,
+                borderRadius: BorderRadius.circular(20),
               ),
-              const Text("for", style: TextStyle(color: AppColors.primaryColor)),
-              Column(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    tradeType,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
+                  Text("Trade posted by $trader"),
+                  if (imageUrl != null)
+                    Image.network(
+                      imageUrl,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.25,
                     ),
+                  const SizedBox(
+                    height: 20,
                   ),
-                  const Text(
-                    "or",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
+                  if (address != null)
+                    Text(
+                      address,
+                      style: const TextStyle(color: AppColors.secondaryColor),
                     ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        seedName,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const Text("for",
+                          style: TextStyle(color: AppColors.primaryColor)),
+                      Column(
+                        children: [
+                          Text(
+                            tradeType,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const Text(
+                            "or",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            tradeValue,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
+                      )
+                    ],
                   ),
-                  Text(
-                    tradeValue,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  )
                 ],
-              )
-            ],
-          ),
-        ],
-      ),
-    ));
+              ),
+            ),
+          );
+        } catch (e) {
+          print('Error fetching user data: $e');
+          return Text('Unknown');
+        }
+      },
+    );
   }
 
   String? _convertLatLonToAddress(GeoPoint location) {
@@ -379,7 +403,6 @@ class TradeDetailsPage extends StatelessWidget {
                   ),
                 ],
               ),
-
               const SizedBox(height: 20),
               Card(
                 shape: RoundedRectangleBorder(

@@ -1,7 +1,9 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:image/image.dart' as imglib;
 import 'package:image_picker/image_picker.dart';
@@ -16,6 +18,8 @@ class InferenceResultPage extends StatelessWidget {
     required this.imageFile,
     required this.inferenceResult,
   });
+
+  get result => inferenceResult.split('___').last.replaceAll('_', ' ');
 
   @override
   Widget build(BuildContext context) {
@@ -42,119 +46,164 @@ class InferenceResultPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                margin: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: AppColors.backgroundColor3),
+      body: FutureBuilder<String>(
+        future: _getTextResult(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            String text = snapshot.data ?? '';
+            return SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  margin: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: AppColors.backgroundColor3,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
                         margin: const EdgeInsets.only(bottom: 20),
                         child: const Text(
                           'Picture used for inference',
                           style: TextStyle(
-                              fontFamily: 'Montserrat',
+                            fontFamily: 'Montserrat',
+                            color: AppColors.primaryColor,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: AppColors.tertiaryColor2,
+                        ),
+                        padding: const EdgeInsets.all(20),
+                        child: Image.file(imageFile, width: 300, height: 300),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  margin:
+                      const EdgeInsets.only(bottom: 20, right: 20, left: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: AppColors.backgroundColor3,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 10.0),
+                        child: Text(
+                          'Detected plant condition',
+                          style: TextStyle(
+                            color: AppColors.primaryColor,
+                            fontFamily: 'Montserrat',
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: AppColors.tertiaryColor2,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 15),
+                        child: Text(
+                          "Likely $result",
+                          style: const TextStyle(
+                            color: AppColors.primaryColor,
+                            fontFamily: 'Montserrat',
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 500,
+                  padding: const EdgeInsets.all(20),
+                  margin:
+                      const EdgeInsets.only(bottom: 20, right: 20, left: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: AppColors.backgroundColor3,
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 10.0),
+                          child: Text(
+                            'Solution',
+                            style: TextStyle(
                               color: AppColors.primaryColor,
-                              fontSize: 20),
-                        )),
-                    Flexible(
-                      child: Container(
+                              fontFamily: 'Montserrat',
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: double.infinity,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: AppColors.tertiaryColor2),
-                          padding: const EdgeInsets.all(20),
-                          child: Image.file(imageFile, width: 300, height: 300,)),
-                    ),
-                  ],
-                )),
-          ),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(20),
-            margin: const EdgeInsets.only(bottom: 20, right: 20, left: 20),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: AppColors.backgroundColor3),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  child: Text(
-                    'Detected plant condition',
-                    style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontFamily: 'Montserrat',
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(color: AppColors.tertiaryColor2, borderRadius: BorderRadius.circular(30)),
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                  child: Text(
-                    "Likely $result",
-                    style: const TextStyle(
-                      color: AppColors.primaryColor,
-                      fontFamily: 'Montserrat',
-                      fontSize: 16,
+                            color: AppColors.tertiaryColor2,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 15),
+                          child: Text(
+                            text,
+                            style: const TextStyle(
+                              color: AppColors.primaryColor,
+                              fontFamily: 'Montserrat',
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ],
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(20),
-            margin: const EdgeInsets.only(bottom: 20, right: 20, left: 20),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: AppColors.backgroundColor3),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  child: Text(
-                    'Solution',
-                    style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontFamily: 'Montserrat',
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(color: AppColors.tertiaryColor2, borderRadius: BorderRadius.circular(30)),
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                  child: const Text(
-                    'For a quick, organic solution to common maize rust, prioritize planting resistant varieties. If rust appears, act fast! Mix 1 tablespoon of potassium bicarbonate per gallon of water and spray undersides of leaves every 7-10 days. Boost plant health with diluted compost tea around the base. Remember, early action is key!',
-                    style: TextStyle(
-                      color: AppColors.primaryColor,
-                      fontFamily: 'Montserrat',
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+            ));
+          }
+        },
       ),
     );
+  }
+
+  Future<String> _getTextResult() async {
+    final gemini = Gemini.instance;
+    try {
+      String text = await gemini.textAndImage(
+        text:
+            "Detect the disease of this plant in the image. Also give me solution for $result",
+        images: [imageFile.readAsBytesSync()],
+      ).then((value) => value?.content?.parts?.last.text ?? '');
+      return text;
+    } catch (e) {
+      return 'Error: $e';
+    }
   }
 }
 
@@ -226,9 +275,9 @@ class _InferencePageState extends State<InferencePage> {
       final outputData = output[0] as List<double>;
       print(outputData);
       // Print confidence scores for all diseases
-     // for (int i = 0; i < outputData.length; i++) {
-       // print('${_classes[i]}: ${outputData[i]}');
-     // }
+      // for (int i = 0; i < outputData.length; i++) {
+      // print('${_classes[i]}: ${outputData[i]}');
+      // }
       final predictedClassIdx =
           outputData.indexOf(outputData.reduce((a, b) => a > b ? a : b));
       final predictedClass = _classes[predictedClassIdx];
@@ -282,7 +331,6 @@ class _InferencePageState extends State<InferencePage> {
           style: TextStyle(
               fontFamily: 'Montserrat', color: AppColors.primaryColor),
         ),
-
       ),
       body: Center(
         child: Column(
@@ -298,12 +346,11 @@ class _InferencePageState extends State<InferencePage> {
                       fontFamily: 'Montserrat',
                       fontSize: 24,
                       fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
             const SizedBox(height: 40),
-
             ElevatedButton.icon(
               onPressed: () => _pickImage(context, ImageSource.camera),
               icon: Image.asset(
@@ -338,7 +385,6 @@ class _InferencePageState extends State<InferencePage> {
                   fixedSize: const Size(350, 50)),
             ),
             const SizedBox(height: 20),
-
           ],
         ),
       ),

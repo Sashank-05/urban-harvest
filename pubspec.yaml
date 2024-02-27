@@ -2,7 +2,7 @@ name: urban_harvest
 description: "An app"
 publish_to: none
 
-version: 1.0.0+1
+version: 1.0.1
 
 environment:
   sdk: '>=3.2.5 <4.0.0'
@@ -14,28 +14,19 @@ dependencies:
   google_fonts: ^6.1.0
   cupertino_icons: ^1.0.2
   community_material_icon: ^5.4.55
-
   firebase_auth: ^4.17.4
   firebase_core: ^2.25.4
-
   youtube_player_flutter: ^8.1.2
-
   lottie: ^3.0.0
   http: ^1.2.0
   geolocator: ^11.0.0
   geocoding: ^2.1.1
-
   camera: ^0.10.5+9
   image_picker: ^1.0.7
-
-
   image: ^3.0.1
   tflite_flutter:
     git:
       url: https://github.com/CaptainDario/flutter-tflite
-
-
-
   cloud_firestore: ^4.15.4
   firebase_storage: ^11.6.5
   google_maps_flutter: ^2.5.3
@@ -43,6 +34,7 @@ dependencies:
   firebase_crashlytics: ^3.4.15
   firebase_analytics: ^10.8.6
   android_alarm_manager_plus: ^3.0.4
+  flutter_gemini: ^2.0.3
 
 
 dev_dependencies:
@@ -56,7 +48,6 @@ flutter:
   assets:
     - assets/img/search.png
     - assets/img/homepage/vis/
-
     - assets/img/landing/vegetables/
     - assets/img/landing/flowers/
     - assets/img/landing/greens/

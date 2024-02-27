@@ -3,6 +3,7 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:urban_harvest/constant_colors.dart';
@@ -23,17 +24,17 @@ Future main() async {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
-
+  Gemini.init(apiKey: geminiAPI.API_KEY);
   FirebaseAnalytics.instance;
-
-
-
   runApp(const LoginApp());
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
-  flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
-  await AndroidAlarmManager.periodic(const Duration(hours: 2), allowWhileIdle: true, 0, checkDatabase);
+      FlutterLocalNotificationsPlugin();
+  flutterLocalNotificationsPlugin
+      .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin>()
+      ?.requestNotificationsPermission();
+  await AndroidAlarmManager.periodic(
+      const Duration(hours: 2), allowWhileIdle: true, 0, checkDatabase);
 }
 
 class LoginApp extends StatelessWidget {

@@ -22,6 +22,7 @@ Urban Harvest is a project aimed at facilitating urban gardening and plant/seed 
         - Firebase Storage
         - Firebase Analytics
         - Firebase Crashlytics
+        - Gemini API
 
 3. **Configure Authentication Settings:**
     - In the Authentication section, enable Google Sign-in and Email Single Sign-On (SSO) to allow users to authenticate via Google accounts or email addresses.
@@ -79,6 +80,21 @@ Urban Harvest is a project aimed at facilitating urban gardening and plant/seed 
   ```
 
   Replace `YOUR_API_KEY` with the API key obtained from the Google Cloud Platform for the Google Maps API.
+
+### Gemini API Integration
+
+- This class is used to store the Gemini API key.
+
+    ```dart
+    class GeminiAPI {
+        static const String API_KEY = 'your_api_key_here';
+    }
+    ```
+
+    Replace `'your_api_key_here'` with your actual Gemini API key.
+
+- Add the class to main.dart to use Gemini for getting a solution of disease from disease detection page.
+
 
 ### Additional Steps
 

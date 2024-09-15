@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class GreenBeansGuide extends StatefulWidget {
   const GreenBeansGuide({super.key});
 
@@ -12,7 +13,7 @@ class _GreenBeansGuideState extends State<GreenBeansGuide> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('GreenBeans'),
+          title: const Text('GreenBeans'),
         ),
       ),
     );

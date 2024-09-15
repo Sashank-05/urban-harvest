@@ -43,18 +43,20 @@ class CurryLeavesGuide extends StatefulWidget {
   @override
   State<CurryLeavesGuide> createState() => _CurryLeavesGuideState();
 }
+
 class _CurryLeavesGuideState extends State<CurryLeavesGuide> {
   late YoutubePlayerController _controllerCurryLeavesChoose;
   late YoutubePlayerController _controllerPottingMix;
   late YoutubePlayerController _controllerWateringCan;
   @override
-  void initState(){
+  void initState() {
     final CurryLeavesChooseId = YoutubePlayer.convertUrlToId(
         "https://www.youtube.com/watch?v=P3R5y5qFh0A&t=2s");
     _controllerCurryLeavesChoose = YoutubePlayerController(
         initialVideoId: CurryLeavesChooseId!,
         flags: const YoutubePlayerFlags(autoPlay: false));
-    final PottingMixId = YoutubePlayer.convertUrlToId("https://www.youtube.com/watch?v=t3kx5PhCJU8");
+    final PottingMixId = YoutubePlayer.convertUrlToId(
+        "https://www.youtube.com/watch?v=t3kx5PhCJU8");
     _controllerPottingMix = YoutubePlayerController(
         initialVideoId: PottingMixId!,
         flags: const YoutubePlayerFlags(autoPlay: false));
@@ -65,6 +67,8 @@ class _CurryLeavesGuideState extends State<CurryLeavesGuide> {
         flags: const YoutubePlayerFlags(autoPlay: false));
     super.initState();
   }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -115,8 +119,8 @@ class _CurryLeavesGuideState extends State<CurryLeavesGuide> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: const Color(0xFF2D6A4F)),
@@ -130,7 +134,8 @@ class _CurryLeavesGuideState extends State<CurryLeavesGuide> {
                           child: Text(
                               'Refer to the following video if required:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: const Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerCurryLeavesChoose,
@@ -139,8 +144,8 @@ class _CurryLeavesGuideState extends State<CurryLeavesGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -154,15 +159,16 @@ class _CurryLeavesGuideState extends State<CurryLeavesGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Refer to the following image:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: const Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         Image.network(
                             "https://donotdisturbgardening.com/wp-content/uploads/2019/10/Pots-with-Drainage-Holes.jpg")
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -176,7 +182,8 @@ class _CurryLeavesGuideState extends State<CurryLeavesGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: const Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerPottingMix,
@@ -185,8 +192,8 @@ class _CurryLeavesGuideState extends State<CurryLeavesGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -202,7 +209,8 @@ class _CurryLeavesGuideState extends State<CurryLeavesGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: const Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerWateringCan,
@@ -211,8 +219,8 @@ class _CurryLeavesGuideState extends State<CurryLeavesGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -221,7 +229,7 @@ class _CurryLeavesGuideState extends State<CurryLeavesGuide> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _buildListItem('Sunlight',
-                      'Curry leaf plants require plenty of sunlight, so ensure they receive at least 6-8 hours of sunlight daily.'),
+                            'Curry leaf plants require plenty of sunlight, so ensure they receive at least 6-8 hours of sunlight daily.'),
                       ]),
                 ),
               ],
@@ -231,7 +239,8 @@ class _CurryLeavesGuideState extends State<CurryLeavesGuide> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -256,6 +265,7 @@ class SettingUp extends StatefulWidget {
   @override
   State<SettingUp> createState() => _SettingUpState();
 }
+
 class _SettingUpState extends State<SettingUp> {
   late YoutubePlayerController _controllerCabbageSetup;
   @override
@@ -268,6 +278,7 @@ class _SettingUpState extends State<SettingUp> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -317,8 +328,8 @@ class _SettingUpState extends State<SettingUp> {
                           color: const Color(0xFFD8F3DC))),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -344,8 +355,8 @@ class _SettingUpState extends State<SettingUp> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: const Color(0xFF2D6A4F)),
@@ -368,8 +379,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -389,8 +400,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -412,8 +423,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -435,8 +446,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -453,12 +464,13 @@ class _SettingUpState extends State<SettingUp> {
                         ),
                         _buildListItem('Monitor the curry leaves plant',
                             'Monitor your curry leaf plant for pests such as aphids, scale insects, or mites. '),
-                        _buildListItem('Treatment and Prevention', ' Treat any infestations promptly with insecticidal soap or neem oil.Ensure good air circulation around the plant to prevent fungal diseases.'),
+                        _buildListItem('Treatment and Prevention',
+                            ' Treat any infestations promptly with insecticidal soap or neem oil.Ensure good air circulation around the plant to prevent fungal diseases.'),
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -478,8 +490,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -507,11 +519,13 @@ class _SettingUpState extends State<SettingUp> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const WateringInstructions()),
+                MaterialPageRoute(
+                    builder: (context) => const WateringInstructions()),
               );
               null;
             },
@@ -533,6 +547,7 @@ class WateringInstructions extends StatefulWidget {
   @override
   State<WateringInstructions> createState() => _WateringInstructionsState();
 }
+
 class _WateringInstructionsState extends State<WateringInstructions> {
   @override
   Widget build(BuildContext context) {
@@ -585,8 +600,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: const Color(0xFF2D6A4F)),
@@ -605,8 +620,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -621,13 +636,14 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                               fontSize: 16,
                               color: const Color(0xFFD8F3DC)),
                         ),
-                        _buildListItem('Adjust watering frequency as per weather ',
+                        _buildListItem(
+                            'Adjust watering frequency as per weather ',
                             'Adjust the frequency of watering based on environmental conditions such as temperature and humidity.During hot, dry weather, you may need to water more frequently to prevent the soil from drying out completely.'),
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -647,8 +663,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -668,8 +684,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -689,8 +705,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -716,12 +732,13 @@ class _WateringInstructionsState extends State<WateringInstructions> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const HomePage()),
-                    (route) => false, // Remove all routes from the stack
+                (route) => false, // Remove all routes from the stack
               );
             },
             child: Text(
@@ -735,4 +752,3 @@ class _WateringInstructionsState extends State<WateringInstructions> {
     );
   }
 }
-

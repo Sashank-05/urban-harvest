@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class TomatoGuide extends StatefulWidget {
   const TomatoGuide({super.key});
 
@@ -12,7 +13,7 @@ class _TomatoGuideState extends State<TomatoGuide> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Tomato'),
+          title: const Text('Tomato'),
         ),
       ),
     );

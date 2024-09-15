@@ -54,11 +54,11 @@ class _LandingPageState extends State<LandingPage> {
                 ),
               ),
               hintText: 'What do you want to grow?',
-              hintStyle: MaterialStateProperty.all<TextStyle>(
+              hintStyle: WidgetStateProperty.all<TextStyle>(
                 GoogleFonts.montserrat(color: const Color(0xFF52B788)),
               ),
-              backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                (Set<MaterialState> states) {
+              backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+                (Set<WidgetState> states) {
                   return const Color(0xFF2D6A4F);
                 },
               ),
@@ -67,7 +67,7 @@ class _LandingPageState extends State<LandingPage> {
                   search = value;
                 });
               },
-              textStyle: MaterialStateProperty.all<TextStyle>(
+              textStyle: WidgetStateProperty.all<TextStyle>(
                 const TextStyle(color: Color(0xFFD8F3DC)),
               ),
             ),
@@ -151,7 +151,6 @@ class _PlantCardState extends State<PlantCard> {
     );
   }
 }
-
 
 class categoryCard extends StatefulWidget {
   final String categoryName;

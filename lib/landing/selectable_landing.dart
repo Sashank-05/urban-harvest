@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:urban_harvest/constant_colors.dart';
 
 class SelectableLandingPage extends StatefulWidget {
-  const SelectableLandingPage({Key? key});
+  const SelectableLandingPage({super.key});
 
   @override
   State<SelectableLandingPage> createState() => _SelectableLandingPageState();
@@ -69,11 +69,11 @@ class _SelectableLandingPageState extends State<SelectableLandingPage> {
                   ),
                 ),
                 hintText: 'What do you want to grow?',
-                hintStyle: MaterialStateProperty.all<TextStyle>(
+                hintStyle: WidgetStateProperty.all<TextStyle>(
                   GoogleFonts.montserrat(color: const Color(0xFF52B788)),
                 ),
-                backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                  (Set<MaterialState> states) {
+                backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+                  (Set<WidgetState> states) {
                     return const Color(0xFF2D6A4F);
                   },
                 ),
@@ -82,7 +82,7 @@ class _SelectableLandingPageState extends State<SelectableLandingPage> {
                     search = value;
                   });
                 },
-                textStyle: MaterialStateProperty.all<TextStyle>(
+                textStyle: WidgetStateProperty.all<TextStyle>(
                   const TextStyle(color: Color(0xFFD8F3DC)),
                 ),
               ),
@@ -252,7 +252,7 @@ class _PlantCardState extends State<PlantCard> {
                 ),
                 ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
+                      backgroundColor: WidgetStateProperty.all<Color>(
                           AppColors.backgroundColor3)),
                   onPressed: () {
                     for (var i in guideDict.keys) {
@@ -287,7 +287,7 @@ class categoryCard extends StatefulWidget {
   final List<Widget> plantWidgets;
 
   const categoryCard(
-      {Key? key, required this.categoryName, required this.plantWidgets});
+      {super.key, required this.categoryName, required this.plantWidgets});
 
   @override
   State<categoryCard> createState() => _categoryCardState();
@@ -307,12 +307,11 @@ class _categoryCardState extends State<categoryCard> {
                   fontSize: 20)),
         ),
         GridView.count(
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            children: widget.plantWidgets,
-          ),
-
+          crossAxisCount: 2,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: widget.plantWidgets,
+        ),
       ],
     );
   }
@@ -321,7 +320,7 @@ class _categoryCardState extends State<categoryCard> {
 class searchResults extends StatefulWidget {
   final String searchString;
 
-  const searchResults({Key? key, required this.searchString});
+  const searchResults({super.key, required this.searchString});
 
   @override
   State<searchResults> createState() => _searchResultsState();

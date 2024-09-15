@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class MintGuide extends StatefulWidget {
   const MintGuide({super.key});
 
@@ -12,7 +13,7 @@ class _MintGuideState extends State<MintGuide> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Mint'),
+          title: const Text('Mint'),
         ),
       ),
     );

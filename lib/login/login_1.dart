@@ -108,7 +108,7 @@ class _LoginPage1State extends State<LoginPage1> {
                                     },
                                     style: ButtonStyle(
                                         backgroundColor:
-                                            MaterialStateProperty.all<Color>(
+                                            WidgetStateProperty.all<Color>(
                                                 AppColors.tertiaryColor2)),
                                     child: const Text(
                                       'Next',
@@ -206,7 +206,7 @@ class secondWelcomepage extends StatelessWidget {
                                     },
                                     style: ButtonStyle(
                                         backgroundColor:
-                                            MaterialStateProperty.all<Color>(
+                                            WidgetStateProperty.all<Color>(
                                                 AppColors.tertiaryColor2)),
                                     child: const Text(
                                       'Next',
@@ -309,7 +309,7 @@ class _thirdWelcomepageState extends State<thirdWelcomepage> {
                                     },
                                     style: ButtonStyle(
                                         backgroundColor:
-                                            MaterialStateProperty.all<Color>(
+                                            WidgetStateProperty.all<Color>(
                                                 AppColors.tertiaryColor2)),
                                     child: const Text(
                                       'Next',
@@ -412,7 +412,7 @@ class _fourthWelcomepageState extends State<fourthWelcomepage> {
                                     },
                                     style: ButtonStyle(
                                         backgroundColor:
-                                            MaterialStateProperty.all<Color>(
+                                            WidgetStateProperty.all<Color>(
                                                 AppColors.tertiaryColor2)),
                                     child: const Text(
                                       'Next',
@@ -515,7 +515,7 @@ class _fifthWelcomepageState extends State<fifthWelcomepage> {
                                     },
                                     style: ButtonStyle(
                                         backgroundColor:
-                                            MaterialStateProperty.all<Color>(
+                                            WidgetStateProperty.all<Color>(
                                                 AppColors.tertiaryColor2)),
                                     child: const Text(
                                       'Next',
@@ -617,7 +617,7 @@ class _sixthWelcomepageState extends State<sixthWelcomepage> {
                                     },
                                     style: ButtonStyle(
                                         backgroundColor:
-                                            MaterialStateProperty.all<Color>(
+                                            WidgetStateProperty.all<Color>(
                                                 AppColors.tertiaryColor2)),
                                     child: const Text(
                                       'Find plants to grow!',

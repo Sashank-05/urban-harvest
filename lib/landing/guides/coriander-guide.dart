@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class CorianderGuide extends StatefulWidget {
   const CorianderGuide({super.key});
 
@@ -12,7 +13,7 @@ class _CorianderGuideState extends State<CorianderGuide> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Coriander'),
+          title: const Text('Coriander'),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class SunflowerGuide extends StatefulWidget {
   const SunflowerGuide({super.key});
 
@@ -12,9 +13,7 @@ class _SunflowerGuideState extends State<SunflowerGuide> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text(
-            'Sunflower'
-          ),
+          title: const Text('Sunflower'),
         ),
       ),
     );

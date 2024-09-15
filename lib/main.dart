@@ -28,10 +28,10 @@ Future main() async {
   FirebaseAnalytics.instance;
   runApp(const LoginApp());
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin();
   flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
+      AndroidFlutterLocalNotificationsPlugin>()
       ?.requestNotificationsPermission();
   await AndroidAlarmManager.periodic(
       const Duration(hours: 2), allowWhileIdle: true, 0, checkDatabase);
@@ -71,8 +71,6 @@ class _CheckAuthState extends State<CheckAuth> {
   }
 
   Future<void> checkLoginStatus() async {
-    // Check if user is already signed in
-
     final isSignedIn = await _googleSignIn.isSignedIn();
     if (!mounted) return;
 

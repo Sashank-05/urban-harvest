@@ -187,7 +187,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: ElevatedButton(
                   onPressed: _logout,
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
+                    backgroundColor: WidgetStateProperty.all<Color>(
                       AppColors.backgroundColor3,
                     ),
                   ),
@@ -209,7 +209,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: ElevatedButton(
                   onPressed: _deleteAccount,
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
+                    backgroundColor: WidgetStateProperty.all<Color>(
                       AppColors.backgroundColor3,
                     ),
                   ),
@@ -220,7 +220,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: AppColors.primaryColor,
-                    ),textAlign: TextAlign.center,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),

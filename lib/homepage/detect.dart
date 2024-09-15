@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -15,6 +14,7 @@ class InferenceResultPage extends StatelessWidget {
   final String inferenceResult;
 
   const InferenceResultPage({
+    super.key,
     required this.imageFile,
     required this.inferenceResult,
   });
@@ -50,7 +50,7 @@ class InferenceResultPage extends StatelessWidget {
         future: _getTextResult(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
@@ -208,6 +208,8 @@ class InferenceResultPage extends StatelessWidget {
 }
 
 class InferencePage extends StatefulWidget {
+  const InferencePage({super.key});
+
   @override
   _InferencePageState createState() => _InferencePageState();
 }
@@ -284,7 +286,7 @@ class _InferencePageState extends State<InferencePage> {
 
       // Update UI or state
       setState(() {
-        _result = '$predictedClass';
+        _result = predictedClass;
       });
       Navigator.push(
         context,

@@ -294,7 +294,7 @@ class _HomePageContentState extends State<HomePageContent> {
                   child: ElevatedButton(
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(AppColors.tertiaryColor)),
+                            WidgetStateProperty.all(AppColors.tertiaryColor)),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -548,7 +548,7 @@ class _HomePageContentState extends State<HomePageContent> {
                             child: ElevatedButton(
                                 style: ButtonStyle(
                                   backgroundColor:
-                                      MaterialStateProperty.all<Color>(
+                                      WidgetStateProperty.all<Color>(
                                     AppColors.tertiaryColor,
                                   ),
                                 ),
@@ -603,7 +603,7 @@ class _HomePageContentState extends State<HomePageContent> {
                   Center(
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
+                        backgroundColor: WidgetStateProperty.all<Color>(
                           AppColors.tertiaryColor,
                         ),
                       ),
@@ -975,15 +975,16 @@ Future<void> onSelectNotification(String? payload) async {
   runApp(const LoginApp());
 }
 
-void addCurrentLocationToFirestore(
-    String countryName, String cityName, double latitude, double longitude) async {
+void addCurrentLocationToFirestore(String countryName, String cityName,
+    double latitude, double longitude) async {
   DocumentReference countryDocRef =
-  FirebaseFirestore.instance.collection('Location').doc(countryName);
+      FirebaseFirestore.instance.collection('Location').doc(countryName);
 
   DocumentSnapshot countrySnapshot = await countryDocRef.get();
 
   if (countrySnapshot.exists) {
-    Map<String, dynamic>? data = countrySnapshot.data() as Map<String, dynamic>?;
+    Map<String, dynamic>? data =
+        countrySnapshot.data() as Map<String, dynamic>?;
 
     if (data != null) {
       List<dynamic>? cityLocations = data[cityName] as List<dynamic>?;
@@ -992,7 +993,7 @@ void addCurrentLocationToFirestore(
         // Check if the location already exists
         bool locationExists = cityLocations.any((location) {
           double existingLat = (location as GeoPoint).latitude;
-          double existingLon = (location as GeoPoint).longitude;
+          double existingLon = (location).longitude;
           return _areCoordinatesEqual(latitude, existingLat) &&
               _areCoordinatesEqual(longitude, existingLon);
         });
@@ -1018,7 +1019,7 @@ void addCurrentLocationToFirestore(
   }
 }
 
-bool _areCoordinatesEqual(double coord1, double coord2, {double tolerance = 0.0001}) {
+bool _areCoordinatesEqual(double coord1, double coord2,
+    {double tolerance = 0.0001}) {
   return (coord1 - coord2).abs() < tolerance;
 }
-

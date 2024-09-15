@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '/homepage/homepage.dart';
 
-
 Widget _buildListItem(String heading, String text) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -37,6 +36,7 @@ Widget _buildListItem(String heading, String text) {
     ),
   );
 }
+
 class HibiscusGuide extends StatefulWidget {
   const HibiscusGuide({super.key});
 
@@ -50,12 +50,14 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
   late YoutubePlayerController _controllerWateringCan;
   late YoutubePlayerController _controllerHumidityTray;
   @override
-  void initState(){
-    final SeedChooseId = YoutubePlayer.convertUrlToId("https://www.youtube.com/watch?v=k_313ix9kO4");
+  void initState() {
+    final SeedChooseId = YoutubePlayer.convertUrlToId(
+        "https://www.youtube.com/watch?v=k_313ix9kO4");
     _controllerSeedChoose = YoutubePlayerController(
         initialVideoId: SeedChooseId!,
         flags: const YoutubePlayerFlags(autoPlay: false));
-    final PottingMixId = YoutubePlayer.convertUrlToId("https://www.youtube.com/watch?v=t3kx5PhCJU8");
+    final PottingMixId = YoutubePlayer.convertUrlToId(
+        "https://www.youtube.com/watch?v=t3kx5PhCJU8");
     _controllerPottingMix = YoutubePlayerController(
         initialVideoId: PottingMixId!,
         flags: const YoutubePlayerFlags(autoPlay: false));
@@ -71,6 +73,7 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
         flags: const YoutubePlayerFlags(autoPlay: false));
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -122,8 +125,8 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: const Color(0xFF2D6A4F)),
@@ -139,8 +142,8 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -154,15 +157,16 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Refer to the following image:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: const Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         Image.network(
                             "https://donotdisturbgardening.com/wp-content/uploads/2019/10/Pots-with-Drainage-Holes.jpg")
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -176,7 +180,8 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: const Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerPottingMix,
@@ -185,8 +190,8 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -202,7 +207,8 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: const Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerWateringCan,
@@ -211,8 +217,8 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -226,19 +232,20 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Refer to the following image:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         Image.network(
                             "https://upload.wikimedia.org/wikipedia/commons/b/b1/Secateur_ouvert.jpg")
                       ]),
                 ),
                 Container(
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -248,7 +255,8 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerHumidityTray,
@@ -257,8 +265,8 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -277,7 +285,8 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -295,12 +304,14 @@ class _HibiscusGuideState extends State<HibiscusGuide> {
     );
   }
 }
+
 class SettingUp extends StatefulWidget {
   const SettingUp({super.key});
 
   @override
   State<SettingUp> createState() => _SettingUpState();
 }
+
 class _SettingUpState extends State<SettingUp> {
   late YoutubePlayerController _controllerHibiscusSetup;
   @override
@@ -313,6 +324,7 @@ class _SettingUpState extends State<SettingUp> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -362,8 +374,8 @@ class _SettingUpState extends State<SettingUp> {
                           color: const Color(0xFFD8F3DC))),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -389,8 +401,8 @@ class _SettingUpState extends State<SettingUp> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: const Color(0xFF2D6A4F)),
@@ -409,8 +421,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -430,8 +442,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -451,8 +463,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -472,8 +484,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -493,8 +505,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -514,8 +526,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -543,11 +555,13 @@ class _SettingUpState extends State<SettingUp> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const WateringInstructions()),
+                MaterialPageRoute(
+                    builder: (context) => const WateringInstructions()),
               );
               null;
             },
@@ -569,6 +583,7 @@ class WateringInstructions extends StatefulWidget {
   @override
   State<WateringInstructions> createState() => _WateringInstructionsState();
 }
+
 class _WateringInstructionsState extends State<WateringInstructions> {
   @override
   Widget build(BuildContext context) {
@@ -621,8 +636,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: const Color(0xFF2D6A4F)),
@@ -641,8 +656,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -662,8 +677,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -683,8 +698,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -710,12 +725,13 @@ class _WateringInstructionsState extends State<WateringInstructions> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const HomePage()),
-                    (route) => false, // Remove all routes from the stack
+                (route) => false, // Remove all routes from the stack
               );
             },
             child: Text(

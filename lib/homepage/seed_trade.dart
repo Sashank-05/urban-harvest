@@ -118,7 +118,10 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
       final location = trade.get('location');
       final tradeItems = trade.get('tradeItem') as List<dynamic>;
       final address = _convertLatLonToAddress(location);
-      final sellerUID = trade.get("uid");
+      // try to get uid if it fails get sellerUID
+      // use try catch to handle errors
+
+      final sellerUID = trade.get("sellerUid") ?? trade.get("uid") ?? '';
 
       return Padding(
         // Add Padding widget here

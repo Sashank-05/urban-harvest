@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class ChatroomPage extends StatelessWidget {
   final String chatroomId;
 
-  ChatroomPage({required this.chatroomId});
+  const ChatroomPage({super.key, required this.chatroomId});
 
   @override
   Widget build(BuildContext context) {

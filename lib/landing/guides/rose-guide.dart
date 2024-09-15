@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '/homepage/homepage.dart';
+
 class RoseGuide extends StatefulWidget {
   const RoseGuide({super.key});
 
@@ -47,10 +48,10 @@ class _RoseGuideState extends State<RoseGuide> {
           toolbarHeight: 70,
           backgroundColor: const Color(0xFF081C15),
           leading: IconButton(
-            icon: Padding(
+            icon: const Padding(
                 padding: EdgeInsets.only(top: 15),
                 child: Icon(Icons.arrow_back)),
-            color: Color(0xFFD8F3DC),
+            color: const Color(0xFFD8F3DC),
             iconSize: 25,
             onPressed: () {
               Navigator.pop(context);
@@ -69,14 +70,14 @@ class _RoseGuideState extends State<RoseGuide> {
             ),
           ),
         ),
-        backgroundColor: Color(0xFF081C15),
+        backgroundColor: const Color(0xFF081C15),
         body: SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: Color(0xFF1B4332)),
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(20),
+                color: const Color(0xFF1B4332)),
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -86,15 +87,15 @@ class _RoseGuideState extends State<RoseGuide> {
                       style: GoogleFonts.montserrat(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFD8F3DC))),
+                          color: const Color(0xFFD8F3DC))),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -105,7 +106,8 @@ class _RoseGuideState extends State<RoseGuide> {
                           child: Text(
                               'Refer to the following video if required:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerRoseChoose,
@@ -114,12 +116,12 @@ class _RoseGuideState extends State<RoseGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -129,19 +131,20 @@ class _RoseGuideState extends State<RoseGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Refer to the following image:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         Image.network(
                             "https://donotdisturbgardening.com/wp-content/uploads/2019/10/Pots-with-Drainage-Holes.jpg")
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -151,7 +154,8 @@ class _RoseGuideState extends State<RoseGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerPottingMix,
@@ -160,12 +164,12 @@ class _RoseGuideState extends State<RoseGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -177,7 +181,8 @@ class _RoseGuideState extends State<RoseGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerWateringCan,
@@ -186,12 +191,12 @@ class _RoseGuideState extends State<RoseGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -201,19 +206,20 @@ class _RoseGuideState extends State<RoseGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Refer to the following image:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         Image.network(
                             "https://upload.wikimedia.org/wikipedia/commons/b/b1/Secateur_ouvert.jpg")
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -222,12 +228,12 @@ class _RoseGuideState extends State<RoseGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -237,7 +243,8 @@ class _RoseGuideState extends State<RoseGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerHumidityTray,
@@ -252,17 +259,18 @@ class _RoseGuideState extends State<RoseGuide> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SettingUp()),
+                MaterialPageRoute(builder: (context) => const SettingUp()),
               );
             },
             child: Text(
               'Next: Setting up your Rose plant!',
               style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.bold, color: Color(0xFFD8F3DC)),
+                  fontWeight: FontWeight.bold, color: const Color(0xFFD8F3DC)),
             ),
           ),
         ),
@@ -290,6 +298,7 @@ class _SettingUpState extends State<SettingUp> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -297,10 +306,10 @@ class _SettingUpState extends State<SettingUp> {
           toolbarHeight: 70,
           backgroundColor: const Color(0xFF081C15),
           leading: IconButton(
-            icon: Padding(
+            icon: const Padding(
                 padding: EdgeInsets.only(top: 15),
                 child: Icon(Icons.arrow_back)),
-            color: Color(0xFFD8F3DC),
+            color: const Color(0xFFD8F3DC),
             iconSize: 25,
             onPressed: () {
               Navigator.pop(context);
@@ -319,14 +328,14 @@ class _SettingUpState extends State<SettingUp> {
             ),
           ),
         ),
-        backgroundColor: Color(0xFF081C15),
+        backgroundColor: const Color(0xFF081C15),
         body: SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: Color(0xFF1B4332)),
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(20),
+                color: const Color(0xFF1B4332)),
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -336,15 +345,15 @@ class _SettingUpState extends State<SettingUp> {
                       style: GoogleFonts.montserrat(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFD8F3DC))),
+                          color: const Color(0xFFD8F3DC))),
                 ),
                 Container(
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -355,7 +364,7 @@ class _SettingUpState extends State<SettingUp> {
                             style: GoogleFonts.montserrat(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
-                                color: Color(0xFFD8F3DC)),
+                                color: const Color(0xFFD8F3DC)),
                           ),
                         ),
                         YoutubePlayer(
@@ -365,13 +374,12 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-
-                  margin: EdgeInsets.only(top: 10),
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -380,7 +388,7 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Sunlight',
                             'Select a location that receives at least 6 hours of sunlight per day. If natural light is not available, consider using artificial grow lights.'),
@@ -389,12 +397,12 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -403,7 +411,7 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Drainage Holes',
                             'Choose a pot with drainage holes at the bottom to prevent waterlogging.'),
@@ -412,12 +420,12 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -426,7 +434,7 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Preparing the rose',
                             'Carefully remove the rose plant from its container and gently loosen the root ball.'),
@@ -437,12 +445,12 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -451,7 +459,7 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Moist Soil',
                             'Keep the soil consistently moist, but not waterlogged. Check the soil moisture regularly by inserting your finger into the soil.'),
@@ -462,12 +470,12 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -476,7 +484,7 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Spiders and thrips',
                             'Keep an eye out for common pests such as aphids, spider mites, and thrips.Treat infestations with neem oil'),
@@ -485,12 +493,12 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -499,19 +507,19 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Trellises or stakes',
                             'Depending on the variety, roses may benefit from support structures such as trellises or stakes to keep them upright and promote healthy growth.'),
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -520,13 +528,12 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Monitor the plant',
                             'Consistently monitor the rose plant for any signs of stress, disease, or nutrient deficiencies.Adjust watering, fertilizing, and pruning practices as needed based on the plants response and seasonal changes.'),
                       ]),
                 ),
-
               ],
             ),
           ),
@@ -534,18 +541,20 @@ class _SettingUpState extends State<SettingUp> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
-               Navigator.push(
-               context,
-               MaterialPageRoute(builder: (context) => const WateringInstructions()),
-                           );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const WateringInstructions()),
+              );
               null;
             },
             child: Text(
               'Next: Watering Instructions',
               style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.bold, color: Color(0xFFD8F3DC)),
+                  fontWeight: FontWeight.bold, color: const Color(0xFFD8F3DC)),
             ),
           ),
         ),
@@ -553,6 +562,7 @@ class _SettingUpState extends State<SettingUp> {
     );
   }
 }
+
 class WateringInstructions extends StatefulWidget {
   const WateringInstructions({super.key});
 
@@ -569,10 +579,10 @@ class _WateringInstructionsState extends State<WateringInstructions> {
           toolbarHeight: 70,
           backgroundColor: const Color(0xFF081C15),
           leading: IconButton(
-            icon: Padding(
+            icon: const Padding(
                 padding: EdgeInsets.only(top: 15),
                 child: Icon(Icons.arrow_back)),
-            color: Color(0xFFD8F3DC),
+            color: const Color(0xFFD8F3DC),
             iconSize: 25,
             onPressed: () {
               Navigator.pop(context);
@@ -591,14 +601,14 @@ class _WateringInstructionsState extends State<WateringInstructions> {
             ),
           ),
         ),
-        backgroundColor: Color(0xFF081C15),
+        backgroundColor: const Color(0xFF081C15),
         body: SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: Color(0xFF1B4332)),
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(20),
+                color: const Color(0xFF1B4332)),
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -608,15 +618,15 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       style: GoogleFonts.montserrat(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFD8F3DC))),
+                          color: const Color(0xFFD8F3DC))),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -625,7 +635,7 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Watering at the base',
                             'Direct the water at the base of the rose plant, near the soil level. Avoid watering the foliage, as wet leaves can promote fungal diseases.'),
@@ -634,12 +644,12 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -648,7 +658,7 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Water rose plant deeply',
                             'Water the rose plant deeply to encourage deep root growth. Apply water until the soil is thoroughly moistened to the root zone.'),
@@ -657,33 +667,33 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Morning Watering',
-                              style: GoogleFonts.montserrat(
+                          style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Water roses in the morning',
                             'Water roses in the morning to allow foliage and soil to dry out during the day. Watering in the morning helps reduce the risk of fungal diseases and evaporation loss.'),
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -692,7 +702,7 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Apply a layer of Mulch',
                             'Apply a layer of organic mulch such as wood chips, straw, or compost around the base of the rose plant.'),
@@ -701,12 +711,12 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -715,19 +725,19 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Deep, infrequent watering',
                             'In general, roses benefit from deep, infrequent watering rather than frequent light watering.Water established rose plants deeply once or twice a week, depending on weather conditions and soil moisture levels.During periods of high heat or drought, increase the frequency of watering to prevent stress on the plants.'),
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -736,7 +746,7 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Pay attention',
                             'Pay attention to signs of overwatering or underwatering such as yellowing leaves, wilting, or root rot.Adjust your watering schedule based on the plants needs and environmental conditions.'),
@@ -749,18 +759,19 @@ class _WateringInstructionsState extends State<WateringInstructions> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
-               Navigator.pushAndRemoveUntil(
-               context,
-               MaterialPageRoute(builder: (context) => const HomePage()),
-              (route) => false, // Remove all routes from the stack
-               );
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+                (route) => false, // Remove all routes from the stack
+              );
             },
             child: Text(
               'Done setting up!',
               style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.bold, color: Color(0xFFD8F3DC)),
+                  fontWeight: FontWeight.bold, color: const Color(0xFFD8F3DC)),
             ),
           ),
         ),
@@ -769,10 +780,9 @@ class _WateringInstructionsState extends State<WateringInstructions> {
   }
 }
 
-
 Widget _buildListItem(String heading, String text) {
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: 5.0),
+    padding: const EdgeInsets.symmetric(vertical: 5.0),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -781,19 +791,19 @@ Widget _buildListItem(String heading, String text) {
           style: GoogleFonts.montserrat(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
-              color: Color(0xFFD8F3DC)),
+              color: const Color(0xFFD8F3DC)),
         ),
         Expanded(
           child: RichText(
             text: TextSpan(
                 style: GoogleFonts.montserrat(
-                    fontSize: 15.0, color: Color(0xFFD8F3DC)),
+                    fontSize: 15.0, color: const Color(0xFFD8F3DC)),
                 children: [
                   TextSpan(
                       text: '$heading: ',
                       style: GoogleFonts.montserrat(
                           fontSize: 15.0,
-                          color: Color(0xFFD8F3DC),
+                          color: const Color(0xFFD8F3DC),
                           fontWeight: FontWeight.bold)),
                   TextSpan(text: text)
                 ]),

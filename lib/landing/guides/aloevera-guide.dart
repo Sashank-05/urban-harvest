@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '/homepage/homepage.dart';
+
 class AloeveraGuide extends StatefulWidget {
   const AloeveraGuide({super.key});
 
@@ -14,13 +15,14 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
   late YoutubePlayerController _controllerPottingMix;
   late YoutubePlayerController _controllerWateringCan;
   @override
-  void initState(){
+  void initState() {
     final AloeveraChooseId = YoutubePlayer.convertUrlToId(
         "https://www.youtube.com/watch?v=gcNNbVaTm0U");
     _controllerAloeveraChoose = YoutubePlayerController(
         initialVideoId: AloeveraChooseId!,
         flags: const YoutubePlayerFlags(autoPlay: false));
-    final PottingMixId = YoutubePlayer.convertUrlToId("https://www.youtube.com/watch?v=t3kx5PhCJU8");
+    final PottingMixId = YoutubePlayer.convertUrlToId(
+        "https://www.youtube.com/watch?v=t3kx5PhCJU8");
     _controllerPottingMix = YoutubePlayerController(
         initialVideoId: PottingMixId!,
         flags: const YoutubePlayerFlags(autoPlay: false));
@@ -31,6 +33,8 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
         flags: const YoutubePlayerFlags(autoPlay: false));
     super.initState();
   }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -38,10 +42,10 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
           toolbarHeight: 70,
           backgroundColor: const Color(0xFF081C15),
           leading: IconButton(
-            icon: Padding(
+            icon: const Padding(
                 padding: EdgeInsets.only(top: 15),
                 child: Icon(Icons.arrow_back)),
-            color: Color(0xFFD8F3DC),
+            color: const Color(0xFFD8F3DC),
             iconSize: 25,
             onPressed: () {
               Navigator.pop(context);
@@ -60,14 +64,14 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
             ),
           ),
         ),
-        backgroundColor: Color(0xFF081C15),
+        backgroundColor: const Color(0xFF081C15),
         body: SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: Color(0xFF1B4332)),
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(20),
+                color: const Color(0xFF1B4332)),
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -77,15 +81,15 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
                       style: GoogleFonts.montserrat(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFD8F3DC))),
+                          color: const Color(0xFFD8F3DC))),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -96,7 +100,8 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
                           child: Text(
                               'Refer to the following video if required:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerAloeveraChoose,
@@ -105,12 +110,12 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -120,19 +125,20 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Refer to the following image:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         Image.network(
                             "https://donotdisturbgardening.com/wp-content/uploads/2019/10/Pots-with-Drainage-Holes.jpg")
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -142,7 +148,8 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerPottingMix,
@@ -151,12 +158,12 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -168,7 +175,8 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerWateringCan,
@@ -177,12 +185,12 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -197,17 +205,18 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SettingUp()),
+                MaterialPageRoute(builder: (context) => const SettingUp()),
               );
             },
             child: Text(
               'Next: Setting up your Aloevera plant!',
               style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.bold, color: Color(0xFFD8F3DC)),
+                  fontWeight: FontWeight.bold, color: const Color(0xFFD8F3DC)),
             ),
           ),
         ),
@@ -218,7 +227,7 @@ class _AloeveraGuideState extends State<AloeveraGuide> {
 
 Widget _buildListItem(String heading, String text) {
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: 5.0),
+    padding: const EdgeInsets.symmetric(vertical: 5.0),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -227,19 +236,19 @@ Widget _buildListItem(String heading, String text) {
           style: GoogleFonts.montserrat(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
-              color: Color(0xFFD8F3DC)),
+              color: const Color(0xFFD8F3DC)),
         ),
         Expanded(
           child: RichText(
             text: TextSpan(
                 style: GoogleFonts.montserrat(
-                    fontSize: 15.0, color: Color(0xFFD8F3DC)),
+                    fontSize: 15.0, color: const Color(0xFFD8F3DC)),
                 children: [
                   TextSpan(
                       text: '$heading: ',
                       style: GoogleFonts.montserrat(
                           fontSize: 15.0,
-                          color: Color(0xFFD8F3DC),
+                          color: const Color(0xFFD8F3DC),
                           fontWeight: FontWeight.bold)),
                   TextSpan(text: text)
                 ]),
@@ -269,6 +278,7 @@ class _SettingUpState extends State<SettingUp> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -276,10 +286,10 @@ class _SettingUpState extends State<SettingUp> {
           toolbarHeight: 70,
           backgroundColor: const Color(0xFF081C15),
           leading: IconButton(
-            icon: Padding(
+            icon: const Padding(
                 padding: EdgeInsets.only(top: 15),
                 child: Icon(Icons.arrow_back)),
-            color: Color(0xFFD8F3DC),
+            color: const Color(0xFFD8F3DC),
             iconSize: 25,
             onPressed: () {
               Navigator.pop(context);
@@ -298,14 +308,14 @@ class _SettingUpState extends State<SettingUp> {
             ),
           ),
         ),
-        backgroundColor: Color(0xFF081C15),
+        backgroundColor: const Color(0xFF081C15),
         body: SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: Color(0xFF1B4332)),
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(20),
+                color: const Color(0xFF1B4332)),
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -315,15 +325,15 @@ class _SettingUpState extends State<SettingUp> {
                       style: GoogleFonts.montserrat(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFD8F3DC))),
+                          color: const Color(0xFFD8F3DC))),
                 ),
                 Container(
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -334,7 +344,7 @@ class _SettingUpState extends State<SettingUp> {
                             style: GoogleFonts.montserrat(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
-                                color: Color(0xFFD8F3DC)),
+                                color: const Color(0xFFD8F3DC)),
                           ),
                         ),
                         YoutubePlayer(
@@ -344,12 +354,12 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -358,19 +368,19 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Sunlight',
                             'Place the Aloe vera plant in a location with bright, indirect sunlight. A south- or west-facing window indoors is ideal.'),
                       ]),
                 ),
                 Container(
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -379,7 +389,7 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Drainage Holes',
                             'Choose a pot with drainage holes at the bottom to prevent waterlogging.'),
@@ -388,12 +398,12 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -402,19 +412,19 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Preparing the Aloevera',
                             'Carefully transplant the Aloe vera plant into the prepared pot, ensuring the roots are covered with soil and the plant sits firmly in the pot. Avoid burying the stem too deeply into the soil, as this can lead to rotting.'),
                       ]),
                 ),
                 Container(
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -423,19 +433,19 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Water lightly',
                             'Water the newly potted Aloe vera plant lightly to settle the soil around the roots. After planting, allow the soil to dry out completely before the next watering session. Overwatering can cause root rot and other issues, so its essential to maintain a balance.'),
                       ]),
                 ),
                 Container(
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -444,19 +454,19 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Adequate Sunlight',
                             'Place the potted Aloe vera plant in a location with adequate sunlight. Aloe vera requires at least 6 hours of indirect sunlight per day to thrive. Monitor the plants exposure and adjust its placement as needed to ensure it receives optimal light conditions.'),
                       ]),
                 ),
                 Container(
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -465,19 +475,19 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Prevent Stress',
                             'Aloe vera prefers temperatures between 60°F to 80°F (15°C to 27°C). Keep the plant away from drafts or extreme temperature fluctuations, as they can stress the plant. Aloe vera is tolerant of low humidity levels but benefits from occasional misting during dry periods.'),
                       ]),
                 ),
                 Container(
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -486,7 +496,7 @@ class _SettingUpState extends State<SettingUp> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Maintenance',
                             'Regularly inspect the Aloe vera plant for signs of pests or diseases. Remove any dead or yellowing leaves to maintain the plants health and appearance. Repot the plant into a larger container if it outgrows its current pot, typically every 2-3 years.'),
@@ -499,18 +509,20 @@ class _SettingUpState extends State<SettingUp> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const WateringInstructions()),
+                MaterialPageRoute(
+                    builder: (context) => const WateringInstructions()),
               );
               null;
             },
             child: Text(
               'Next: Watering Instructions',
               style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.bold, color: Color(0xFFD8F3DC)),
+                  fontWeight: FontWeight.bold, color: const Color(0xFFD8F3DC)),
             ),
           ),
         ),
@@ -519,13 +531,13 @@ class _SettingUpState extends State<SettingUp> {
   }
 }
 
-
 class WateringInstructions extends StatefulWidget {
   const WateringInstructions({super.key});
 
   @override
   State<WateringInstructions> createState() => _WateringInstructionsState();
 }
+
 class _WateringInstructionsState extends State<WateringInstructions> {
   @override
   Widget build(BuildContext context) {
@@ -535,10 +547,10 @@ class _WateringInstructionsState extends State<WateringInstructions> {
           toolbarHeight: 70,
           backgroundColor: const Color(0xFF081C15),
           leading: IconButton(
-            icon: Padding(
+            icon: const Padding(
                 padding: EdgeInsets.only(top: 15),
                 child: Icon(Icons.arrow_back)),
-            color: Color(0xFFD8F3DC),
+            color: const Color(0xFFD8F3DC),
             iconSize: 25,
             onPressed: () {
               Navigator.pop(context);
@@ -557,14 +569,14 @@ class _WateringInstructionsState extends State<WateringInstructions> {
             ),
           ),
         ),
-        backgroundColor: Color(0xFF081C15),
+        backgroundColor: const Color(0xFF081C15),
         body: SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: Color(0xFF1B4332)),
-            margin: EdgeInsets.all(10),
-            padding: EdgeInsets.all(20),
+                color: const Color(0xFF1B4332)),
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -574,15 +586,15 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       style: GoogleFonts.montserrat(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFD8F3DC))),
+                          color: const Color(0xFFD8F3DC))),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -591,7 +603,7 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Drought tolerant',
                             'Aloe vera plants are succulents, meaning they store water in their fleshy leaves and roots. As a result, they are quite drought-tolerant and can withstand periods of dryness. Its essential to allow the soil to dry out between waterings to prevent root rot and other moisture-related issues.'),
@@ -600,12 +612,12 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -614,7 +626,7 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Thoroughly saturated soil',
                             'When watering your Aloe vera plant, ensure that you thoroughly soak the soil around the root zone. Water the plant until excess moisture begins to drain from the bottom of the pot, indicating that the soil is saturated.'),
@@ -623,12 +635,12 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -637,7 +649,7 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Check Soil moisture',
                             'Before watering, check the moisture level of the soil by inserting your finger into the soil up to the first knuckle. If the soil feels dry to the touch, its time to water. If the soil still feels moist, postpone watering for a few more days and recheck.'),
@@ -646,12 +658,12 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
-                  margin: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Color(0xFF2D6A4F)),
+                      color: const Color(0xFF2D6A4F)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -660,7 +672,7 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: Color(0xFFD8F3DC)),
+                              color: const Color(0xFFD8F3DC)),
                         ),
                         _buildListItem('Room temperature',
                             'Use room temperature water for watering your Aloe vera plant, as cold water can shock the roots. If possible, allow tap water to sit for 24 hours to dissipate any chlorine or fluoride present, as these chemicals can harm the plant over time.'),
@@ -675,18 +687,19 @@ class _WateringInstructionsState extends State<WateringInstructions> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const HomePage()),
-                    (route) => false, // Remove all routes from the stack
+                (route) => false, // Remove all routes from the stack
               );
             },
             child: Text(
               'Done setting up!',
               style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.bold, color: Color(0xFFD8F3DC)),
+                  fontWeight: FontWeight.bold, color: const Color(0xFFD8F3DC)),
             ),
           ),
         ),

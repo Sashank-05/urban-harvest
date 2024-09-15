@@ -6,13 +6,13 @@ import 'chats.dart';
 class ChatroomsPage extends StatelessWidget {
   final String userId;
 
-  ChatroomsPage({required this.userId});
+  const ChatroomsPage({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat'),
+        title: const Text('Chat'),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -22,7 +22,7 @@ class ChatroomsPage extends StatelessWidget {
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -39,10 +39,11 @@ class ChatroomsPage extends StatelessWidget {
                   builder:
                       (context, AsyncSnapshot<DocumentSnapshot> chatSnapshot) {
                     if (!chatSnapshot.hasData) {
-                      return Text('Loading...');
+                      return const Text('Loading...');
                     }
-                    return Text("testing");
                     var chatData = chatSnapshot.data!.data();
+                    return const Text("testing");
+
                     //var participantNames = chatData?['participantNames'] ?? [];
                     //return Text(participantNames.join(', '));
                   },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class MarigoldGuide extends StatefulWidget {
   const MarigoldGuide({super.key});
 
@@ -12,7 +13,7 @@ class _MarigoldGuideState extends State<MarigoldGuide> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Marigold'),
+          title: const Text('Marigold'),
         ),
       ),
     );

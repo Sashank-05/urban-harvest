@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class JasmineGuide extends StatefulWidget {
   const JasmineGuide({super.key});
 
@@ -12,9 +13,7 @@ class _JasmineGuideState extends State<JasmineGuide> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text(
-            'Jasmine'
-          ),
+          title: const Text('Jasmine'),
         ),
       ),
     );

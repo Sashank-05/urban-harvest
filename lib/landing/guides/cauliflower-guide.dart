@@ -43,18 +43,20 @@ class CauliflowerGuide extends StatefulWidget {
   @override
   State<CauliflowerGuide> createState() => _CauliflowerGuideState();
 }
+
 class _CauliflowerGuideState extends State<CauliflowerGuide> {
   late YoutubePlayerController _controllerCauliflowerChoose;
   late YoutubePlayerController _controllerPottingMix;
   late YoutubePlayerController _controllerWateringCan;
   @override
-  void initState(){
+  void initState() {
     final CauliflowerChooseId = YoutubePlayer.convertUrlToId(
         "https://www.youtube.com/watch?v=RkiNxNiCAkM");
     _controllerCauliflowerChoose = YoutubePlayerController(
         initialVideoId: CauliflowerChooseId!,
         flags: const YoutubePlayerFlags(autoPlay: false));
-    final PottingMixId = YoutubePlayer.convertUrlToId("https://www.youtube.com/watch?v=t3kx5PhCJU8");
+    final PottingMixId = YoutubePlayer.convertUrlToId(
+        "https://www.youtube.com/watch?v=t3kx5PhCJU8");
     _controllerPottingMix = YoutubePlayerController(
         initialVideoId: PottingMixId!,
         flags: const YoutubePlayerFlags(autoPlay: false));
@@ -65,6 +67,8 @@ class _CauliflowerGuideState extends State<CauliflowerGuide> {
         flags: const YoutubePlayerFlags(autoPlay: false));
     super.initState();
   }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -115,8 +119,8 @@ class _CauliflowerGuideState extends State<CauliflowerGuide> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: const Color(0xFF2D6A4F)),
@@ -130,7 +134,8 @@ class _CauliflowerGuideState extends State<CauliflowerGuide> {
                           child: Text(
                               'Refer to the following video if required:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: const Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerCauliflowerChoose,
@@ -139,8 +144,8 @@ class _CauliflowerGuideState extends State<CauliflowerGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -154,15 +159,16 @@ class _CauliflowerGuideState extends State<CauliflowerGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Refer to the following image:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: const Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         Image.network(
                             "https://donotdisturbgardening.com/wp-content/uploads/2019/10/Pots-with-Drainage-Holes.jpg")
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -176,7 +182,8 @@ class _CauliflowerGuideState extends State<CauliflowerGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: const Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerPottingMix,
@@ -185,8 +192,8 @@ class _CauliflowerGuideState extends State<CauliflowerGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -202,7 +209,8 @@ class _CauliflowerGuideState extends State<CauliflowerGuide> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text('Guide make it at home:',
                               style: GoogleFonts.montserrat(
-                                  fontSize: 15, color: const Color(0xFFD8F3DC))),
+                                  fontSize: 15,
+                                  color: const Color(0xFFD8F3DC))),
                         ),
                         YoutubePlayer(
                           controller: _controllerWateringCan,
@@ -211,8 +219,8 @@ class _CauliflowerGuideState extends State<CauliflowerGuide> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -231,7 +239,8 @@ class _CauliflowerGuideState extends State<CauliflowerGuide> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -256,6 +265,7 @@ class SettingUp extends StatefulWidget {
   @override
   State<SettingUp> createState() => _SettingUpState();
 }
+
 class _SettingUpState extends State<SettingUp> {
   late YoutubePlayerController _controllerCauliflowerSetup;
   @override
@@ -268,6 +278,7 @@ class _SettingUpState extends State<SettingUp> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -317,8 +328,8 @@ class _SettingUpState extends State<SettingUp> {
                           color: const Color(0xFFD8F3DC))),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -344,8 +355,8 @@ class _SettingUpState extends State<SettingUp> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: const Color(0xFF2D6A4F)),
@@ -368,8 +379,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -391,8 +402,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -412,8 +423,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -433,8 +444,8 @@ class _SettingUpState extends State<SettingUp> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -462,11 +473,13 @@ class _SettingUpState extends State<SettingUp> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const WateringInstructions()),
+                MaterialPageRoute(
+                    builder: (context) => const WateringInstructions()),
               );
               null;
             },
@@ -488,6 +501,7 @@ class WateringInstructions extends StatefulWidget {
   @override
   State<WateringInstructions> createState() => _WateringInstructionsState();
 }
+
 class _WateringInstructionsState extends State<WateringInstructions> {
   @override
   Widget build(BuildContext context) {
@@ -540,8 +554,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: const Color(0xFF2D6A4F)),
@@ -560,8 +574,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -581,8 +595,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -602,8 +616,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -623,8 +637,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -644,8 +658,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -665,8 +679,8 @@ class _WateringInstructionsState extends State<WateringInstructions> {
                       ]),
                 ),
                 Container(
-                  padding:
-                  const EdgeInsets.only(top: 10, bottom: 20, left: 20, right: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 20, left: 20, right: 20),
                   margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -692,12 +706,13 @@ class _WateringInstructionsState extends State<WateringInstructions> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2D6A4F)),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2D6A4F)),
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const HomePage()),
-                    (route) => false, // Remove all routes from the stack
+                (route) => false, // Remove all routes from the stack
               );
             },
             child: Text(
@@ -711,4 +726,3 @@ class _WateringInstructionsState extends State<WateringInstructions> {
     );
   }
 }
-

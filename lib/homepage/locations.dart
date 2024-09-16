@@ -27,7 +27,6 @@ class _LocationPageState extends State<LocationPage> {
   GoogleMapController? _mapController;
   Position? _currentPosition;
   final List<Marker> _markers = [];
-
   List<Post> _posts = [];
   bool _showMap = false; // Variable to control map visibility
 
@@ -59,7 +58,7 @@ class _LocationPageState extends State<LocationPage> {
 
     if (country.isNotEmpty && city.isNotEmpty) {
       final countryDoc =
-          await _firestore.collection('Location').doc(country).get();
+      await _firestore.collection('Location').doc(country).get();
       if (countryDoc.exists) {
         final List<dynamic>? locations = countryDoc.data()?[city];
         if (locations != null) {
@@ -67,25 +66,17 @@ class _LocationPageState extends State<LocationPage> {
             GeoPoint geoPoint = location;
             return Marker(
               markerId: MarkerId('${geoPoint.latitude}-${geoPoint.longitude}'),
-              // Use a unique identifier for each marker
               position: LatLng(geoPoint.latitude, geoPoint.longitude),
               infoWindow: InfoWindow(
-                title: city, // Use city name as title
+                title: city,
               ),
             );
           }).toList();
           _markers.addAll(cityMarkers);
           _updateCameraPosition();
-          print(_markers);
           setState(() {});
-        } else {
-          print("Locations for $city is empty");
         }
-      } else {
-        print("Country document does not exist");
       }
-    } else {
-      print("Country or city is empty");
     }
   }
 
@@ -127,9 +118,9 @@ class _LocationPageState extends State<LocationPage> {
     _posts = await Future.wait(postsSnapshot.docs.map((doc) async {
       final posterUid = doc['posterUid'] as String;
       final posterDoc =
-          await _firestore.collection('Users').doc(posterUid).get();
+      await _firestore.collection('Users').doc(posterUid).get();
       final posterName =
-          posterDoc.exists ? posterDoc.get('displayName') as String : 'Unknown';
+      posterDoc.exists ? posterDoc.get('displayName') as String : 'Unknown';
 
       return Post(
         id: doc.id,
@@ -142,7 +133,6 @@ class _LocationPageState extends State<LocationPage> {
       );
     }).toList());
 
-    print(_posts);
     setState(() {});
   }
 
@@ -157,11 +147,10 @@ class _LocationPageState extends State<LocationPage> {
           _showMap ? "Map (${_markers.length} markers)" : "Locations",
           style: const TextStyle(
             fontFamily: 'Montserrat',
-            color: AppColors.primaryColor, // Use color constant
+            color: AppColors.primaryColor,
           ),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
-        // Change icon color
         actions: [
           IconButton(
             icon: const Icon(
@@ -177,79 +166,32 @@ class _LocationPageState extends State<LocationPage> {
         ],
       ),
       body: _showMap
-          ? Stack(
-              children: [
-                if (_markers.isNotEmpty)
-                  GoogleMap(
-                    initialCameraPosition: _currentPosition != null
-                        ? CameraPosition(
-                            target: LatLng(
-                              _currentPosition!.latitude,
-                              _currentPosition!.longitude,
-                            ),
-                            zoom: 12,
-                          )
-                        : const CameraPosition(
-                            target: LatLng(0, 0),
-                            zoom: 1,
-                          ),
-                    onMapCreated: (controller) {
-                      setState(() {
-                        _mapController = controller;
-                      });
-                    },
-                    markers: Set<Marker>.of(_markers),
-                  ),
-              ],
-            )
+          ? GoogleMap(
+        initialCameraPosition: _currentPosition != null
+            ? CameraPosition(
+          target: LatLng(
+            _currentPosition!.latitude,
+            _currentPosition!.longitude,
+          ),
+          zoom: 12,
+        )
+            : const CameraPosition(
+          target: LatLng(0, 0),
+          zoom: 1,
+        ),
+        onMapCreated: (controller) {
+          setState(() {
+            _mapController = controller;
+          });
+        },
+        markers: Set<Marker>.of(_markers),
+      )
           : ListView.builder(
-              itemCount: _posts.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: AppColors.backgroundColor3,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Posted by ${_posts[index].displayName}"),
-                      if (_posts[index].imageUrl.isNotEmpty)
-                        Image.network(_posts[index].imageUrl),
-                      const SizedBox(height: 10),
-                      // Content
-                      Text(
-                        _posts[index].content,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: AppColors.textColorDark, // Use color constant
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      // Comments
-                      Text(
-                        "Comments: ${_posts[index].comments.length}",
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: AppColors.textColorLight, // Use color constant
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
+        itemCount: _posts.length,
+        itemBuilder: (context, index) {
+          return PostCard(post: _posts[index]);
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -286,6 +228,129 @@ class Post {
   });
 }
 
+class PostCard extends StatefulWidget {
+  final Post post;
+
+  const PostCard({Key? key, required this.post}) : super(key: key);
+
+  @override
+  _PostCardState createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
+  bool _showComments = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: AppColors.backgroundColor3,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: AppColors.primaryColor,
+                child: Text(
+                  widget.post.displayName[0],
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  widget.post.displayName,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: AppColors.textColorDark,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          if (widget.post.imageUrl.isNotEmpty)
+            Container(
+              width: double.infinity, // Make the image container as wide as possible
+              height: 200, // Fixed height for uniformity
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: NetworkImage(widget.post.imageUrl),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          const SizedBox(height: 10),
+          Text(
+            widget.post.content,
+            style: const TextStyle(
+              fontSize: 16,
+              color: AppColors.textColorDark,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  _showComments ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+                  color: AppColors.primaryColor,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _showComments = !_showComments;
+                  });
+                },
+              ),
+              Text(
+                '${widget.post.comments.length} Comments',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppColors.textColorDark,
+                ),
+              ),
+            ],
+          ),
+          if (_showComments)
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: widget.post.comments.map((comment) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(
+                      comment,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: AppColors.textColorLight,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
 Future<String> getCurrentCity() async {
   LocationPermission permission = await Geolocator.checkPermission();
   if (permission == LocationPermission.denied) {
@@ -299,10 +364,8 @@ Future<String> getCurrentCity() async {
     );
   } catch (e) {
     print("Error getting current position: $e");
-    return ""; // Return empty string if unable to get position
+    return "";
   }
-
-  print(position);
 
   List<Placemark> placemarks = [];
   try {
@@ -312,12 +375,12 @@ Future<String> getCurrentCity() async {
     );
   } catch (e) {
     print("Error getting placemarks: $e");
-    return ""; // Return empty string if unable to get placemarks
+    return "";
   }
 
   if (placemarks.isEmpty) {
     print("Placemarks is empty");
-    return ""; // Return empty string if placemarks is empty
+    return "";
   }
 
   String? city = placemarks[0].locality;
@@ -338,10 +401,8 @@ Future<String> getCurrentCountry() async {
     );
   } catch (e) {
     print("Error getting current position: $e");
-    return ""; // Return empty string if unable to get position
+    return "";
   }
-
-  print(position);
 
   List<Placemark> placemarks = [];
   try {
@@ -351,12 +412,12 @@ Future<String> getCurrentCountry() async {
     );
   } catch (e) {
     print("Error getting placemarks: $e");
-    return ""; // Return empty string if unable to get placemarks
+    return "";
   }
 
   if (placemarks.isEmpty) {
     print("Placemarks is empty");
-    return ""; // Return empty string if placemarks is empty
+    return "";
   }
 
   String? country = placemarks[0].country;

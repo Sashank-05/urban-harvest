@@ -18,8 +18,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
   final _firestore = FirebaseFirestore.instance;
   Stream<QuerySnapshot>? _tradesStream;
   late User? _currentUser;
-  Position? _userPosition;// Assuming Position() is a valid default constructor
-
+  Position? _userPosition; // Assuming Position() is a valid default constructor
 
   @override
   void initState() {
@@ -118,30 +117,137 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
       final location = trade.get('location');
       final tradeItems = trade.get('tradeItem') as List<dynamic>;
       final address = _convertLatLonToAddress(location);
-      // try to get uid if it fails get sellerUID
-      // use try catch to handle errors
 
       final sellerUID = trade.get("sellerUid") ?? trade.get("uid") ?? '';
 
       return Padding(
-        // Add Padding widget here
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        // Adjust the vertical spacing as needed
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         child: GestureDetector(
           onTap: () {
-            // Navigate to trade details page
             _navigateToTradeDetailsPage(context, trade);
           },
-          child: _buildTradeBox(
-              itemName,
-              tradeItems[0] as String, // Assuming first item is trade type
-              tradeItems[1] as String, // Assuming second item is trade value
-              imageUrl: imageUrl,
-              uid: sellerUID),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            color: AppColors.backgroundColor2, // Match with TradeDetailsPage
+            elevation: 5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Image
+                ClipRRect(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                  child: Image.network(
+                    imageUrl,
+                    height: 200,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Trader Information
+                      FutureBuilder<DocumentSnapshot>(
+                        future: FirebaseFirestore.instance
+                            .collection('Users')
+                            .doc(sellerUID)
+                            .get(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          }
+                          if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          }
+                          if (!snapshot.data!.exists) {
+                            return const Text('User not found');
+                          }
+                          final trader = snapshot.data!.get("displayName") ?? 'Unknown';
+                          return Row(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Colors.grey,
+                                child: Text(trader[0],
+                                    style: TextStyle(color: Colors.white)),
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                'Posted by $trader',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: AppColors.textColorDark, // Match with TradeDetailsPage
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        itemName,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textColorLight, // Match with TradeDetailsPage
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        '${tradeItems[0]} or ${tradeItems[1]}',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: AppColors.textColorLight, // Match with TradeDetailsPage
+                        ),
+                      ),
+                      if (address != null) ...[
+                        SizedBox(height: 10),
+                        Text(
+                          address!,
+                          style: TextStyle(
+                            color: AppColors.textColorDark, // Match with TradeDetailsPage
+                          ),
+                        ),
+                      ],
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.favorite_border,
+                              color: AppColors.primaryColor, // Match with TradeDetailsPage
+                            ),
+                            onPressed: () {
+                              // Handle like
+                            },
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.comment,
+                              color: AppColors.primaryColor, // Match with TradeDetailsPage
+                            ),
+                            onPressed: () {
+                              // Handle comments
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       );
     }).toList();
   }
+
 
   Widget _buildTradeBox(String seedName, String tradeType, String tradeValue,
       {String? imageUrl, String? address, String? uid}) {
@@ -160,7 +266,10 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
             throw Exception('UID is null or empty');
           }
           if (!snapshot.data!.exists) {
-            return const Text('User not found',style: TextStyle(color:AppColors.primaryColor),);
+            return const Text(
+              'User not found',
+              style: TextStyle(color: AppColors.primaryColor),
+            );
           }
           final trader = snapshot.data!.get("displayName") ?? 'Unknown';
 
@@ -307,161 +416,175 @@ class TradeDetailsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.backgroundColor,
+        backgroundColor: AppColors.primaryColor, // App bar background color
         title: Text(
           itemName,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w600,
-            color: AppColors.primaryColor,
+            color: Colors.white, // Title color
           ),
         ),
-        iconTheme: const IconThemeData(color: AppColors.primaryColor),
+        iconTheme: IconThemeData(color: Colors.white), // App bar icon color
       ),
-      backgroundColor: AppColors.backgroundColor,
-      body: Container(
-        padding: const EdgeInsets.all(10),
-        child: Card(
-          color: AppColors.backgroundColor2, // Set inner background color
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          elevation: 5,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(
-                height: 300,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    trade.get('image'),
-                    fit: BoxFit.cover,
-                  ),
+      backgroundColor: AppColors.backgroundColor, // Page background color
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              color: Colors.black, // Background color for image container
+              child: ClipRRect(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                child: Image.network(
+                  trade.get('image'),
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 300, // Height for the image
                 ),
               ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
+            ),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: AppColors.backgroundColor2,
+                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: AppColors.primaryColor,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'You give',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white, // Text color updated
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  '${tradeItems[0]} or ${tradeItems[1]}',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white, // Text color updated
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: AppColors.primaryColor,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'You get',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white, // Text color updated
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  itemName,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white, // Text color updated
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Card(
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
-                        color: AppColors.primaryColor,
                       ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'You give',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.textColorLight,
+                      color: AppColors.backgroundColor3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const Text(
+                              'Have Queries?',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textColorDark,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            '${tradeItems[0]} or ${tradeItems[1]}',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: AppColors.textColorLight,
+                            const SizedBox(height: 10),
+                            const Text(
+                              'Chat with the seller',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: AppColors.textColorDark,
+                              ),
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                            const SizedBox(height: 10),
+                            ElevatedButton.icon(
+                              onPressed: () {
+                                print("hello");
+                              },
+                              icon: const Icon(
+                                CommunityMaterialIcons.message_bulleted,
+                                size: 24,
+                                color: Colors.white, // Icon color
+                              ),
+                              label: Text(
+                                'Chat',
+                                style: TextStyle(
+                                  color: Colors.white, // Chat text color
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.secondaryColor, // Button background color
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                  horizontal: 20,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: AppColors.primaryColor,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'You get',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.textColorLight,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            itemName,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: AppColors.textColorLight,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                color: AppColors.backgroundColor3,
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const Text(
-                        'Have Queries?',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textColorDark,
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      const Text(
-                        'Chat with the seller',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: AppColors.textColorDark,
-                        ),
-                      ),
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          print("hello");
-                        },
-                        icon: const Icon(
-                          CommunityMaterialIcons.message_bulleted,
-                          size: 30,
-                          color: Colors.black,
-                        ),
-                        label: const Text('Chat'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.secondaryColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 10,
-                            horizontal: 20,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
+

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import '/homepage/homepage.dart';
+import 'package:urban_harvest/homepage/homepage.dart';
 
 Widget _buildListItem(String heading, String text) {
   return Padding(

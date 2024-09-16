@@ -37,7 +37,7 @@ class InferenceResultPage extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
+        title: Text(
           'Inference Result',
           style: TextStyle(
             fontFamily: 'Montserrat',
@@ -73,7 +73,7 @@ class InferenceResultPage extends StatelessWidget {
                     children: [
                       Container(
                         margin: const EdgeInsets.only(bottom: 20),
-                        child: const Text(
+                        child: Text(
                           'Picture used for inference',
                           style: TextStyle(
                             fontFamily: 'Montserrat',
@@ -105,8 +105,8 @@ class InferenceResultPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 10.0),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
                         child: Text(
                           'Detected plant condition',
                           style: TextStyle(
@@ -127,7 +127,7 @@ class InferenceResultPage extends StatelessWidget {
                             horizontal: 15, vertical: 15),
                         child: Text(
                           "Likely $result",
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.primaryColor,
                             fontFamily: 'Montserrat',
                             fontSize: 16,
@@ -151,8 +151,8 @@ class InferenceResultPage extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 10.0),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
                           child: Text(
                             'Solution',
                             style: TextStyle(
@@ -173,7 +173,7 @@ class InferenceResultPage extends StatelessWidget {
                               horizontal: 15, vertical: 15),
                           child: Text(
                             text,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.primaryColor,
                               fontFamily: 'Montserrat',
                               fontSize: 16,
@@ -328,7 +328,7 @@ class _InferencePageState extends State<InferencePage> {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
+        title: Text(
           'Detect Disease',
           style: TextStyle(
               fontFamily: 'Montserrat', color: AppColors.primaryColor),
@@ -338,8 +338,8 @@ class _InferencePageState extends State<InferencePage> {
         child: Column(
           children: <Widget>[
             Image.asset('assets/img/landing/plantdisease.png'),
-            const Padding(
-              padding: EdgeInsets.only(bottom: 40.0, left: 20, right: 20),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 40.0, left: 20, right: 20),
               child: Center(
                 child: Text(
                   'Know what is Ailing your Plant with a Click!',
@@ -360,7 +360,7 @@ class _InferencePageState extends State<InferencePage> {
                 width: 30,
                 height: 30,
               ),
-              label: const Text(
+              label: Text(
                 'Take a Picture',
                 style: TextStyle(
                     color: AppColors.textColorDark, fontFamily: 'Montserrat'),
@@ -377,7 +377,7 @@ class _InferencePageState extends State<InferencePage> {
                 height: 30,
                 width: 30,
               ),
-              label: const Text(
+              label: Text(
                 'Pick an Image from Gallery',
                 style: TextStyle(
                     color: AppColors.textColorDark, fontFamily: 'Montserrat'),

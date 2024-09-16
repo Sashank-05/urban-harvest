@@ -39,7 +39,7 @@ class LoginPage extends StatelessWidget {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         title: const Text('Sign in'),
-        titleTextStyle: const TextStyle(
+        titleTextStyle: TextStyle(
             color: AppColors.textColorDark,
             fontSize: 20,
             fontFamily: 'Montserrat'),
@@ -88,8 +88,8 @@ class _LoginFormState extends State<LoginForm> {
               height: 100,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(bottom: 40.0),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40.0),
             child: Text(
               'Urban Harvest',
               style: TextStyle(
@@ -100,7 +100,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           TextField(
-            style: const TextStyle(color: AppColors.textColorDark),
+            style: TextStyle(color: AppColors.textColorDark),
             controller: _emailController,
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -112,7 +112,7 @@ class _LoginFormState extends State<LoginForm> {
                     borderSide:
                     const BorderSide(color: Color(0xFF40916c), width: 2)),
                 labelText: 'Email',
-                labelStyle: const TextStyle(
+                labelStyle: TextStyle(
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
                 ),
@@ -123,7 +123,7 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 16.0),
 
           TextField(
-            style: const TextStyle(color: AppColors.textColorDark),
+            style: TextStyle(color: AppColors.textColorDark),
             controller: _passwordController,
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -135,7 +135,7 @@ class _LoginFormState extends State<LoginForm> {
                     borderSide: const BorderSide(color: Color(0xFF40916c), width: 2)
                 ),
                 labelText: 'Password',
-                labelStyle: const TextStyle(
+                labelStyle: TextStyle(
                   color: AppColors.textColorDark,
                   fontFamily: 'Montserrat',
                 ),
@@ -158,7 +158,7 @@ class _LoginFormState extends State<LoginForm> {
             children: [
               TextButton(
                 onPressed: () {},
-                child: const Text(
+                child: Text(
                   'Forgot Password',
                   style: TextStyle(
                       decoration: TextDecoration.underline,
@@ -177,7 +177,7 @@ class _LoginFormState extends State<LoginForm> {
               style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.tertiaryColor2,
                   fixedSize: const Size(300, 50)),
-              child: const Text(
+              child: Text(
                 'Sign in',
                 style: TextStyle(
                     color: AppColors.textColorDark, fontFamily: 'Montserrat'),
@@ -185,7 +185,7 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(
             height: 10,
           ),
-          const Text(
+          Text(
             'OR',
             style: TextStyle(
                 fontFamily: 'Montserrat', color: AppColors.textColorDark),
@@ -193,9 +193,9 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 10),
           ElevatedButton.icon(
             onPressed: _handleSignIn,
-            icon: const Padding(
-              padding: EdgeInsets.only(right: 10.0),
-              child: ImageIcon(AssetImage("assets/img/search.png"),
+            icon: Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: ImageIcon(const AssetImage("assets/img/search.png"),
                   size: 20, color: AppColors.tertiaryColor2),
             ),
             label: const Text(
@@ -209,7 +209,7 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(
             height: 30,
           ),
-          const Text(
+          Text(
             "Don't have an account?",
             style: TextStyle(
                 color: AppColors.textColorDark,
@@ -231,7 +231,7 @@ class _LoginFormState extends State<LoginForm> {
               style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.tertiaryColor2,
                   fixedSize: const Size(300, 50)),
-              child: const Text(
+              child: Text(
                 'Sign Up',
                 style: TextStyle(
                     color: AppColors.textColorDark, fontFamily: 'Montserrat'),

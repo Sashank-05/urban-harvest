@@ -46,14 +46,16 @@ class _AddTradePageState extends State<AddTradePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor, // Set scaffold background color
+      backgroundColor: AppColors.backgroundColor,
+      // Set scaffold background color
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor, // Use AppColors in app bar
-        title: const Text(
+        title: Text(
           'Add New Trade',
           style: TextStyle(color: AppColors.primaryColor),
         ),
-        iconTheme: const IconThemeData(color: AppColors.primaryColor), // Set icon color
+        iconTheme:
+            IconThemeData(color: AppColors.primaryColor), // Set icon color
       ),
 
       body: SingleChildScrollView(
@@ -107,27 +109,26 @@ class _AddTradePageState extends State<AddTradePage> {
                 ),
                 child: const Text('Choose from Gallery'),
               ),
-
               TextField(
-                style: const TextStyle(color: AppColors.textColorDark),
+                style: TextStyle(color: AppColors.textColorDark),
                 controller: _itemNameController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Item Name',
                   labelStyle: TextStyle(color: AppColors.textColorDark),
                 ),
               ),
               TextField(
-                style: const TextStyle(color: AppColors.textColorDark),
+                style: TextStyle(color: AppColors.textColorDark),
                 controller: _tradeOtherController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Trading for',
                   labelStyle: TextStyle(color: AppColors.textColorDark),
                 ),
               ),
               TextField(
-                style: const TextStyle(color: AppColors.textColorDark),
+                style: TextStyle(color: AppColors.textColorDark),
                 controller: _tradeValueController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Trade Value',
                   labelStyle: TextStyle(color: AppColors.textColorDark),
                 ),
@@ -136,11 +137,10 @@ class _AddTradePageState extends State<AddTradePage> {
               ElevatedButton(
                 onPressed: () async {
                   final imageUrl = await uploadImageToFirebase();
-        
+
                   // Get user email
-                  final user =
-                      FirebaseAuth.instance.currentUser;
-        
+                  final user = FirebaseAuth.instance.currentUser;
+
                   // Get current position
                   Position? currentPosition;
                   try {
@@ -150,7 +150,7 @@ class _AddTradePageState extends State<AddTradePage> {
                   } catch (e) {
                     print("Error getting current position: $e");
                   }
-        
+
                   // Construct trade data
                   final Map<String, dynamic> tradeData = {
                     'city': await getCurrentCity(currentPosition),
@@ -161,13 +161,13 @@ class _AddTradePageState extends State<AddTradePage> {
                       currentPosition?.longitude ?? 0.0,
                     ),
                     'sellerEmail': user?.email,
-                    'sellerUid' : user?.uid,
+                    'sellerUid': user?.uid,
                     'tradeItem': [
                       _tradeValueController.text,
                       _tradeOtherController.text,
                     ],
                   };
-        
+
                   // Add trade to Firestore
                   await FirebaseFirestore.instance
                       .collection('Trades')
@@ -186,7 +186,6 @@ class _AddTradePageState extends State<AddTradePage> {
         ),
       ),
     );
-
   }
 }
 

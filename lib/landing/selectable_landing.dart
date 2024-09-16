@@ -264,7 +264,7 @@ class _PlantCardState extends State<PlantCard> {
                       }
                     }
                   },
-                  child: const Text(
+                  child: Text(
                     'View Guide',
                     style: TextStyle(
                       fontFamily: 'Montserrat',

@@ -19,7 +19,7 @@ class _LoginPage1State extends State<LoginPage1> {
         backgroundColor: AppColors.backgroundColor,
         appBar: AppBar(
           centerTitle: true,
-          iconTheme: const IconThemeData(color: AppColors.textColorDark),
+          iconTheme: IconThemeData(color: AppColors.textColorDark),
           backgroundColor: AppColors.backgroundColor2,
           title: Text(
             'Urban Harvest',
@@ -52,7 +52,7 @@ class _LoginPage1State extends State<LoginPage1> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Welcome to',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -68,7 +68,7 @@ class _LoginPage1State extends State<LoginPage1> {
                               margin: const EdgeInsets.symmetric(vertical: 15),
                               height: 100,
                               width: 100,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   color: AppColors.primaryColor,
                                   shape: BoxShape.circle),
                               child: Image.asset('assets/img/landing/logo.png'),
@@ -85,7 +85,7 @@ class _LoginPage1State extends State<LoginPage1> {
                             Container(
                               padding: const EdgeInsets.only(
                                   top: 15, right: 25, left: 15),
-                              child: const Text(
+                              child: Text(
                                 'A community for rooftop farmers',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -110,7 +110,7 @@ class _LoginPage1State extends State<LoginPage1> {
                                         backgroundColor:
                                             WidgetStateProperty.all<Color>(
                                                 AppColors.tertiaryColor2)),
-                                    child: const Text(
+                                    child: Text(
                                       'Next',
                                       style: TextStyle(
                                           fontSize: 18,
@@ -138,7 +138,7 @@ class secondWelcomepage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          iconTheme: const IconThemeData(color: AppColors.textColorDark),
+          iconTheme: IconThemeData(color: AppColors.textColorDark),
           backgroundColor: AppColors.backgroundColor2,
           title: Text(
             'Urban Harvest',
@@ -172,7 +172,7 @@ class secondWelcomepage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Learn how to grow a variety of plants with the help of comprehensive guides at your home!',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -188,7 +188,7 @@ class secondWelcomepage extends StatelessWidget {
                               margin: const EdgeInsets.only(top: 30),
                               height: 100,
                               width: 100,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   color: AppColors.primaryColor,
                                   shape: BoxShape.circle),
                               child: Image.asset(
@@ -208,7 +208,7 @@ class secondWelcomepage extends StatelessWidget {
                                         backgroundColor:
                                             WidgetStateProperty.all<Color>(
                                                 AppColors.tertiaryColor2)),
-                                    child: const Text(
+                                    child: Text(
                                       'Next',
                                       style: TextStyle(
                                           fontSize: 18,
@@ -241,7 +241,7 @@ class _thirdWelcomepageState extends State<thirdWelcomepage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          iconTheme: const IconThemeData(color: AppColors.textColorDark),
+          iconTheme: IconThemeData(color: AppColors.textColorDark),
           backgroundColor: AppColors.backgroundColor2,
           title: Text(
             'Urban Harvest',
@@ -275,7 +275,7 @@ class _thirdWelcomepageState extends State<thirdWelcomepage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Detect and find solutions to plant diseases with a picture of the plant!',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -291,7 +291,7 @@ class _thirdWelcomepageState extends State<thirdWelcomepage> {
                               margin: const EdgeInsets.only(top: 30),
                               height: 100,
                               width: 100,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   color: AppColors.primaryColor,
                                   shape: BoxShape.circle),
                               child:
@@ -311,7 +311,7 @@ class _thirdWelcomepageState extends State<thirdWelcomepage> {
                                         backgroundColor:
                                             WidgetStateProperty.all<Color>(
                                                 AppColors.tertiaryColor2)),
-                                    child: const Text(
+                                    child: Text(
                                       'Next',
                                       style: TextStyle(
                                           fontSize: 18,
@@ -344,7 +344,7 @@ class _fourthWelcomepageState extends State<fourthWelcomepage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          iconTheme: const IconThemeData(color: AppColors.textColorDark),
+          iconTheme: IconThemeData(color: AppColors.textColorDark),
           backgroundColor: AppColors.backgroundColor2,
           title: Text(
             'Urban Harvest',
@@ -378,7 +378,7 @@ class _fourthWelcomepageState extends State<fourthWelcomepage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Network with other users and find answers to your questions through the forum!',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -394,7 +394,7 @@ class _fourthWelcomepageState extends State<fourthWelcomepage> {
                               margin: const EdgeInsets.only(top: 30),
                               height: 100,
                               width: 100,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   color: AppColors.primaryColor,
                                   shape: BoxShape.circle),
                               child: Image.asset(
@@ -414,7 +414,7 @@ class _fourthWelcomepageState extends State<fourthWelcomepage> {
                                         backgroundColor:
                                             WidgetStateProperty.all<Color>(
                                                 AppColors.tertiaryColor2)),
-                                    child: const Text(
+                                    child: Text(
                                       'Next',
                                       style: TextStyle(
                                           fontSize: 18,
@@ -447,7 +447,7 @@ class _fifthWelcomepageState extends State<fifthWelcomepage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          iconTheme: const IconThemeData(color: AppColors.textColorDark),
+          iconTheme: IconThemeData(color: AppColors.textColorDark),
           backgroundColor: AppColors.backgroundColor2,
           title: Text(
             'Urban Harvest',
@@ -481,7 +481,7 @@ class _fifthWelcomepageState extends State<fifthWelcomepage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Trade or sell your produce with other users!',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -497,7 +497,7 @@ class _fifthWelcomepageState extends State<fifthWelcomepage> {
                               margin: const EdgeInsets.only(top: 30),
                               height: 100,
                               width: 100,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   color: AppColors.primaryColor,
                                   shape: BoxShape.circle),
                               child:
@@ -517,7 +517,7 @@ class _fifthWelcomepageState extends State<fifthWelcomepage> {
                                         backgroundColor:
                                             WidgetStateProperty.all<Color>(
                                                 AppColors.tertiaryColor2)),
-                                    child: const Text(
+                                    child: Text(
                                       'Next',
                                       style: TextStyle(
                                           fontSize: 18,
@@ -550,7 +550,7 @@ class _sixthWelcomepageState extends State<sixthWelcomepage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          iconTheme: const IconThemeData(color: AppColors.textColorDark),
+          iconTheme: IconThemeData(color: AppColors.textColorDark),
           backgroundColor: AppColors.backgroundColor2,
           title: Text(
             'Urban Harvest',
@@ -584,7 +584,7 @@ class _sixthWelcomepageState extends State<sixthWelcomepage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Join the growing community of rooftop farmers!',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -600,7 +600,7 @@ class _sixthWelcomepageState extends State<sixthWelcomepage> {
                               margin: const EdgeInsets.only(top: 30),
                               height: 100,
                               width: 100,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   color: AppColors.primaryColor,
                                   shape: BoxShape.circle),
                               child: Image.asset('assets/img/landing/grid.png'),
@@ -619,7 +619,7 @@ class _sixthWelcomepageState extends State<sixthWelcomepage> {
                                         backgroundColor:
                                             WidgetStateProperty.all<Color>(
                                                 AppColors.tertiaryColor2)),
-                                    child: const Text(
+                                    child: Text(
                                       'Find plants to grow!',
                                       style: TextStyle(
                                           fontSize: 18,

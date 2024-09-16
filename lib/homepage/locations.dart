@@ -145,7 +145,7 @@ class _LocationPageState extends State<LocationPage> {
         backgroundColor: AppColors.backgroundColor2,
         title: Text(
           _showMap ? "Map (${_markers.length} markers)" : "Locations",
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Montserrat',
             color: AppColors.primaryColor,
           ),
@@ -199,7 +199,7 @@ class _LocationPageState extends State<LocationPage> {
             MaterialPageRoute(builder: (context) => const AddPostPage()),
           );
         },
-        child: const Icon(
+        child: Icon(
           Icons.add,
           color: AppColors.backgroundColor2,
         ),
@@ -273,7 +273,7 @@ class _PostCardState extends State<PostCard> {
               Expanded(
                 child: Text(
                   widget.post.displayName,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                     color: AppColors.textColorDark,
@@ -298,7 +298,7 @@ class _PostCardState extends State<PostCard> {
           const SizedBox(height: 10),
           Text(
             widget.post.content,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               color: AppColors.textColorDark,
             ),
@@ -336,7 +336,7 @@ class _PostCardState extends State<PostCard> {
                     padding: const EdgeInsets.only(top: 8),
                     child: Text(
                       comment,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
                         color: AppColors.textColorLight,
                       ),

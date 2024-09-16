@@ -42,24 +42,24 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppColors.backgroundColor,
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: const Icon(Icons.home),
             label: 'Home',
             backgroundColor: AppColors.backgroundColor2,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.local_florist),
+            icon: const Icon(Icons.local_florist),
             label: 'Trade',
             backgroundColor: AppColors.backgroundColor2,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.pin_drop),
+            icon: const Icon(Icons.pin_drop),
             label: 'Locations',
             backgroundColor: AppColors.backgroundColor2,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_outlined),
+            icon: const Icon(Icons.account_circle_outlined),
             label: 'Profile',
             backgroundColor: AppColors.backgroundColor2,
           ),

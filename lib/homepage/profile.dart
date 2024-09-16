@@ -15,14 +15,15 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  bool _isLocationSharingEnabled =
-      true; // Placeholder for location sharing state
-  String _displayName = ''; // Placeholder for displayName
+  bool _isLocationSharingEnabled = true;
+  String _displayName = '';
+  bool _isDarkMode = AppColors.isDarkMode;
 
   @override
   void initState() {
     super.initState();
     _loadDisplayName();
+    _loadThemePreference();
   }
 
   Future<void> _loadDisplayName() async {
@@ -40,6 +41,13 @@ class _ProfilePageState extends State<ProfilePage> {
         print("Error loading displayName: $e");
       }
     }
+  }
+
+  Future<void> _loadThemePreference() async {
+    await AppColors.loadThemePreference();
+    setState(() {
+      _isDarkMode = AppColors.isDarkMode;
+    });
   }
 
   Future<void> _logout() async {
@@ -85,13 +93,21 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  Future<void> _toggleDarkMode(bool value) async {
+    setState(() {
+      _isDarkMode = value;
+      AppColors.isDarkMode = value;
+    });
+    await AppColors.saveThemePreference(value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
-        title: const Center(
+        title: Center(
           child: Text(
             'Profile',
             style: TextStyle(
@@ -104,7 +120,6 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
       body: SingleChildScrollView(
-        // Wrap with SingleChildScrollView to avoid overflow
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -112,13 +127,13 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               const CircleAvatar(
                 radius: 50,
-                backgroundImage: AssetImage(
-                    'assets/img/homepage/profile/user.png'), // Placeholder image
+                backgroundImage:
+                    AssetImage('assets/img/homepage/profile/user.png'),
               ),
               const SizedBox(height: 20),
               Text(
-                _displayName, // Display displayName loaded from Firestore
-                style: const TextStyle(
+                _displayName,
+                style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Montserrat',
@@ -138,7 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Share Location Data',
                           style: TextStyle(
                             fontSize: 18,
@@ -155,7 +170,6 @@ class _ProfilePageState extends State<ProfilePage> {
                             setState(() {
                               _isLocationSharingEnabled = value;
                             });
-                            // Logic for toggling location sharing
                           },
                         ),
                       ],
@@ -167,7 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       padding: const EdgeInsets.all(30),
                       margin: const EdgeInsets.symmetric(vertical: 10),
-                      child: const Text(
+                      child: Text(
                         'Required for Trade feature and Locations.',
                         style: TextStyle(
                           fontFamily: 'Montserrat',
@@ -180,6 +194,36 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
+              Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  margin: const EdgeInsets.symmetric(vertical: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: AppColors.backgroundColor3,
+                  ),
+                  child: Column(children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Light Mode',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                        Switch(
+                          activeColor: AppColors.primaryColor,
+                          inactiveThumbColor: AppColors.backgroundColor3,
+                          value: _isDarkMode,
+                          onChanged: _toggleDarkMode,
+                        ),
+                      ],
+                    )
+                  ])),
               const SizedBox(height: 20),
               SizedBox(
                 width: 150,
@@ -191,7 +235,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       AppColors.backgroundColor3,
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Logout',
                     style: TextStyle(
                       fontFamily: 'Montserrat',
@@ -213,7 +257,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       AppColors.backgroundColor3,
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Delete Account',
                     style: TextStyle(
                       fontFamily: 'Montserrat',

@@ -26,17 +26,17 @@ class _AddPostPageState extends State<AddPostPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Add Post',
           style: TextStyle(
             color: AppColors.primaryColor,
           ),
         ),
         backgroundColor: AppColors.backgroundColor,
-        iconTheme: const IconThemeData(color: AppColors.primaryColor),
+        iconTheme: IconThemeData(color: AppColors.primaryColor),
       ),
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: AppColors.backgroundColor2,
         ),
         child: Padding(
@@ -66,7 +66,7 @@ class _AddPostPageState extends State<AddPostPage> {
                   size: 30,
                   color: Colors.black54,
                 ),
-                label: const Text(
+                label: Text(
                   'Add Image',
                   style: TextStyle(
                     color: AppColors.textColorLight,
@@ -96,7 +96,7 @@ class _AddPostPageState extends State<AddPostPage> {
                     size: 30,
                     color: Colors.black54,
                   ),
-                  label: const Text(
+                  label: Text(
                     'Post',
                     style: TextStyle(
                       color: AppColors.textColorLight,

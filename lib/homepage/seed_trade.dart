@@ -48,7 +48,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
-        title: const Text(
+        title: Text(
           "Trade",
           style: TextStyle(
             color: AppColors.primaryColor,
@@ -78,7 +78,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                 }
 
                 if (!snapshot.hasData) {
-                  return const Center(
+                  return Center(
                     child: CircularProgressIndicator(
                       color: AppColors.primaryColor,
                     ),
@@ -137,7 +137,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
               children: [
                 // Image
                 ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
                   child: Image.network(
                     imageUrl,
                     height: 200,
@@ -172,9 +172,9 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                               CircleAvatar(
                                 backgroundColor: Colors.grey,
                                 child: Text(trader[0],
-                                    style: TextStyle(color: Colors.white)),
+                                    style: const TextStyle(color: Colors.white)),
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Text(
                                 'Posted by $trader',
                                 style: TextStyle(
@@ -187,7 +187,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                           );
                         },
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         itemName,
                         style: TextStyle(
@@ -196,7 +196,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                           color: AppColors.textColorLight, // Match with TradeDetailsPage
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Text(
                         '${tradeItems[0]} or ${tradeItems[1]}',
                         style: TextStyle(
@@ -205,15 +205,15 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                         ),
                       ),
                       if (address != null) ...[
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
-                          address!,
+                          address,
                           style: TextStyle(
                             color: AppColors.textColorDark, // Match with TradeDetailsPage
                           ),
                         ),
                       ],
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -266,7 +266,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
             throw Exception('UID is null or empty');
           }
           if (!snapshot.data!.exists) {
-            return const Text(
+            return Text(
               'User not found',
               style: TextStyle(color: AppColors.primaryColor),
             );
@@ -297,7 +297,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                   if (address != null)
                     Text(
                       address,
-                      style: const TextStyle(color: AppColors.secondaryColor),
+                      style: TextStyle(color: AppColors.secondaryColor),
                     ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -310,7 +310,7 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                           color: Colors.white,
                         ),
                       ),
-                      const Text("for",
+                      Text("for",
                           style: TextStyle(color: AppColors.primaryColor)),
                       Column(
                         children: [
@@ -419,12 +419,12 @@ class TradeDetailsPage extends StatelessWidget {
         backgroundColor: AppColors.primaryColor, // App bar background color
         title: Text(
           itemName,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w600,
             color: Colors.white, // Title color
           ),
         ),
-        iconTheme: IconThemeData(color: Colors.white), // App bar icon color
+        iconTheme: const IconThemeData(color: Colors.white), // App bar icon color
       ),
       backgroundColor: AppColors.backgroundColor, // Page background color
       body: SafeArea(
@@ -434,7 +434,7 @@ class TradeDetailsPage extends StatelessWidget {
             Container(
               color: Colors.black, // Background color for image container
               child: ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
                 child: Image.network(
                   trade.get('image'),
                   fit: BoxFit.cover,
@@ -448,7 +448,7 @@ class TradeDetailsPage extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   color: AppColors.backgroundColor2,
-                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+                  borderRadius: const BorderRadius.vertical(bottom: Radius.circular(20)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -476,7 +476,7 @@ class TradeDetailsPage extends StatelessWidget {
                                 const SizedBox(height: 5),
                                 Text(
                                   '${tradeItems[0]} or ${tradeItems[1]}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     color: Colors.white, // Text color updated
                                   ),
@@ -507,7 +507,7 @@ class TradeDetailsPage extends StatelessWidget {
                                 const SizedBox(height: 5),
                                 Text(
                                   itemName,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     color: Colors.white, // Text color updated
                                   ),
@@ -530,7 +530,7 @@ class TradeDetailsPage extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            const Text(
+                            Text(
                               'Have Queries?',
                               style: TextStyle(
                                 fontSize: 18,
@@ -539,7 +539,7 @@ class TradeDetailsPage extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 10),
-                            const Text(
+                            Text(
                               'Chat with the seller',
                               style: TextStyle(
                                 fontSize: 18,
@@ -556,7 +556,7 @@ class TradeDetailsPage extends StatelessWidget {
                                 size: 24,
                                 color: Colors.white, // Icon color
                               ),
-                              label: Text(
+                              label: const Text(
                                 'Chat',
                                 style: TextStyle(
                                   color: Colors.white, // Chat text color

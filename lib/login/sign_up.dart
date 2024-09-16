@@ -37,7 +37,7 @@ class _SignUpPageState extends State<SignUpPage> {
         backgroundColor: AppColors.backgroundColor,
         appBar: AppBar(
           backgroundColor: AppColors.backgroundColor2,
-          iconTheme: const IconThemeData(color: AppColors.textColorDark),
+          iconTheme: IconThemeData(color: AppColors.textColorDark),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -45,7 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
               const SizedBox(height: 25.0),
               TextField(
                 controller: _usernameController,
-                style: const TextStyle(color: AppColors.textColorDark),
+                style: TextStyle(color: AppColors.textColorDark),
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -62,7 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   labelText: 'Username',
-                  labelStyle: const TextStyle(
+                  labelStyle: TextStyle(
                     color: AppColors.textColorDark,
                     fontFamily: 'Montserrat',
                   ),
@@ -74,7 +74,7 @@ class _SignUpPageState extends State<SignUpPage> {
               const SizedBox(height: 25.0),
               TextField(
                 controller: _emailController,
-                style: const TextStyle(color: AppColors.textColorDark),
+                style: TextStyle(color: AppColors.textColorDark),
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -91,7 +91,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   labelText: 'Email',
-                  labelStyle: const TextStyle(
+                  labelStyle: TextStyle(
                     color: AppColors.textColorDark,
                     fontFamily: 'Montserrat',
                   ),
@@ -104,7 +104,7 @@ class _SignUpPageState extends State<SignUpPage> {
               TextField(
                 controller: _passwordController,
                 obscureText: !_showPassword,
-                style: const TextStyle(color: AppColors.textColorDark),
+                style: TextStyle(color: AppColors.textColorDark),
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -121,7 +121,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   labelText: 'Password',
-                  labelStyle: const TextStyle(
+                  labelStyle: TextStyle(
                     color: AppColors.textColorDark,
                     fontFamily: 'Montserrat',
                   ),
@@ -147,7 +147,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.tertiaryColor2,
                 ),
-                child: const Text(
+                child: Text(
                   'Register',
                   style: TextStyle(
                     fontFamily: 'Montserrat',
@@ -158,7 +158,7 @@ class _SignUpPageState extends State<SignUpPage> {
               const SizedBox(
                 height: 50,
               ),
-              const Text(
+              Text(
                 "Already have an account?",
                 style: TextStyle(
                   color: AppColors.textColorDark,
@@ -184,7 +184,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   backgroundColor: AppColors.tertiaryColor2,
                   fixedSize: const Size(300, 50),
                 ),
-                child: const Text(
+                child: Text(
                   'Login',
                   style: TextStyle(
                     color: AppColors.textColorDark,

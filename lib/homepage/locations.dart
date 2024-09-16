@@ -199,6 +199,7 @@ class _LocationPageState extends State<LocationPage> {
             MaterialPageRoute(builder: (context) => const AddPostPage()),
           );
         },
+        backgroundColor: AppColors.textColorLight,
         child: Icon(
           Icons.add,
           color: AppColors.backgroundColor2,

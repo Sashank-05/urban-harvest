@@ -103,8 +103,11 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
             MaterialPageRoute(builder: (context) => const AddTradePage()),
           );
         },
-        backgroundColor: AppColors.primaryColor,
-        child: const Icon(Icons.add),
+        backgroundColor: AppColors.textColorLight,
+        child: Icon(
+          Icons.add,
+          color: AppColors.backgroundColor2,
+        ),
       ),
     );
   }
@@ -137,7 +140,8 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
               children: [
                 // Image
                 ClipRRect(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(12)),
                   child: Image.network(
                     imageUrl,
                     height: 200,
@@ -157,7 +161,8 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                             .doc(sellerUID)
                             .get(),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
                             return const CircularProgressIndicator();
                           }
                           if (snapshot.hasError) {
@@ -166,13 +171,15 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                           if (!snapshot.data!.exists) {
                             return const Text('User not found');
                           }
-                          final trader = snapshot.data!.get("displayName") ?? 'Unknown';
+                          final trader =
+                              snapshot.data!.get("displayName") ?? 'Unknown';
                           return Row(
                             children: [
                               CircleAvatar(
                                 backgroundColor: Colors.grey,
                                 child: Text(trader[0],
-                                    style: const TextStyle(color: Colors.white)),
+                                    style:
+                                        const TextStyle(color: Colors.white)),
                               ),
                               const SizedBox(width: 10),
                               Text(
@@ -180,7 +187,8 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
-                                  color: AppColors.textColorDark, // Match with TradeDetailsPage
+                                  color: AppColors
+                                      .textColorDark, // Match with TradeDetailsPage
                                 ),
                               ),
                             ],
@@ -193,7 +201,8 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.textColorLight, // Match with TradeDetailsPage
+                          color: AppColors
+                              .textColorLight, // Match with TradeDetailsPage
                         ),
                       ),
                       const SizedBox(height: 5),
@@ -201,7 +210,8 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                         '${tradeItems[0]} or ${tradeItems[1]}',
                         style: TextStyle(
                           fontSize: 16,
-                          color: AppColors.textColorLight, // Match with TradeDetailsPage
+                          color: AppColors
+                              .textColorLight, // Match with TradeDetailsPage
                         ),
                       ),
                       if (address != null) ...[
@@ -209,7 +219,8 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                         Text(
                           address,
                           style: TextStyle(
-                            color: AppColors.textColorDark, // Match with TradeDetailsPage
+                            color: AppColors
+                                .textColorDark, // Match with TradeDetailsPage
                           ),
                         ),
                       ],
@@ -220,7 +231,8 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                           IconButton(
                             icon: Icon(
                               Icons.favorite_border,
-                              color: AppColors.primaryColor, // Match with TradeDetailsPage
+                              color: AppColors
+                                  .primaryColor, // Match with TradeDetailsPage
                             ),
                             onPressed: () {
                               // Handle like
@@ -229,7 +241,8 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
                           IconButton(
                             icon: Icon(
                               Icons.comment,
-                              color: AppColors.primaryColor, // Match with TradeDetailsPage
+                              color: AppColors
+                                  .primaryColor, // Match with TradeDetailsPage
                             ),
                             onPressed: () {
                               // Handle comments
@@ -247,7 +260,6 @@ class _SeedTradeContentState extends State<SeedTradeContent> {
       );
     }).toList();
   }
-
 
   Widget _buildTradeBox(String seedName, String tradeType, String tradeValue,
       {String? imageUrl, String? address, String? uid}) {
@@ -416,25 +428,26 @@ class TradeDetailsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primaryColor, // App bar background color
+        backgroundColor: AppColors.backgroundColor2, // App bar background color
         title: Text(
           itemName,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w600,
-            color: Colors.white, // Title color
+            color: AppColors.textColorLight, // Title color
           ),
         ),
-        iconTheme: const IconThemeData(color: Colors.white), // App bar icon color
+        iconTheme: IconThemeData(
+            color: AppColors.textColorLight), // App bar icon color
       ),
-      backgroundColor: AppColors.backgroundColor, // Page background color
+      backgroundColor: AppColors.backgroundColor3, // Page background color
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              color: Colors.black, // Background color for image container
+              color: AppColors.backgroundColor2,
+              // Background color for image container
               child: ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
                 child: Image.network(
                   trade.get('image'),
                   fit: BoxFit.cover,
@@ -448,7 +461,8 @@ class TradeDetailsPage extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   color: AppColors.backgroundColor2,
-                  borderRadius: const BorderRadius.vertical(bottom: Radius.circular(20)),
+                  borderRadius:
+                      const BorderRadius.vertical(bottom: Radius.circular(20)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -461,24 +475,26 @@ class TradeDetailsPage extends StatelessWidget {
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: AppColors.primaryColor,
+                              color: AppColors.backgroundColor3,
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text(
+                                Text(
                                   'You give',
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.white, // Text color updated
+                                    color: AppColors
+                                        .textColorLight, // Text color updated
                                   ),
                                 ),
                                 const SizedBox(height: 5),
                                 Text(
                                   '${tradeItems[0]} or ${tradeItems[1]}',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.white, // Text color updated
+                                    color: AppColors
+                                        .textColorLight, // Text color updated
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -492,24 +508,26 @@ class TradeDetailsPage extends StatelessWidget {
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: AppColors.primaryColor,
+                              color: AppColors.backgroundColor3,
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text(
+                                Text(
                                   'You get',
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.white, // Text color updated
+                                    color: AppColors
+                                        .textColorLight, // Text color updated
                                   ),
                                 ),
                                 const SizedBox(height: 5),
                                 Text(
                                   itemName,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.white, // Text color updated
+                                    color: AppColors
+                                        .textColorLight, // Text color updated
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -563,7 +581,8 @@ class TradeDetailsPage extends StatelessWidget {
                                 ),
                               ),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.secondaryColor, // Button background color
+                                backgroundColor: AppColors.secondaryColor,
+                                // Button background color
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -587,4 +606,3 @@ class TradeDetailsPage extends StatelessWidget {
     );
   }
 }
-

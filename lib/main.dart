@@ -63,11 +63,19 @@ class CheckAuth extends StatefulWidget {
 class _CheckAuthState extends State<CheckAuth> {
   // Changed to public
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-
+  bool _isDarkMode = AppColors.isDarkMode;
   @override
   void initState() {
     super.initState();
     checkLoginStatus();
+    _loadThemePreference();
+  }
+
+  Future<void> _loadThemePreference() async {
+    await AppColors.loadThemePreference();
+    setState(() {
+      _isDarkMode = AppColors.isDarkMode;
+    });
   }
 
   Future<void> checkLoginStatus() async {
@@ -89,6 +97,7 @@ class _CheckAuthState extends State<CheckAuth> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: const Center(
